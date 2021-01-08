@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, send_file, flash
 from flask_paginate import Pagination, get_page_parameter
 from flask import redirect, url_for
 
-import part1
+import part1_mediator
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def genesTable():
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    nRows = part1.getInfo()[0][0]
+    nRows = part1_mediator.getInfo()[0][0]
     per_page = 30
 
     # Get the page from the form to let the user go to a specific page
@@ -45,7 +45,7 @@ def genesTable():
     end = (page + 1) * per_page
 
     # Returns a list of the rows from index start to index end
-    df_list = part1.getGeneTableList(start, end)
+    df_list = part1_mediator.getGeneTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
     pagination = Pagination(page=page, total=nRows, record_name="gene entries",
@@ -53,7 +53,7 @@ def genesTable():
 
     return render_template('tableGenesEvidences.html',
                            rows=df_list,
-                           labels=part1.getInfo()[0][2],
+                           labels=part1_mediator.getInfo()[0][2],
                            pagination=pagination)
 
 
@@ -63,7 +63,7 @@ def diseasesTable():
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    nRows = part1.getInfo()[1][0]
+    nRows = part1_mediator.getInfo()[1][0]
     per_page = 30
 
     # Get the page from the form to let the user go to a specific page
@@ -80,14 +80,14 @@ def diseasesTable():
     end = (page + 1) * per_page
 
     # Returns a list of the rows from index start to index end
-    df_list = part1.getDiseaseTableList(start, end)
+    df_list = part1_mediator.getDiseaseTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
     pagination = Pagination(page=page, total=nRows, record_name="diseases entries",
                             css_framework='bootstrap4', bs_version=4, per_page=per_page)
 
     return render_template('tableDiseasesEvidences.html',
-                           labels=part1.getInfo()[1][2],
+                           labels=part1_mediator.getInfo()[1][2],
                            rows=df_list,
                            pagination=pagination, )
 
@@ -131,7 +131,7 @@ def functions():
 def info():
     """Returns a webpage with all the information about the data tables and a preview of heads and tails"""
 
-    geneInfo, diseaseInfo = part1.getInfo()
+    geneInfo, diseaseInfo = part1_mediator.getInfo()
     gRows = geneInfo[0]
     gCols = geneInfo[1]
     gLabels = geneInfo[2]
@@ -154,7 +154,7 @@ def info():
 def distinctGenes():
     """A webpage with all the unique distinct genes in the gene table"""
 
-    distinctGenes = part1.getDistinctGenes()
+    distinctGenes = part1_mediator.getDistinctGenes()
 
     return render_template('distinctGenes.html', distinctGenes=distinctGenes, numDistinctGenes=len(distinctGenes))
 
@@ -164,7 +164,7 @@ def distinctGenes():
 def distinctDiseases():
     """A webpage with all the unique distinct disease in the disease table"""
 
-    distinctDiseases = part1.getDistinctDiseases()
+    distinctDiseases = part1_mediator.getDistinctDiseases()
 
     return render_template('distinctDiseases.html', distinctDiseases=distinctDiseases,
                            numDistinctDiseases=len(distinctDiseases))
@@ -182,7 +182,7 @@ def geneEvidences():
         return render_template('inputGeneEvidences.html')
     else:
         gene = request.form['gene']
-        evidences = part1.getGeneEvidences(gene)
+        evidences = part1_mediator.getGeneEvidences(gene)
         return render_template("geneEvidences.html", gene=gene, evidences=evidences, numEvidences=len(evidences),
                                base_pmid_url=BASE_PMID_URL)
 
@@ -199,7 +199,7 @@ def diseaseEvidences():
         return render_template('inputDiseaseEvidences.html')
     else:
         disease = request.form['disease']
-        evidences = part1.getDiseaseEvidences(disease)
+        evidences = part1_mediator.getDiseaseEvidences(disease)
         return render_template('diseaseEvidences.html', disease=disease, evidences=evidences,
                                numEvidences=len(evidences), base_pmid_url=BASE_PMID_URL)
 
@@ -239,7 +239,7 @@ def correlation():
             else:
                 rows = 10
 
-    correlations = part1.getCorrelation(rows, occurrences)
+    correlations = part1_mediator.getCorrelation(rows, occurrences)
 
     return render_template('correlation.html', correlations=correlations, occurrences=occurrences,
                            numCorrelations=len(correlations))
@@ -257,7 +257,7 @@ def diseasesRelatedToGene():
         return render_template('inputDiseasesRelatedToGene.html')
     else:
         gene = request.form['gene']
-        diseaseRelToGene = part1.getDiseasesRelatedToGene(gene)
+        diseaseRelToGene = part1_mediator.getDiseasesRelatedToGene(gene)
         return render_template("diseasesRelatedToGene.html", gene=gene, diseases=diseaseRelToGene,
                                numDiseases=len(diseaseRelToGene))
 
@@ -274,7 +274,7 @@ def genesRelatedToDisease():
         return render_template('inputGenesRelatedToDisease.html')
     else:
         disease = request.form['disease']
-        genesRelToDisease = part1.getGenesRelatedToDisease(disease)
+        genesRelToDisease = part1_mediator.getGenesRelatedToDisease(disease)
         return render_template("genesRelatedToDisease.html", disease=disease, genes=genesRelToDisease,
                                numGenes=len(genesRelToDisease))
 

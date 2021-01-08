@@ -1,4 +1,4 @@
-from part2 import *
+from part2_functions import *
 
 geneTable = GeneTable('gene_evidences.tsv')
 diseaseTable = DiseaseTable('disease_evidences.tsv')
