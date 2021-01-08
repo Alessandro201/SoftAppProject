@@ -4,7 +4,7 @@
 BASE_PMID_URL = 'https://pubmed.ncbi.nlm.nih.gov/'
 
 # Locations of the two datasets. By default the \datasets is selected
-TABLES_LOCATION = r'..\datasets'
+TABLES_LOCATION = r'datasets'
 
 # Datasets name
 GENE_TABLE_NAME = 'gene_evidences.tsv'
