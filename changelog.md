@@ -1,4 +1,4 @@
-Changes made:
+<h1>Changes made:</h1>
 
 -	visualizing results in a table for diseasesRelatedToGene and genesRelatedToDiseases
 
@@ -34,4 +34,6 @@ Changes made:
 
 -	Massively improved correlation function. I corrected the function I wrote which was wrong and gave incorrect results, now it’s correct, it’s 20 times faster, and has a much cleaner code
 
--
+-   Added Github Repository
+
+-   Changes Structure

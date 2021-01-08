@@ -1,8 +1,15 @@
-from part2_functions import *
+from functions import *
+from settings import *
+import os
 
-geneTable = GeneTable('gene_evidences.tsv')
-diseaseTable = DiseaseTable('disease_evidences.tsv')
-test = Testing('disease_evidences.tsv', 'gene_evidences.tsv')
+# Compute the path to the databases
+gene_evidences_path = os.path.join(TABLES_LOCATION, GENE_TABLE_NAME)
+disease_evidences_path = os.path.join(TABLES_LOCATION, DISEASE_TABLE_NAME)
+
+# Instantiate the classes from functions.py
+geneTable = GeneTable(gene_evidences_path)
+diseaseTable = DiseaseTable(disease_evidences_path)
+test = Testing(gene_evidences_path, disease_evidences_path)
 
 
 def getInfo():

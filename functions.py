@@ -1,11 +1,6 @@
-from typing import List, Any, Tuple, Union
+from abc import ABC, abstractmethod
 
 import pandas as pd
-from abc import ABC, abstractmethod
-import re
-
-from pandas import Series
-from pandas.core.arrays import ExtensionArray
 
 
 class DataTables(ABC):

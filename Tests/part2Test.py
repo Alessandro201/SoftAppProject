@@ -3,8 +3,8 @@ import re
 from timebudget import timebudget
 import timeit
 
-genetable = pd.read_csv('gene_evidences.tsv', sep='\t')
-diseasetable = pd.read_csv('disease_evidences.tsv', sep='\t')
+genetable = pd.read_csv('../datasets/gene_evidences.tsv', sep='\t')
+diseasetable = pd.read_csv('../datasets/disease_evidences.tsv', sep='\t')
 
 
 # function 7
@@ -20,7 +20,7 @@ def correlation():
     correlations = {gene1: {disease1: 1, disease2:4, disease3: 2},
                     gene2: {disease2: 3, disease4:1, disease5: 4}}
     """
-    df = pd.read_csv('gene_evidences.tsv', sep='\t')
+    df = pd.read_csv('../datasets/gene_evidences.tsv', sep='\t')
 
     corr = {}
 
@@ -83,7 +83,7 @@ def correlation_find(gene):
     correlations = {gene1: {disease1: 1, disease2:4, disease3: 2},
                     gene2: {disease2: 3, disease4:1, disease5: 4}}
     """
-    df = pd.read_csv('gene_evidences.tsv', sep='\t')
+    df = pd.read_csv('../datasets/gene_evidences.tsv', sep='\t')
 
     corr = {}
 
