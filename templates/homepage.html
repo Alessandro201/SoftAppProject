@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Homepage{% endblock %}
+
+{% block style %}
+
+    div.whole-container {
+    width: 50%;
+    margin: auto
+    }
+
+{% endblock %}
+
+{% block HomeNavBar %}class="nav-item active"{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle"{% endblock %}
+{% block content %}
+    <h1>Homepage</h1>
+
+    <br><br/>
+
+    <div class="whole-container">
+        <p class="center-align">This is the homepage of the software application
+            <a href="https://github.com/anuzzolese/genomics-unibo/tree/master/2020-2021/project">project</a>.<br></p>
+        <p class="center-align"><i>"The COVID-19 DisGeNET data collection is the result of applying state-of-the art text
+            mining tools developed by MedBioinformatics solutions to the LitCovid dataset
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32157233/">Chen et al., 2020</a>, to
+            identify mentions of diseases, signs and symptoms. The LitCovid dataset contains a selection of
+            papers referring to Coronavirus 19 disease."</i><br>
+            The goal of the project is to write a program able to perform some analysis on two datasets about
+            diseases and genes obtained from the COVID-19 DisGeNET data collection and present the results in
+            a web-based user interface.</p>
+
+        <br><br/>
+
+        <h4>Datasets </h4>
+        <p class="center-align">By clicking on the links below you can go through the datasets and explore them.</p>
+
+        <ul style="margin: auto; display: table;">
+            <li><a href="tableDiseasesEvidences/">Diseases Evidences</a></li>
+            <li><a href="tableGenesEvidences/">Gene Evidences</a></li>
+        </ul>
+
+        <br><br/>
+
+        <h4>Download</h4>
+        <p class="center-align">Here you can download the datasets:</p>
+
+
+        <ul style="margin: auto; display: table;">
+            <li><a href="downloadDiseases">diseases_evidences.tsv</a></li>
+            <li><a href="downloadGenes">gene_evidences.tsv</a></li>
+        </ul>
+    </div>
+
+{% endblock %}
+

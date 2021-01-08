@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}GenesRelatedToDisease{% endblock %}
+
+{% block style %}
+
+    table {
+        width:30%;
+    }
+
+
+{% endblock %}
+
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+{% block content %}
+    <h1>Genes related to a disease</h1>
+
+    <br><br/>
+
+    {% if numGenes == 0 %}
+        <p class="center-align">It doesn't exist any gene related to the disease:  "<i><b>{{disease}}</b></i>".</p>
+    {% else %}
+        <p class="center-align">Here are presented all the genes related to the disease "<i><b>{{disease}}</b></i>":</p>
+        <p class="center-align">Number of genes found: <b>{{numGenes}}</b></p>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>gene_symbol</th>
+                <th>geneid</th>
+            </tr>
+
+            {% for gene in genes %}
+            <tr>
+                <td>{{ loop.index }}</td>
+
+                {% for col in gene %}
+                    <td> {{col}} </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

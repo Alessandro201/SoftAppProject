@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}DistinctGenes{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+
+{% block style %}
+    table {
+        width:30%;
+    }
+
+
+{% endblock %}
+
+{% block content %}
+    <h1>Distinct Genes</h1>
+
+    <br><br/>
+
+    <p class="center-align">List of genes found in  "<i><b>gene_evidences.tsv</b></i>":</p>
+    <p class="center-align">Number of genes found: <b>{{numDistinctGenes}}</b></p>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Gene Symbol</th>
+            <th>Gene ID</th>
+        </tr>
+
+        {% for gene in distinctGenes %}
+        <tr>
+            <td>{{ loop.index }}</td>
+
+            {% for col in gene %}
+                <td> {{col}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

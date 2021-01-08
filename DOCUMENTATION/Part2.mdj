@@ -1,0 +1,671 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Main",
+					"defaultDiagram": true,
+					"ownedViews": [
+						{
+							"_type": "UMLClassView",
+							"_id": "AAAAAAF2hKnDzb+xckU=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAF2hKnDzb+ywHc=",
+									"_parent": {
+										"$ref": "AAAAAAF2hKnDzb+xckU="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hKnDzL+vreE="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hKnDzb+zkKc=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzb+ywHc="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"top": -16,
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hKnDzr+0YNA=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzb+ywHc="
+											},
+											"font": "Arial;13;1",
+											"left": 277,
+											"top": 143,
+											"width": 774,
+											"height": 13,
+											"text": "DataAnalyzer"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hKnDzr+1Tno=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzb+ywHc="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"top": -16,
+											"width": 73.67724609375,
+											"height": 13,
+											"text": "(from Model)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hKnDzr+25ss=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzb+ywHc="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"top": -16,
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 272,
+									"top": 136,
+									"width": 784,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAF2hKnDzb+zkKc="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAF2hKnDzr+0YNA="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAF2hKnDzr+1Tno="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAF2hKnDzr+25ss="
+									}
+								},
+								{
+									"_type": "UMLAttributeCompartmentView",
+									"_id": "AAAAAAF2hKnDzr+39+4=",
+									"_parent": {
+										"$ref": "AAAAAAF2hKnDzb+xckU="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hKnDzL+vreE="
+									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF2hKtopb/c1es=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+39+4="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hKtoob/ZaKc="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 166,
+											"width": 774,
+											"height": 13,
+											"text": "-dfDiseases",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF2hMESs8AzlTY=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+39+4="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hMESrcAwJi0="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 181,
+											"width": 774,
+											"height": 13,
+											"text": "-dfGenes",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF2hKvjgb/jK54=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+39+4="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hKvjfr/gY7w="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 196,
+											"width": 774,
+											"height": 13,
+											"text": "-dimensions",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF2hKwYWb/qDWw=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+39+4="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hKwYVb/nDNI="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 211,
+											"width": 774,
+											"height": 13,
+											"text": "-labels",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 272,
+									"top": 161,
+									"width": 784,
+									"height": 68
+								},
+								{
+									"_type": "UMLOperationCompartmentView",
+									"_id": "AAAAAAF2hKnDzr+4w44=",
+									"_parent": {
+										"$ref": "AAAAAAF2hKnDzb+xckU="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hKnDzL+vreE="
+									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hK1flL/x3x0=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hK1fkb/uQN4="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 234,
+											"width": 774,
+											"height": 13,
+											"text": "+distinctGenes(): list",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hLTafr/6fOI=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hLTae7/3FpI="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 249,
+											"width": 774,
+											"height": 13,
+											"text": "+geneEvidences(): dictionary",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hLiuaMADdeQ=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hLiuZcAAYA4="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 264,
+											"width": 774,
+											"height": 13,
+											"text": "+distinctDiseases(): list",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hLlLqcAMbDY=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hLlLp8AJ6R8="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 279,
+											"width": 774,
+											"height": 13,
+											"text": "+diseaseEvidences(): dictionary",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hLvpL8AW0u0=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hLvpLcATToY="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 294,
+											"width": 774,
+											"height": 13,
+											"text": "+correlationDiseasesGene(): dictionary",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hL033sAf3TI=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hL0328AcvT8="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 309,
+											"width": 774,
+											"height": 13,
+											"text": "+findDiseasesRelatedToGene(): list",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hMASdMAotDw=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hMAScMAlJ38="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 324,
+											"width": 774,
+											"height": 13,
+											"text": "+findGenesRelatedToDisease(): list",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hMvkLMA9mxg=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hMvkJsA6Ef4="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 339,
+											"width": 774,
+											"height": 13,
+											"text": "+getLabels()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hMxhhsBElTk=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hMxhgsBBIt0="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 354,
+											"width": 774,
+											"height": 13,
+											"text": "+getDimensions()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNHAN8BL4jA=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNHAM8BI8EE="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 369,
+											"width": 774,
+											"height": 13,
+											"text": "+getHead()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNHTNMBSgF8=",
+											"_parent": {
+												"$ref": "AAAAAAF2hKnDzr+4w44="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNHTMcBPhTo="
+											},
+											"font": "Arial;13;0",
+											"left": 277,
+											"top": 384,
+											"width": 774,
+											"height": 13,
+											"text": "+getTail()",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 272,
+									"top": 229,
+									"width": 784,
+									"height": 173
+								},
+								{
+									"_type": "UMLReceptionCompartmentView",
+									"_id": "AAAAAAF2hKnDzr+5INE=",
+									"_parent": {
+										"$ref": "AAAAAAF2hKnDzb+xckU="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hKnDzL+vreE="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"top": -8,
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLTemplateParameterCompartmentView",
+									"_id": "AAAAAAF2hKnDzr+6ySc=",
+									"_parent": {
+										"$ref": "AAAAAAF2hKnDzb+xckU="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hKnDzL+vreE="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"top": -8,
+									"width": 10,
+									"height": 10
+								}
+							],
+							"font": "Arial;13;0",
+							"containerChangeable": true,
+							"left": 272,
+							"top": 136,
+							"width": 784,
+							"height": 496,
+							"nameCompartment": {
+								"$ref": "AAAAAAF2hKnDzb+ywHc="
+							},
+							"attributeCompartment": {
+								"$ref": "AAAAAAF2hKnDzr+39+4="
+							},
+							"operationCompartment": {
+								"$ref": "AAAAAAF2hKnDzr+4w44="
+							},
+							"receptionCompartment": {
+								"$ref": "AAAAAAF2hKnDzr+5INE="
+							},
+							"templateParameterCompartment": {
+								"$ref": "AAAAAAF2hKnDzr+6ySc="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAF2hKnDzL+vreE=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "DataAnalyzer",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF2hKtoob/ZaKc=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "dfDiseases",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF2hMESrcAwJi0=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "dfGenes",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF2hKvjfr/gY7w=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "dimensions",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF2hKwYVb/nDNI=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "labels",
+							"visibility": "private"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hK1fkb/uQN4=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "distinctGenes",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hLD1Cr/1ZOE=",
+									"_parent": {
+										"$ref": "AAAAAAF2hK1fkb/uQN4="
+									},
+									"type": "list",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hLTae7/3FpI=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "geneEvidences",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hLa/Ob/+RnI=",
+									"_parent": {
+										"$ref": "AAAAAAF2hLTae7/3FpI="
+									},
+									"type": "dictionary",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hLiuZcAAYA4=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "distinctDiseases",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hLjbocAHGWk=",
+									"_parent": {
+										"$ref": "AAAAAAF2hLiuZcAAYA4="
+									},
+									"type": "list",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hLlLp8AJ6R8=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "diseaseEvidences",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hLmpOMAR2zs=",
+									"_parent": {
+										"$ref": "AAAAAAF2hLlLp8AJ6R8="
+									},
+									"type": "dictionary",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hLvpLcATToY=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "correlationDiseasesGene",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hLxrmMAa3uM=",
+									"_parent": {
+										"$ref": "AAAAAAF2hLvpLcATToY="
+									},
+									"type": "dictionary",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hL0328AcvT8=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "findDiseasesRelatedToGene",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hL2d4MAjDnU=",
+									"_parent": {
+										"$ref": "AAAAAAF2hL0328AcvT8="
+									},
+									"type": "list",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hMAScMAlJ38=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "findGenesRelatedToDisease",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF2hMBeKsAs3wg=",
+									"_parent": {
+										"$ref": "AAAAAAF2hMAScMAlJ38="
+									},
+									"type": "list",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hMvkJsA6Ef4=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "getLabels"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hMxhgsBBIt0=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "getDimensions"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNHAM8BI8EE=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "getHead"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNHTMcBPhTo=",
+							"_parent": {
+								"$ref": "AAAAAAF2hKnDzL+vreE="
+							},
+							"name": "getTail"
+						}
+					]
+				}
+			]
+		}
+	]
+}

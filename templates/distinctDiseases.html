@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}DistinctDiseases{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+
+{% block style %}
+
+    table {
+        width:40%;
+    }
+
+{% endblock %}
+
+{% block content %}
+    <h1>Distinct Diseases</h1>
+
+    <br><br/>
+
+    <p class="center-align">List of diseases found in "<i><b>diseases_evidences.tsv</b></i>":</p>
+    <p class="center-align">Number of diseases found: <b>{{numDistinctDiseases}}</b></p>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Gene Symbol</th>
+            <th>Gene ID</th>
+        </tr>
+
+        {% for disease in distinctDiseases %}
+        <tr>
+            <td>{{ loop.index }}</td>
+
+            {% for diseaseName in disease %}
+                <td> {{diseaseName}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

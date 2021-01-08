@@ -1,0 +1,468 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Main",
+					"defaultDiagram": true,
+					"ownedViews": [
+						{
+							"_type": "UMLClassView",
+							"_id": "AAAAAAF2hM9YXUOmbr4=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAF2hM9YXUOnZZE=",
+									"_parent": {
+										"$ref": "AAAAAAF2hM9YXUOmbr4="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hM9YXEOkGdI="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hM9YXUOoawE=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOnZZE="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hM9YXUOpfUo=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOnZZE="
+											},
+											"font": "Arial;13;1",
+											"left": 381,
+											"top": 255,
+											"width": 375,
+											"height": 13,
+											"text": "WebInterface"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hM9YXUOq4qs=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOnZZE="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"width": 73.67724609375,
+											"height": 13,
+											"text": "(from Model)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAF2hM9YXUOr0/U=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOnZZE="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 376,
+									"top": 248,
+									"width": 385,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAF2hM9YXUOoawE="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAF2hM9YXUOpfUo="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAF2hM9YXUOq4qs="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAF2hM9YXUOr0/U="
+									}
+								},
+								{
+									"_type": "UMLAttributeCompartmentView",
+									"_id": "AAAAAAF2hM9YXUOsluM=",
+									"_parent": {
+										"$ref": "AAAAAAF2hM9YXUOmbr4="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hM9YXEOkGdI="
+									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF2hM9yDEPRQV8=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOsluM="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hM9yBEPORSc="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 278,
+											"width": 375,
+											"height": 13,
+											"text": "+app",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 376,
+									"top": 273,
+									"width": 385,
+									"height": 23
+								},
+								{
+									"_type": "UMLOperationCompartmentView",
+									"_id": "AAAAAAF2hM9YXUOtKD8=",
+									"_parent": {
+										"$ref": "AAAAAAF2hM9YXUOmbr4="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hM9YXEOkGdI="
+									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hM+aSkPYHBA=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hM+aRUPVqpw="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 301,
+											"width": 375,
+											"height": 13,
+											"text": "+homepage()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNAJEkPgRBc=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNAJDkPdUdY="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 316,
+											"width": 375,
+											"height": 13,
+											"text": "+info()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNH2nkPn5rU=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNH2m0PkNAo="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 331,
+											"width": 375,
+											"height": 13,
+											"text": "+distinctGenes()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNIx2EPuJ9U=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNIx1UPrBIc="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 346,
+											"width": 375,
+											"height": 13,
+											"text": "+geneEvidences()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNKqVkP9zGk=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNKqU0P6qlY="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 361,
+											"width": 375,
+											"height": 13,
+											"text": "+distinctDiseases()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNLR/0QEuBM=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNLR/EQBs1E="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 376,
+											"width": 375,
+											"height": 13,
+											"text": "+getDiseasesEvidences()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNKAgEP23tA=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNKAfUPz+0g="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 391,
+											"width": 375,
+											"height": 13,
+											"text": "+getCorrelation()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNMUAkQNVvM=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNMT/0QKKsA="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 406,
+											"width": 375,
+											"height": 13,
+											"text": "+diseasesRelatedToGene()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF2hNNJ8EQUTuc=",
+											"_parent": {
+												"$ref": "AAAAAAF2hM9YXUOtKD8="
+											},
+											"model": {
+												"$ref": "AAAAAAF2hNNJ7UQRM44="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 421,
+											"width": 375,
+											"height": 13,
+											"text": "+genesRelatedToDisease()",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 376,
+									"top": 296,
+									"width": 385,
+									"height": 143
+								},
+								{
+									"_type": "UMLReceptionCompartmentView",
+									"_id": "AAAAAAF2hM9YXUOuA2Q=",
+									"_parent": {
+										"$ref": "AAAAAAF2hM9YXUOmbr4="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hM9YXEOkGdI="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLTemplateParameterCompartmentView",
+									"_id": "AAAAAAF2hM9YXUOv7iE=",
+									"_parent": {
+										"$ref": "AAAAAAF2hM9YXUOmbr4="
+									},
+									"model": {
+										"$ref": "AAAAAAF2hM9YXEOkGdI="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"width": 10,
+									"height": 10
+								}
+							],
+							"font": "Arial;13;0",
+							"containerChangeable": true,
+							"left": 376,
+							"top": 248,
+							"width": 385,
+							"height": 440,
+							"nameCompartment": {
+								"$ref": "AAAAAAF2hM9YXUOnZZE="
+							},
+							"attributeCompartment": {
+								"$ref": "AAAAAAF2hM9YXUOsluM="
+							},
+							"operationCompartment": {
+								"$ref": "AAAAAAF2hM9YXUOtKD8="
+							},
+							"receptionCompartment": {
+								"$ref": "AAAAAAF2hM9YXUOuA2Q="
+							},
+							"templateParameterCompartment": {
+								"$ref": "AAAAAAF2hM9YXUOv7iE="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAF2hMLQ7kNimho=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "UserInterface"
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAF2hM9YXEOkGdI=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "WebInterface",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF2hM9yBEPORSc=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "app"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hM+aRUPVqpw=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "homepage"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNAJDkPdUdY=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "info"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNH2m0PkNAo=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "distinctGenes"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNIx1UPrBIc=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "geneEvidences"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNKqU0P6qlY=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "distinctDiseases"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNLR/EQBs1E=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "getDiseasesEvidences"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNKAfUPz+0g=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "getCorrelation"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNMT/0QKKsA=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "diseasesRelatedToGene"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF2hNNJ7UQRM44=",
+							"_parent": {
+								"$ref": "AAAAAAF2hM9YXEOkGdI="
+							},
+							"name": "genesRelatedToDisease"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Info{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+{% block style %}
+    table {
+        width:90%;
+    }
+
+    p.caption {
+        text-align: center;
+    }
+
+{% endblock %}
+
+
+{% block content %}
+    <h1>Informations of the datasets</h1>
+
+
+    <br><br/>
+
+
+    <h3>Disease evidences table</h3>
+    <p class="center-align">
+        Number of rows: <b>{{disRows}}</b><br/>
+        Number of columns: <b>{{disCols}}</b><br/>
+    </p>
+
+    <tr>
+        <p class="center-align">
+            <b>Labels</b>:
+            {% for column in disLabels %}
+                <td>{{column}},</td>
+            {% endfor %}
+        </p>
+    </tr>
+
+    <br><br/>
+
+    <table>
+        <p class="caption"><i>Preview</i></p>
+        <tr>
+        {% for column in disLabels %}
+            <th>{{column}}</th>
+        {% endfor %}
+        </tr>
+
+        {% for row in disHead %}
+        <tr>
+            {% for data in row %}
+                <td> {{data}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+        <tr>
+            {% for col in disLabels %}
+                <td>...</td>
+            {% endfor %}
+        </tr>
+
+        {% for row in disTail %}
+        <tr>
+            {% for data in row %}
+                <td> {{data}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+    <br><br/>
+    <br><br/>
+    <br><br/>
+
+
+
+    <h3>Gene evidences table</h3>
+    <p class="center-align">
+        Number of rows: <b>{{geneRows}}</b><br/>
+        Number of columns: <b>{{geneCols}}</b><br/></p>
+    <tr>
+        <p class="center-align">
+            <b>Labels</b>:
+            {% for column in geneLabels %}
+                <td>{{column}},  </td>
+            {% endfor %}
+        </p>
+    </tr>
+
+    <br><br/>
+
+    <table>
+        <p class="caption"><i>Preview</i></p>
+        <tr>
+        {% for column in geneLabels %}
+            <th>{{column}}</th>
+        {% endfor %}
+        </tr>
+
+        {% for row in geneHead %}
+        <tr>
+            {% for data in row %}
+                <td> {{data}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+        <tr>
+            {% for col in geneLabels %}
+                <td>...</td>
+            {% endfor %}
+        </tr>
+
+        {% for row in geneTail %}
+        <tr>
+            {% for data in row %}
+                <td> {{data}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

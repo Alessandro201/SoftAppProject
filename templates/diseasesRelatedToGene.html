@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}DiseasesRelatedToGene{% endblock %}
+
+{% block style %}
+
+    table {
+        width:40%;
+        margin-right: auto;
+        overflow-y:auto;
+    }
+
+
+{% endblock %}
+
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+{% block content %}
+    <h1>Diseases related to a Gene</h1>
+
+    <br><br/>
+
+    {% if numDiseases == 0 %}
+        <p class="center-align">It doesn't exist any disease related to the gene "<i>{{gene}}</i>".</p>
+    {% else %}
+        <p class="center-align">Here are presented all the diseases related to the gene "<i><b>{{gene}}</b></i>":</p>
+        <p class="center-align">Number of diseases found: <b>{{numDiseases}}</b></p>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>disease_name</th>
+                <th>diseaseid</th>
+            </tr>
+
+            {% for disease in diseases %}
+            <tr>
+                <td>{{ loop.index }}</td>
+
+                {% for col in disease %}
+                    <td> {{col}} </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

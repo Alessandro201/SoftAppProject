@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}CorrelationAll{% endblock %}
+{% block style %}
+    table {
+        width: 50%;
+    }
+
+    div.container {
+    display: flex;
+    justify-content: center;
+    width: 50rem;
+    }
+
+    div.box {
+    justify-content: right;
+    width: 20rem;
+    }
+
+    div.text {
+    justify-content: left;
+    width:40rem;
+    }
+
+
+
+{% endblock %}
+
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+{% block content %}
+    <h1 style="text-align: center">Correlations between genes and diseases</h1>
+
+    <br><br/>
+
+    <p class="center-align">Hereafter is reported a table with the distinct correlations found between genes and diseases.</p>
+
+    {% if numEvidences == 0 %}
+        <br><br/>
+        <p class="center-align">No correlation was found :(.</p>
+    {% else %}
+
+        <br><br/>
+
+        <form class="form" action="/correlation" method="POST">
+            <div class="container">
+                <div class="text">
+                    <p class="center-align">You can customize the table based on the number
+                        of correlations you would like to see.
+                        The default value is 10. Enter 0 to see them all</p>
+                </div>
+                <div class="box">
+                    <input type="text" class="form-control form-control-dark " name="rows" placeholder="Correlations to show">
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="text">
+                    <p class="center-align">You can select the minimum number of occurrences
+                        each correlation needs to have. It has priority over the number or rows,
+                        the default value is 0.</p>
+                </div>
+                <div class="box">
+                    <input type="text" class="form-control form-control-dark " name="occurrence" placeholder="Minimum occurrences">
+                </div>
+            </div>
+
+            <div class="container">
+                <button class="btn btn-primary" type="submit">Go</button>
+            </div>
+        </form>
+
+
+
+
+        <br><br/>
+
+        <p class="center-align">Number of correlations showed: <b>{{numCorrelations}}</b> - Minimum number of occurrences: <b>{{occurrences}}</b></p>
+
+
+
+        <table>
+            <tr>
+                <th>#</th>
+                <th>gene</th>
+                <th>disease</th>
+                <th>occurrences</th>
+            </tr>
+
+            {% for row in correlations%}
+            <tr>
+                <td>{{ loop.index }}</td>
+                {% for col in row %}
+                    <td> {{col}} </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <br><br/>
+
+{% endblock %}

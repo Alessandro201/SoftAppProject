@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}DisplayTableEvidences{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+{% block style %}
+
+    .pagination-page-info {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: auto;
+        margin: auto;
+        font-size: 90%;
+        alignment: center;
+        align-items: center;
+    }
+
+    .pagination-page-info b {
+        padding-left: 2px;
+        padding: .1em .25em;
+        font-size: 140%;
+    }
+
+    ul.pagination {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    table {
+        width:90%;
+    }
+
+    div.box-pagination {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+{% endblock %}
+
+
+{% block content %}
+    <h1>gene_evidences Data Table</h1>
+
+
+    <br><br/>
+
+
+    {{ pagination.info }}
+
+    <form class="form-inline" action="/tableGenesEvidences/" style="margin: 0 auto;">
+
+        <div class="box-pagination" style="margin-left: auto; margin-right: 20px;">
+            {{ pagination.links }}
+        </div>
+
+        <div class="box-pagination" style="margin-right: 3px">
+            <input type="text" class="form-control" name="page" placeholder="Go to page...">
+        </div>
+
+        <div class="box-pagination" style="margin-right: auto">
+            <button type="submit" class="btn btn-primary">Go</button>
+        </div>
+
+    </form>
+
+
+    <table>
+        <tr>
+            <th>Index</th>
+            {% for column in labels %}
+                <th>{{column}}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in rows %}
+        <tr>
+            <td>{{ loop.index + pagination.skip }}</td>
+
+            {% for data in row %}
+                <td> {{data}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <br><br/>
+
+
+    {{ pagination.info }}
+
+    <form class="form-inline" action="/tableGenesEvidences/" style="margin: 0 auto;">
+
+        <div class="box-pagination" style="margin-left: auto; margin-right: 20px;">
+            {{ pagination.links }}
+        </div>
+
+        <div class="box-pagination" style="margin-right: 3px">
+            <input type="password" class="form-control" name="page" placeholder="Go to page...">
+        </div>
+
+        <div class="box-pagination" style="margin-right: auto">
+            <button type="submit" class="btn btn-primary">Go</button>
+        </div>
+
+    </form>
+
+    <br><br/>
+
+{% endblock %}
