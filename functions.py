@@ -98,7 +98,7 @@ class GeneTable(DataTables):
         The function returns the first ten rows of the dataframe
 
         :return: dataframe with the first 10 rows of dataframe
-        :rtype: dataframe
+        :rtype: panda.DataFrame
         """
         return self.__geneTable.head()
 
@@ -107,27 +107,27 @@ class GeneTable(DataTables):
         The function returns the last ten rows of the dataframe
 
         :return: dataframe with the last 10 rows of dataframe
-        :rtype: dataframe
+        :rtype: panda.DataFrame
         """
         return self.__geneTable.tail()
 
     def distinct(self):
         """
-        It returns a list of unique genes (gene_symbol, geneid) present in the dataframe
+        It returns a dataframe of unique genes (gene_symbol, geneid) present in the dataframe
 
-        :return: list with unique genes
-        :rtype: list
+        :return: dataframe of unique genes
+        :rtype: pandas.DataFrame
         """
         genes = self.__geneTable[['gene_symbol', 'geneid']]
-        return genes.drop_duplicates(subset='gene_symbol').sort_values('gene_symbol').values.tolist()
+        return genes.drop_duplicates(subset='gene_symbol').sort_values('gene_symbol')
 
     def evidence(self, gene):
-        """Receives as input a geneID or a gene symbol and returns a list with the
+        """Receives as input a geneID or a gene symbol and returns a dataframe with the
         sentences that relates the COVID-19 with the gene.
 
         :param gene: the geneID or gene symbol input
         :type gene: str
-        :returns: rows of sentences of the gene input related to COVID-19
+        :returns: dataframe of evidences of the gene relation to COVID-19
         :rtype: pandas.DataFrame
         """
         if type(gene) is int:
@@ -136,10 +136,8 @@ class GeneTable(DataTables):
             evid = self.__geneTable[self.__geneTable['gene_symbol'] == gene]
         evid = evid[evid['sentence'].str.contains('>COVID-19<')]
 
-        # keeping only 'disease_name' and 'diseaseid' columns
-        evid = evid[['sentence', 'nsentence', 'pmid']]
-
-        return evid.values.tolist()
+        # keeping only these columns
+        return evid[['sentence', 'nsentence', 'pmid']]
 
 
 class DiseaseTable(DataTables):
@@ -195,7 +193,7 @@ class DiseaseTable(DataTables):
         The function returns the first ten rows of the dataframe
 
         :return: dataframe with the first 10 rows of dataframe
-        :rtype: dataframe
+        :rtype: panda.DataFrame
         """
         return self.__diseaseTable.head()
 
@@ -204,33 +202,34 @@ class DiseaseTable(DataTables):
         The function returns the last ten rows of the dataframe
 
         :return: dataframe with the last 10 rows of dataframe
-        :rtype: dataframe
+        :rtype: panda.DataFrame
         """
         return self.__diseaseTable.tail()
 
     def distinct(self):
         """
-        It returns a list of unique diseases (disease_name, diseaseid) present in the dataframe.
+        It returns a dataframe of unique diseases (disease_name, diseaseid) present in the dataframe.
         Every word of the diseases is capitalized to allow the sorting algorithm to sort them correctly
         instead of putting the lowercase at the end.
 
-        :return: list with unique diseases
-        :rtype: list
+        :return: dataframe with unique diseases
+        :rtype: pandas.DataFrame
         """
 
         disease = self.__diseaseTable[['disease_name', 'diseaseid']]
         disease['disease_name'] = disease['disease_name'].str.title()
-        return disease.drop_duplicates(subset='disease_name').sort_values('disease_name').values.tolist()
+        return disease.drop_duplicates(subset='disease_name').sort_values('disease_name')
 
     def evidence(self, disease):
-        """Receives as input a diseaseID or a disease name and returns a list with the
+        """Receives as input a diseaseID or a disease name and returns a dataframe with the
         sentences that relates the COVID-19 with the disease.
 
         :param disease: the diseaseID or disease name input
         :type disease: str
-        :returns: list of sentences of the disease input related with COVID-19
+        :returns: dataframe of evidences of the disease relation to COVID-19
         :rtype: pandas.DataFrame
         """
+
         if disease.startswith('C') and len(disease) == 8:
             evid = self.__diseaseTable[self.__diseaseTable['diseaseid'] == disease]
         else:
@@ -238,9 +237,7 @@ class DiseaseTable(DataTables):
         evid = evid[evid['sentence'].str.contains('>COVID-19<')]
 
         # keeping only these columns
-        evid = evid[['sentence', 'nsentence', 'pmid']]
-
-        return evid.values.tolist()
+        return evid[['sentence', 'nsentence', 'pmid']]
 
 
 class Testing(Analysis):
@@ -282,14 +279,16 @@ class Testing(Analysis):
         # Returns a DataFrame containing the couple gene-disease and the num of correlations
         return df.value_counts().to_frame('occurrences').reset_index()
 
+
+        #todo: check it, if I'm not wrong we should add an else to the if
     def find_diseases_related_to_gene(self, user_input):
-        """The function receive as input a geneID or a gene symbol and then returns a list with the
+        """The function receive as input a geneID or a gene symbol and then returns a dataframe with the
         disesase related to the gene.
 
         :param user_input: the geneID or gene symbol input
         :type user_input: str
-        :returns: a list with the diseases related to the gene given in the input
-        :rtype: list
+        :returns: a dataframe with the diseases related to the gene given in the input
+        :rtype: pandas.DataFrame
         """
         rel = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner')
 
@@ -306,16 +305,17 @@ class Testing(Analysis):
         # Using title() on all entries of 'disease_name' to avoid the sorting
         # of uppercase diseases first and lowercase diseases last
         rel['disease_name'] = rel['disease_name'].str.title()
-        return rel.drop_duplicates(subset='disease_name').sort_values('disease_name').values.tolist()
+        return rel.drop_duplicates(subset='disease_name').sort_values('disease_name')
 
+    #todo: check it, if I'm not wrong we should add an else to the if
     def find_genes_related_to_disease(self, user_input):
-        """The function receive as input a diseaseID or a disease name and then returns a list with the
+        """The function receive as input a diseaseID or a disease name and then returns a dataframe with the
         genes related to the disease.
 
         :param user_input: the diseaseID or disease name input
         :type user_input: str
-        :returns: a list with the genes related to the disease given in the input
-        :rtype: list
+        :returns: a dataframe with the genes related to the disease given in the input
+        :rtype: pandas.DataFrame
         """
 
         rel = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner')
@@ -329,7 +329,7 @@ class Testing(Analysis):
         # keeping only 'gene_symbol' and 'geneid' columns
         rel = rel[['gene_symbol', 'geneid']]
 
-        return rel.drop_duplicates(subset='gene_symbol').sort_values('gene_symbol').values.tolist()
+        return rel.drop_duplicates(subset='gene_symbol').sort_values('gene_symbol')
 
 
 if __name__ == '__main__':

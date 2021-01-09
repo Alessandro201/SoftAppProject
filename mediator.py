@@ -1,5 +1,6 @@
 from functions import *
 from settings import *
+import pandas as pd
 import os
 
 # Compute the path to the databases
@@ -36,11 +37,12 @@ def getGeneTableList(start=0, end=None, step=1):
 
 
 def getDistinctGenes():
-    return geneTable.distinct()
+    return geneTable.distinct().values.tolist()
 
 
 def getDistinctDiseases():
-    return diseaseTable.distinct()
+    table = diseaseTable.distinct()
+    return table.columns.values.tolist(), table.values.tolist()
 
 
 def getGeneEvidences(gene):
@@ -57,14 +59,13 @@ def getGeneEvidences(gene):
     except ValueError:
         gene = str(gene)
 
-    return geneTable.evidence(gene)
+    return geneTable.evidence(gene).values.tolist()
 
 
 def getDiseaseEvidences(disease):
-    return diseaseTable.evidence(disease)
+    return diseaseTable.evidence(disease).values.tolist()
 
 
-# todo: choose if to keep the values.tolist() in here or in part2
 def getCorrelation(num_rows, min_occurrence):
     """Returns a list of the correlations between genes and diseases sorted by the highest number of occurrences.
 
@@ -97,8 +98,8 @@ def getCorrelation(num_rows, min_occurrence):
 
 
 def getDiseasesRelatedToGene(gene):
-    return test.find_diseases_related_to_gene(gene)
+    return test.find_diseases_related_to_gene(gene).values.tolist()
 
 
 def getGenesRelatedToDisease(disease):
-    return test.find_genes_related_to_disease(disease)
+    return test.find_genes_related_to_disease(disease).values.tolist()

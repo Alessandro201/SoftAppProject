@@ -1,9 +1,20 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, flash, make_response, redirect
 from flask_paginate import Pagination, get_page_parameter
+from flask_caching import Cache
 from settings import *
+from io import StringIO
+import csv
+from datetime import datetime
 import mediator
 
 app = Flask(__name__)
+
+# Used by "flash" for flashing comments or errors
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+# tell Flask to use the above defined config
+app.config.from_mapping(config)
+cache = Cache(app)
 
 
 def run(**kwargs):
@@ -18,7 +29,53 @@ def homepage():
     return render_template('homepage.html')
 
 
-# todo: add the possibility to download each result
+@app.route('/download', methods=['POST'])
+def download():
+    """Allows to download the table computed as csv file.
+
+    Steps:
+    1) Get what_to_download to know the name by which the table is stored in the cache. It will also be
+        the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page
+    2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout
+        defined in the config.py. You need to reload the page to compute again the table
+    3) Extract from "data_to_save" which is a dictionary the rows and the labels of the table
+    4) A csv.writer is instantiated. It needs StringIO
+    5) Write as the first row the labels of the columns, then write all the rows
+    6) Make a response which allows the .csv file to be downloaded
+    7) Set some information of the file that will be downloaded like its name and filetype
+
+    """
+
+    # Step 1)
+    NAME_FUNCTION = request.form.get('what_to_download')
+    if NAME_FUNCTION is None:
+        flash('Error in downloading the table, please try reloading the page.')
+        return redirect(request.referrer)
+
+    # Step 2)
+    data_to_save = cache.get(NAME_FUNCTION)
+    if data_to_save is None:
+        flash('Timeout Error, please try reloading the page.')
+
+    # Step 3)
+    rows = data_to_save['rows']
+    labels = [data_to_save['labels']]
+
+    # Step 4)
+    si = StringIO()
+    cw = csv.writer(si)
+
+    # Step 5)
+    cw.writerows(labels)
+    cw.writerows(rows)
+
+    # Step 6)
+    output = make_response(si.getvalue())
+
+    # Step 7)
+    output.headers["Content-Disposition"] = f"attachment; filename={NAME_FUNCTION}.csv"
+    output.headers["Content-type"] = "text/csv"
+    return output
 
 
 @app.route('/tableGenesEvidences/')
@@ -170,10 +227,17 @@ def distinctGenes():
 def distinctDiseases():
     """A webpage with all the unique distinct disease in the disease table"""
 
-    distinctDiseases = mediator.getDistinctDiseases()
+    NAME_FUNCTION = 'distinct_diseases'
 
-    return render_template('distinctDiseases.html', distinctDiseases=distinctDiseases,
-                           numDistinctDiseases=len(distinctDiseases))
+    labels, rows = mediator.getDistinctDiseases()
+
+    diseases = {'labels': labels,
+                'table': rows}
+
+    cache.set(NAME_FUNCTION, diseases)
+
+    return render_template('distinctDiseases.html', diseases=diseases,
+                           numDistinctDiseases=len(diseases['table']), NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for d objective
