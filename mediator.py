@@ -8,9 +8,9 @@ gene_evidences_path = os.path.join(TABLES_LOCATION, GENE_TABLE_NAME)
 disease_evidences_path = os.path.join(TABLES_LOCATION, DISEASE_TABLE_NAME)
 
 # Instantiate the classes from functions.py
-geneTable = GeneTable(gene_evidences_path)
-diseaseTable = DiseaseTable(disease_evidences_path)
-test = Testing(gene_evidences_path, disease_evidences_path)
+geneTable = GeneTable(gene_evidences_path, DELIMITER)
+diseaseTable = DiseaseTable(disease_evidences_path, DELIMITER)
+test = Testing(gene_evidences_path, disease_evidences_path, DELIMITER)
 
 
 def getInfo():

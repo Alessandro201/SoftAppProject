@@ -50,13 +50,13 @@ class Analysis(ABC):
 
 class GeneTable(DataTables):
 
-    def __init__(self, table):
+    def __init__(self, table, delimiter='\t'):
         """
         The function creates the GeneTable with the parameter table
         :param table: tha tsv file containing the table
         :type table: pandas.DataFrame
         """
-        self.__geneTable = pd.read_csv(table, delimiter='\t')
+        self.__geneTable = pd.read_csv(table, delimiter=delimiter)
 
     def __getitem__(self, item):
         """Allows the use of slicing on the instance of the class.
@@ -141,13 +141,13 @@ class GeneTable(DataTables):
 
 
 class DiseaseTable(DataTables):
-    def __init__(self, table):
+    def __init__(self, table, delimiter='\t'):
         """
         The function creates the GeneTable with the parameter table
         :param table: tha tsv file containing the table
         :type table: pandas.DataFrame
         """
-        self.__diseaseTable = pd.read_csv(table, delimiter='\t')
+        self.__diseaseTable = pd.read_csv(table, delimiter=delimiter)
 
     def __getitem__(self, item):
         """
@@ -243,7 +243,7 @@ class DiseaseTable(DataTables):
 
 
 class Testing(Analysis):
-    def __init__(self, table, table2):
+    def __init__(self, table, table2, delimiter='\t'):
         """
         The function find the correlations and the relation between genes and diseases of  the two dataframes
 
@@ -252,8 +252,8 @@ class Testing(Analysis):
         :param table2: dataframe
         :type: dataframe
         """
-        self.__diseaseTable = pd.read_csv(table, delimiter='\t')
-        self.__geneTable = pd.read_csv(table2, delimiter='\t')
+        self.__diseaseTable = pd.read_csv(table, delimiter=delimiter)
+        self.__geneTable = pd.read_csv(table2, delimiter=delimiter)
 
     def correlation_gene_disease(self):
         # todo: finish comment
