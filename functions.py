@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+import re
 import pandas as pd
 
 
@@ -230,7 +230,7 @@ class DiseaseTable(DataTables):
         :rtype: pandas.DataFrame
         """
 
-        if disease.startswith('C') and len(disease) == 8:
+        if re.match("C\d{7,}",disease):
             evid = self.__diseaseTable[self.__diseaseTable['diseaseid'] == disease]
         else:
             evid = self.__diseaseTable[self.__diseaseTable['disease_name'] == disease]
@@ -357,6 +357,8 @@ if __name__ == '__main__':
     # print(disease.distinct())
     # print(disease.evidence('C0000727'))
     # print(disease.evidence('Abdomen, Acute'))
+    # print(disease.evidence('C000656484'))
+    # print(disease.evidence('SARS-CoV-2'))
 
     # testing
     # print(test.correlation_gene_disease())
