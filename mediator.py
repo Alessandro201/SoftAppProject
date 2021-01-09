@@ -95,15 +95,22 @@ def getCorrelation(num_rows, min_occurrence):
 
     corr = test.correlation_gene_disease()
 
+    data = {'labels': corr.columns.values.tolist(),
+            'rows': corr.values.tolist(),
+            'lenght': corr.shape[0],
+            'min_occurrences': min_occurrence}
+
     if min_occurrence == 0:
         if num_rows == 0:
-            return corr.values.tolist()
+            return data
 
         # in case "rows" is higher than the number of correlations it returns all of them
         try:
-            return corr.iloc[:num_rows].values.tolist()
+            data['rows'] = corr.iloc[:num_rows].values.tolist()
+            data['lenght'] = len(data['rows'])
+            return data
         except IndexError:
-            return corr.values.tolist()
+            return data
 
     else:
         # if a row has an occurrence higher than the minimum the user wants then it gets added to new_corr, which
@@ -111,9 +118,13 @@ def getCorrelation(num_rows, min_occurrence):
         corr = corr.loc[corr['occurrences'] >= min_occurrence]
 
         if num_rows < len(corr) and num_rows != 0:
-            return corr.iloc[:num_rows].values.tolist()
+            data['rows'] = corr.iloc[:num_rows].values.tolist()
+            data['lenght'] = len(data['rows'])
+            return data
         else:
-            return corr.values.tolist()
+            data['rows'] = corr.values.tolist()
+            data['lenght'] = len(data['rows'])
+            return data
 
 
 def getDiseasesRelatedToGene(gene):

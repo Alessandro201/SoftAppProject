@@ -277,29 +277,44 @@ def correlation():
 
     # This is for the first time the user visits the page
     if request.method == "GET":
-        rows = 10
+        nrows = 10
         occurrences = 0
 
     else:
         try:
             occurrences = request.form['occurrence']
             occurrences = int(occurrences)
-        except (ValueError, TypeError, KeyError):
-            occurrences = 0
+        except ValueError:
+            # If it raise ValueError it means it's a string which cannot be converted to a number.
+            # It's either an empty string or a word. If it's an empty string it set "occurrences" to the default value
+            if occurrences != '':
+                flash('You need to insert a number!')
+                return redirect(request.referrer)
+            else:
+                occurrences = 0
 
         try:
-            rows = request.form['rows']
-            rows = int(rows)
-        except (ValueError, TypeError):
-            if occurrences != 0:
-                rows = 0
+            nrows = request.form['rows']
+            nrows = int(nrows)
+        except ValueError:
+            # If it raise ValueError it means it's a string which cannot be converted to a number.
+            # It's either an empty string or a word. If it's an empty string it set "nrows" to the default value
+            if nrows != '':
+                flash('You need to insert a number!')
+                return redirect(request.referrer)
             else:
-                rows = 10
+                if occurrences != 0:
+                    nrows = 0
+                else:
+                    nrows = 10
 
-    correlations = mediator.getCorrelation(rows, occurrences)
+    data = mediator.getCorrelation(nrows, occurrences)
 
-    return render_template('correlation.html', correlations=correlations, occurrences=occurrences,
-                           numCorrelations=len(correlations))
+    NAME_FUNCTION = 'correlation'
+
+    cache.set(NAME_FUNCTION, data)
+
+    return render_template('correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for h objective

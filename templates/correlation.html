@@ -36,7 +36,7 @@
 
     <p class="center-align">Hereafter is reported a table with the distinct correlations found between genes and diseases.</p>
 
-    {% if numEvidences == 0 %}
+    {% if data.lenght == 0 %}
         <br><br/>
         <p class="center-align">No correlation was found :(.</p>
     {% else %}
@@ -73,30 +73,22 @@
 
 
 
-
         <br><br/>
 
-        <p class="center-align">Number of correlations showed: <b>{{numCorrelations}}</b> - Minimum number of occurrences: <b>{{occurrences}}</b></p>
 
+        <form class="form-inline" action="/download" method="POST" style="justify-content: center; margin-bottom: 1rem">
+            <div class="center" style="margin-right: 1rem;">
+                <p class="center-align">Number of correlations showed: <b>{{data.lenght}}</b> - Minimum number of occurrences: <b>{{data.min_occurrences}}</b></p>
+            </div>
 
+            <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
+            <div class="center">
+                <button class="btn btn-primary" type="submit" value={{NAME_FUNCTION}} name="what_to_download">Download as csv!</button>
+            </div>
+        </form>
 
-        <table>
-            <tr>
-                <th>#</th>
-                <th>gene</th>
-                <th>disease</th>
-                <th>occurrences</th>
-            </tr>
+        {{mytable(data)}}
 
-            {% for row in correlations%}
-            <tr>
-                <td>{{ loop.index }}</td>
-                {% for col in row %}
-                    <td> {{col}} </td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
     {% endif %}
 
     <br><br/>
