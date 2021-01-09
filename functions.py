@@ -237,7 +237,9 @@ class DiseaseTable(DataTables):
         evid = evid[evid['sentence'].str.contains('>COVID-19<')]
 
         # keeping only these columns
-        return evid[['sentence', 'nsentence', 'pmid']]
+        evid = evid[['sentence', 'nsentence', 'pmid']]
+
+        return evid
 
 
 class Testing(Analysis):
@@ -279,8 +281,8 @@ class Testing(Analysis):
         # Returns a DataFrame containing the couple gene-disease and the num of correlations
         return df.value_counts().to_frame('occurrences').reset_index()
 
+        # todo: check it, if I'm not wrong we should add an else to the if
 
-        #todo: check it, if I'm not wrong we should add an else to the if
     def find_diseases_related_to_gene(self, user_input):
         """The function receive as input a geneID or a gene symbol and then returns a dataframe with the
         disesase related to the gene.
@@ -307,7 +309,7 @@ class Testing(Analysis):
         rel['disease_name'] = rel['disease_name'].str.title()
         return rel.drop_duplicates(subset='disease_name').sort_values('disease_name')
 
-    #todo: check it, if I'm not wrong we should add an else to the if
+    # todo: check it, if I'm not wrong we should add an else to the if
     def find_genes_related_to_disease(self, user_input):
         """The function receive as input a diseaseID or a disease name and then returns a dataframe with the
         genes related to the disease.

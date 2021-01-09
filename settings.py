@@ -16,3 +16,5 @@ config = {
     "CACHE_TYPE": "simple",  # Flask-Caching related configs
     "CACHE_DEFAULT_TIMEOUT": 3600
 }
+# name of the cache containing the table
+TABLE_CACHE_NAME = 'table_cache'

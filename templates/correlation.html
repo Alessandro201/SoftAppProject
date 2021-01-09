@@ -24,10 +24,9 @@
     width:40rem;
     }
 
-
-
 {% endblock %}
 
+<!--set the tab function as active-->
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 {% block content %}
     <h1 style="text-align: center">Correlations between genes and diseases</h1>
@@ -43,6 +42,7 @@
 
         <br><br/>
 
+        <!--Forms, buttons and text to customize the table-->
         <form class="form" action="/correlation" method="POST">
             <div class="container">
                 <div class="text">
@@ -75,22 +75,24 @@
 
         <br><br/>
 
-
+        <!--Print the lenght of the table, the min occcurrences and a button to download the table-->
         <form class="form-inline" action="/download" method="POST" style="justify-content: center; margin-bottom: 1rem">
             <div class="center" style="margin-right: 1rem;">
                 <p class="center-align">Number of correlations showed: <b>{{data.lenght}}</b> - Minimum number of occurrences: <b>{{data.min_occurrences}}</b></p>
             </div>
 
-            <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
+            <!--Button to download the table. It sends NAME_FUNCTION to /download to tell it which table to download-->
             <div class="center">
-                <button class="btn btn-primary" type="submit" value={{NAME_FUNCTION}} name="what_to_download">Download as csv!</button>
+                <button class="btn btn-primary" type="submit" value="{{NAME_FUNCTION ~ data.lenght}}" name="name_file">Download as csv!</button>
             </div>
         </form>
 
+        <!--Print the table using the macro "mytable()"-->
         {{mytable(data)}}
 
     {% endif %}
 
+    <br><br/>
     <br><br/>
 
 {% endblock %}

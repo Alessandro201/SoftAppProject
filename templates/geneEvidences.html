@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import mytable %}
+{% from 'macros.html' import mytable_with_pmid_links %}
 
 {% block title %}GeneEvidences{% endblock %}
 
@@ -7,11 +7,11 @@
 
     table {
         width:95%;
-
     }
 
 {% endblock %}
 
+<!--Set function tab as active-->
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 {% block content %}
     <h1>Covid-19 relation evidences</h1>
@@ -21,31 +21,27 @@
     <p class="center-align">Hereafter are reported the evidences in literature of the relation between
         Covid-19 and the gene "<i><b>{{gene}}</b></i>".</p>
 
-    {% if numEvidences == 0 %}
+    {% if data.lenght == 0 %}
         <p class="center-align">No evidence was found which relates covid-19 with the gene.</p>
     {% else %}
-        <p class="center-align">Number of evidences found: <b>{{numEvidences}}</b>.</p>
-        <table>
-            <tr>
-                <th>#</th>
-                <th>evidence</th>
-                <th>nsentence</th>
-                <th>pmid</th>
-            </tr>
+        <!--Display the number of evidences found and a button to download the table-->
+        <form class="form-inline" action="/download" method="POST" style="justify-content: center; margin-bottom: 1rem">
+            <div class="center" style="margin-right: 1rem;">
+                <p class="center-align">Number of evidences found: <b>{{data.lenght}}</b></p>
+            </div>
 
-            {% for row in evidences%}
-            <tr>
-                <td>{{ loop.index }}</td>
-                {% for col in row %}
-                    {% if loop.index == 3 %}
-                        <td><a href="{{ base_pmid_url ~ col}}">{{col}}</a></td>
-                    {% else %}
-                        <td> {{col}} </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
+            <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
+            <div class="center">
+                <button class="btn btn-primary" type="submit" value="{{gene ~ NAME_FUNCTION}}" name="name_file">Download as csv!</button>
+            </div>
+        </form>
+
+        <!--Display the table with pmid links-->
+        {{mytable_with_pmid_links(data, base_pmid_url)}}
+
+        <br>
+        <br>
+
     {% endif %}
 
 {% endblock %}

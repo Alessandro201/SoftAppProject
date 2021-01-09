@@ -31,7 +31,7 @@ def homepage():
 
 @app.route('/download', methods=['POST'])
 def download():
-    """Allows to download the table computed as csv file.
+    """Allows to download the table computed as tsv file.
 
     Steps:
     1) Get what_to_download to know the name by which the table is stored in the cache. It will also be
@@ -47,13 +47,13 @@ def download():
     """
 
     # Step 1)
-    NAME_FUNCTION = request.form.get('what_to_download')
-    if NAME_FUNCTION is None:
+    name_file = request.form.get('name_file')
+    if name_file is None:
         flash('Error in downloading the table, please try reloading the page.')
         return redirect(request.referrer)
 
     # Step 2)
-    data_to_save = cache.get(NAME_FUNCTION)
+    data_to_save = cache.get(TABLE_CACHE_NAME)
     if data_to_save is None:
         flash('Timeout Error, please try reloading the page.')
 
@@ -63,7 +63,7 @@ def download():
 
     # Step 4)
     si = StringIO()
-    cw = csv.writer(si)
+    cw = csv.writer(si, delimiter='\t')
 
     # Step 5)
     cw.writerows(labels)
@@ -73,8 +73,8 @@ def download():
     output = make_response(si.getvalue())
 
     # Step 7)
-    output.headers["Content-Disposition"] = f"attachment; filename={NAME_FUNCTION}.csv"
-    output.headers["Content-type"] = "text/csv"
+    output.headers["Content-Disposition"] = f"attachment; filename={name_file}.tsv"
+    output.headers["Content-type"] = "text/tsv"
     return output
 
 
@@ -208,7 +208,7 @@ def distinctGenes():
 
     data = mediator.getDistinctGenes()
 
-    cache.set(NAME_FUNCTION, data)
+    cache.set(TABLE_CACHE_NAME, data)
 
     return render_template('distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
@@ -222,7 +222,7 @@ def distinctDiseases():
 
     data = mediator.getDistinctDiseases()
 
-    cache.set(NAME_FUNCTION, data)
+    cache.set(TABLE_CACHE_NAME, data)
 
     return render_template('distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
@@ -235,12 +235,17 @@ def geneEvidences():
     It is then submitted back to "geneEvidences" but with 'POST' method.
     Now it returns a webpage which lists all the evidences in literature of the gene"""
 
+    NAME_FUNCTION = '_evidences'
+
     if request.method == "GET":
         return render_template('inputGeneEvidences.html')
     else:
         gene = request.form['gene']
-        evidences = mediator.getGeneEvidences(gene)
-        return render_template("geneEvidences.html", gene=gene, evidences=evidences, numEvidences=len(evidences),
+        data = mediator.getGeneEvidences(gene)
+
+        cache.set(TABLE_CACHE_NAME, data)
+
+        return render_template("geneEvidences.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION,
                                base_pmid_url=BASE_PMID_URL)
 
 
@@ -252,13 +257,18 @@ def diseaseEvidences():
     It is then submitted back to "diseaseEvidences" but with 'POST' method.
     Now it returns a webpage which lists all the evidences in literature of the disease"""
 
+    NAME_FUNCTION = '_evidences'
+
     if request.method == "GET":
         return render_template('inputDiseaseEvidences.html')
     else:
         disease = request.form['disease']
-        evidences = mediator.getDiseaseEvidences(disease)
-        return render_template('diseaseEvidences.html', disease=disease, evidences=evidences,
-                               numEvidences=len(evidences), base_pmid_url=BASE_PMID_URL)
+        data = mediator.getDiseaseEvidences(disease)
+
+        cache.set(TABLE_CACHE_NAME, data)
+
+        return render_template('diseaseEvidences.html', disease=disease, data=data,
+                               base_pmid_url=BASE_PMID_URL, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for g objective
@@ -312,7 +322,7 @@ def correlation():
 
     NAME_FUNCTION = 'correlation'
 
-    cache.set(NAME_FUNCTION, data)
+    cache.set(TABLE_CACHE_NAME, data)
 
     return render_template('correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
@@ -325,13 +335,17 @@ def diseasesRelatedToGene():
     It is then submitted back to "diseasesRelatedToGene" but with 'POST' method.
     Now it returns a webpage which lists all the diseases related to the gene found in literature"""
 
+    NAME_FUNCTION = 'diseases_rel_to_'
+
     if request.method == "GET":
         return render_template('inputDiseasesRelatedToGene.html')
     else:
         gene = request.form['gene']
-        diseaseRelToGene = mediator.getDiseasesRelatedToGene(gene)
-        return render_template("diseasesRelatedToGene.html", gene=gene, diseases=diseaseRelToGene,
-                               numDiseases=len(diseaseRelToGene))
+        data = mediator.getDiseasesRelatedToGene(gene)
+
+        cache.set(TABLE_CACHE_NAME, data)
+
+        return render_template("diseasesRelatedToGene.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for i objective
@@ -342,13 +356,17 @@ def genesRelatedToDisease():
     It is then submitted back to "genesRelatedToDisease" but with 'POST' method.
     Now it returns a webpage which lists all the genes related to the disease found in literature"""
 
+    NAME_FUNCTION = 'genes_rel_to_'
+
     if request.method == "GET":
         return render_template('inputGenesRelatedToDisease.html')
     else:
         disease = request.form['disease']
-        genesRelToDisease = mediator.getGenesRelatedToDisease(disease)
-        return render_template("genesRelatedToDisease.html", disease=disease, genes=genesRelToDisease,
-                               numGenes=len(genesRelToDisease))
+        data = mediator.getGenesRelatedToDisease(disease)
+
+        cache.set(TABLE_CACHE_NAME, data)
+        return render_template("genesRelatedToDisease.html", data=data, disease=disease,
+                               NAME_FUNCTION=NAME_FUNCTION)
 
 
 if __name__ == '__main__':

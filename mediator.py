@@ -78,11 +78,23 @@ def getGeneEvidences(gene):
     except ValueError:
         gene = str(gene)
 
-    return geneTable.evidence(gene).values.tolist()
+    table = geneTable.evidence(gene)
+
+    data = {'labels': table.columns.values.tolist(),
+            'rows': table.values.tolist(),
+            'lenght': table.shape[0]}
+
+    return data
 
 
 def getDiseaseEvidences(disease):
-    return diseaseTable.evidence(disease).values.tolist()
+    table = diseaseTable.evidence(disease)
+
+    data = {'labels': table.columns.values.tolist(),
+            'rows': table.values.tolist(),
+            'lenght': table.shape[0]}
+
+    return data
 
 
 def getCorrelation(num_rows, min_occurrence):
@@ -128,8 +140,20 @@ def getCorrelation(num_rows, min_occurrence):
 
 
 def getDiseasesRelatedToGene(gene):
-    return test.find_diseases_related_to_gene(gene).values.tolist()
+    table = test.find_diseases_related_to_gene(gene)
+
+    data = {'labels': table.columns.values.tolist(),
+            'rows': table.values.tolist(),
+            'lenght': table.shape[0]}
+
+    return data
 
 
 def getGenesRelatedToDisease(disease):
-    return test.find_genes_related_to_disease(disease).values.tolist()
+    table = test.find_genes_related_to_disease(disease)
+
+    data = {'labels': table.columns.values.tolist(),
+            'rows': table.values.tolist(),
+            'lenght': table.shape[0]}
+
+    return data
