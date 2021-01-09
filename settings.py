@@ -18,3 +18,5 @@ config = {
 }
 # name of the cache containing the table
 TABLE_CACHE_NAME = 'table_cache'
+
+DELIMITER = '\t'
