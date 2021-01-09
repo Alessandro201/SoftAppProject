@@ -7,7 +7,6 @@
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 
 {% block style %}
-
     table {
         width:40%;
     }
@@ -23,7 +22,7 @@
 
     <form class="form-inline" action="/download" method="POST" style="justify-content: center">
         <div class="center">
-            <p class="center-align">Number of diseases found: <b>{{numDistinctDiseases}}</b></p>
+            <p class="center-align">Number of diseases found: <b>{{data.lenght}}</b></p>
         </div>
 
         <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
@@ -33,7 +32,7 @@
     </form>
 
 
-    {{ mytable(diseases) }}
+    {{ mytable(data) }}
 
 
 {% endblock %}

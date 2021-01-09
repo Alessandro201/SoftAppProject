@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% from 'macros.html' import mytable %}
+{% from 'macros.html' import mytable_info %}
 
 {% block title %}Info{% endblock %}
 
+<!--Allow to select the tab as active-->
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 {% block style %}
     table {
@@ -22,54 +23,28 @@
 
     <br><br/>
 
-
+    <!--Prints dimensionality of the disease table-->
     <h3>Disease evidences table</h3>
     <p class="center-align">
-        Number of rows: <b>{{disRows}}</b><br/>
-        Number of columns: <b>{{disCols}}</b><br/>
+        Number of rows: <b>{{disease_data.nrows}}</b><br/>
+        Number of columns: <b>{{disease_data.ncols}}</b><br/>
     </p>
 
+    <!--Prints labels of the disease table-->
     <tr>
         <p class="center-align">
             <b>Labels</b>:
-            {% for column in disLabels %}
-                <td>{{column}},</td>
+            {% for label in disease_data.labels %}
+                <td>{{label}},</td>
             {% endfor %}
         </p>
     </tr>
 
     <br><br/>
 
-    <table>
-        <p class="caption"><i>Preview</i></p>
-        <tr>
-        {% for column in disLabels %}
-            <th>{{column}}</th>
-        {% endfor %}
-        </tr>
-
-        {% for row in disHead %}
-        <tr>
-            {% for data in row %}
-                <td> {{data}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-
-        <tr>
-            {% for col in disLabels %}
-                <td>...</td>
-            {% endfor %}
-        </tr>
-
-        {% for row in disTail %}
-        <tr>
-            {% for data in row %}
-                <td> {{data}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+    <!--Prints the head and tail in a table by using a macro imported at the top of the file-->
+    <p class="caption"><i>Preview</i></p>
+    {{mytable_info(disease_data)}}
 
 
 
@@ -78,52 +53,32 @@
     <br><br/>
 
 
-
+    <!--Prints dimensionality of the gene table-->
     <h3>Gene evidences table</h3>
     <p class="center-align">
-        Number of rows: <b>{{geneRows}}</b><br/>
-        Number of columns: <b>{{geneCols}}</b><br/></p>
+        Number of rows: <b>{{gene_data.nrows}}</b><br/>
+        Number of columns: <b>{{gene_data.ncols}}</b><br/>
+    </p>
+
+    <!--Prints labels of the gene table-->
     <tr>
         <p class="center-align">
             <b>Labels</b>:
-            {% for column in geneLabels %}
-                <td>{{column}},  </td>
+            {% for label in gene_data.labels %}
+                <td>{{label}},  </td>
             {% endfor %}
         </p>
     </tr>
 
     <br><br/>
 
-    <table>
-        <p class="caption"><i>Preview</i></p>
-        <tr>
-        {% for column in geneLabels %}
-            <th>{{column}}</th>
-        {% endfor %}
-        </tr>
+    <!--Prints the head and tail in a table by using a macro imported at the top of the file-->
+    <p class="caption"><i>Preview</i></p>
+    {{mytable_info(gene_data)}}
 
-        {% for row in geneHead %}
-        <tr>
-            {% for data in row %}
-                <td> {{data}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
 
-        <tr>
-            {% for col in geneLabels %}
-                <td>...</td>
-            {% endfor %}
-        </tr>
-
-        {% for row in geneTail %}
-        <tr>
-            {% for data in row %}
-                <td> {{data}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+    <br><br/>
+    <br><br/>
 
 
 {% endblock %}

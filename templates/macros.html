@@ -20,3 +20,37 @@
         {% endfor %}
     </table>
 {% endmacro %}
+
+
+{% macro mytable_info(data) %}
+    <table>
+        <tr>
+            {% for column in data.labels%}
+                <th>{{column}}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in data.head %}
+            <tr>
+                {% for col in row %}
+                    <td> {{col}} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+        <tr>
+            {% for column in data.labels%}
+                <th>......</th>
+            {% endfor %}
+        </tr>
+
+
+        {% for row in data.tail %}
+            <tr>
+                {% for col in row %}
+                    <td> {{col}} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endmacro %}

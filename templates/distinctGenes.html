@@ -3,13 +3,13 @@
 
 {% block title %}DistinctGenes{% endblock %}
 
+<!--Allow to select the tab as active-->
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 
 {% block style %}
     table {
         width:30%;
     }
-
 
 {% endblock %}
 
@@ -18,25 +18,20 @@
 
     <br><br/>
 
-    <p class="center-align">List of genes found in  "<i><b>gene_evidences.tsv</b></i>":</p>
-    <p class="center-align">Number of genes found: <b>{{numDistinctGenes}}</b></p>
+    <p class="center-align">List of genes found in "<i><b>gene_evidences.tsv</b></i>":</p>
 
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Gene Symbol</th>
-            <th>Gene ID</th>
-        </tr>
+    <form class="form-inline" action="/download" method="POST" style="justify-content: center; margin-bottom: 1rem">
+        <div class="center" style="margin-right: 1rem;">
+            <p class="center-align">Number of genes found: <b>{{data.lenght}}</b></p>
+        </div>
 
-        {% for gene in distinctGenes %}
-        <tr>
-            <td>{{ loop.index }}</td>
+        <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
+        <div class="center">
+            <button class="btn btn-primary" type="submit" value={{NAME_FUNCTION}} name="what_to_download">Download as csv!</button>
+        </div>
+    </form>
 
-            {% for col in gene %}
-                <td> {{col}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+
+    {{ mytable(data) }}
 
 {% endblock %}

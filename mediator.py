@@ -14,18 +14,26 @@ test = Testing(gene_evidences_path, disease_evidences_path)
 
 
 def getInfo():
-    geneRows, geneCols = geneTable.get_dimensions()
-    geneLabels = geneTable.get_labels()
-    geneHead = geneTable.get_head().values.tolist()
-    geneTail = geneTable.get_tail().values.tolist()
+    """
+    Returns two dictionaries containing informations on the two datasets
 
-    diseaseRows, diseaseCols = diseaseTable.get_dimensions()
-    diseaseLabels = diseaseTable.get_labels()
-    diseaseHead = diseaseTable.get_head().values.tolist()
-    diseaseTail = diseaseTable.get_tail().values.tolist()
+    :return two dictionaries
+    :rtype dict
+    """
 
-    return ((geneRows, geneCols, geneLabels, geneHead, geneTail),
-            (diseaseRows, diseaseCols, diseaseLabels, diseaseHead, diseaseTail))
+    gene_data = {'nrows': geneTable.get_dimensions()[0],
+                 'ncols': geneTable.get_dimensions()[1],
+                 'labels': geneTable.get_labels(),
+                 'head': geneTable.get_head().values.tolist(),
+                 'tail': geneTable.get_tail().values.tolist()}
+
+    disease_data = {'nrows': diseaseTable.get_dimensions()[0],
+                    'ncols': diseaseTable.get_dimensions()[1],
+                    'labels': diseaseTable.get_labels(),
+                    'head': diseaseTable.get_head().values.tolist(),
+                    'tail': diseaseTable.get_tail().values.tolist()}
+
+    return gene_data, disease_data
 
 
 def getDiseaseTableList(start=0, end=None, step=1):
@@ -37,12 +45,23 @@ def getGeneTableList(start=0, end=None, step=1):
 
 
 def getDistinctGenes():
-    return geneTable.distinct().values.tolist()
+    table = geneTable.distinct()
+
+    data = {'labels': table.columns.values.tolist(),
+            'rows': table.values.tolist(),
+            'lenght': table.shape[0]}
+
+    return data
 
 
 def getDistinctDiseases():
     table = diseaseTable.distinct()
-    return table.columns.values.tolist(), table.values.tolist()
+
+    data = {'labels': table.columns.values.tolist(),
+            'rows': table.values.tolist(),
+            'lenght': table.shape[0]}
+
+    return data
 
 
 def getGeneEvidences(gene):

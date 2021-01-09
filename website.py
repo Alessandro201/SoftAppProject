@@ -194,22 +194,9 @@ def functions():
 def info():
     """Returns a webpage with all the information about the data tables and a preview of heads and tails"""
 
-    geneInfo, diseaseInfo = mediator.getInfo()
-    gRows = geneInfo[0]
-    gCols = geneInfo[1]
-    gLabels = geneInfo[2]
-    gHead = geneInfo[3]
-    gTail = geneInfo[4]
+    gene_data, disease_data = mediator.getInfo()
 
-    dRows = diseaseInfo[0]
-    dCols = diseaseInfo[1]
-    dLabels = diseaseInfo[2]
-    dHead = diseaseInfo[3]
-    dTail = diseaseInfo[4]
-
-    return render_template('info.html',
-                           geneRows=gRows, geneCols=gCols, geneLabels=gLabels, geneHead=gHead, geneTail=gTail,
-                           disRows=dRows, disCols=dCols, disLabels=dLabels, disHead=dHead, disTail=dTail)
+    return render_template('info.html', gene_data=gene_data, disease_data=disease_data)
 
 
 # for c objective
@@ -217,9 +204,13 @@ def info():
 def distinctGenes():
     """A webpage with all the unique distinct genes in the gene table"""
 
-    distinctGenes = mediator.getDistinctGenes()
+    NAME_FUNCTION = 'distinct_genes'
 
-    return render_template('distinctGenes.html', distinctGenes=distinctGenes, numDistinctGenes=len(distinctGenes))
+    data = mediator.getDistinctGenes()
+
+    cache.set(NAME_FUNCTION, data)
+
+    return render_template('distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for e objective
@@ -229,15 +220,11 @@ def distinctDiseases():
 
     NAME_FUNCTION = 'distinct_diseases'
 
-    labels, rows = mediator.getDistinctDiseases()
+    data = mediator.getDistinctDiseases()
 
-    diseases = {'labels': labels,
-                'rows': rows}
+    cache.set(NAME_FUNCTION, data)
 
-    cache.set(NAME_FUNCTION, diseases)
-
-    return render_template('distinctDiseases.html', diseases=diseases,
-                           numDistinctDiseases=len(diseases['rows']), NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for d objective
