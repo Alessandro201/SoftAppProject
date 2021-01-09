@@ -1,0 +1,22 @@
+{% macro mytable(data) %}
+    <table>
+        <tr>
+            <!--The first column "#" is the index of the row-->
+            <th>#</th>
+            {% for column in data.labels%}
+                <th>{{column}}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in data.rows %}
+        <tr>
+            <!--Is the index of the for loop, which is used as index for the row-->
+            <td>{{ loop.index }}</td>
+
+            {% for col in row %}
+                <td> {{col}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endmacro %}

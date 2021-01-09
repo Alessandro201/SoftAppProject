@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from 'macros.html' import mytable %}
+
 {% block title %}DistinctDiseases{% endblock %}
 
 <!--Allow to select the tab as active-->
@@ -30,25 +32,8 @@
         </div>
     </form>
 
-    <table>
-        <tr>
-            <!--The first column "#" is the index of the row-->
-            <th>#</th>
-            {% for column in diseases.labels%}
-                <th>{{column}}</th>
-            {% endfor %}
-        </tr>
 
-        {% for disease in diseases.rows %}
-        <tr>
-            <!--Is the index of the for loop, which is used as index for the row-->
-            <td>{{ loop.index }}</td>
+    {{ mytable(diseases) }}
 
-            {% for col in disease %}
-                <td> {{col}} </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
 
 {% endblock %}

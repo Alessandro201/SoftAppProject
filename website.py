@@ -232,12 +232,12 @@ def distinctDiseases():
     labels, rows = mediator.getDistinctDiseases()
 
     diseases = {'labels': labels,
-                'table': rows}
+                'rows': rows}
 
     cache.set(NAME_FUNCTION, diseases)
 
     return render_template('distinctDiseases.html', diseases=diseases,
-                           numDistinctDiseases=len(diseases['table']), NAME_FUNCTION=NAME_FUNCTION)
+                           numDistinctDiseases=len(diseases['rows']), NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for d objective
