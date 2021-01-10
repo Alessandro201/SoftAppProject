@@ -84,7 +84,8 @@ def genesTable():
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    nRows = mediator.getInfo()[0][0]
+    gene_info, _ = mediator.getInfo()
+    nrows = gene_info['nrows']
     per_page = 30
 
     # Get the page from the form to let the user go to a specific page
@@ -104,12 +105,12 @@ def genesTable():
     df_list = mediator.getGeneTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
-    pagination = Pagination(page=page, total=nRows, record_name="gene entries",
+    pagination = Pagination(page=page, total=nrows, record_name="gene entries",
                             css_framework='bootstrap4', per_page=per_page)
 
     return render_template('tableGenesEvidences.html',
                            rows=df_list,
-                           labels=mediator.getInfo()[0][2],
+                           labels=gene_info['labels'],
                            pagination=pagination)
 
 
@@ -119,7 +120,8 @@ def diseasesTable():
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    nRows = mediator.getInfo()[1][0]
+    _, disease_info = mediator.getInfo()
+    nrows = disease_info['nrows']
     per_page = 30
 
     # Get the page from the form to let the user go to a specific page
@@ -139,13 +141,13 @@ def diseasesTable():
     df_list = mediator.getDiseaseTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
-    pagination = Pagination(page=page, total=nRows, record_name="diseases entries",
+    pagination = Pagination(page=page, total=nrows, record_name="diseases entries",
                             css_framework='bootstrap4', bs_version=4, per_page=per_page)
 
     return render_template('tableDiseasesEvidences.html',
-                           labels=mediator.getInfo()[1][2],
+                           labels=disease_info['labels'],
                            rows=df_list,
-                           pagination=pagination, )
+                           pagination=pagination)
 
 
 @app.route('/downloadDiseases')

@@ -5,6 +5,7 @@
 
 <!--Set the tab function as active-->
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
+
 {% block style %}
     table {
         width:90%;
@@ -44,7 +45,8 @@
 
     <!--Prints the head and tail in a table by using a macro imported at the top of the file-->
     <p class="caption"><i>Preview</i></p>
-    {{mytable_info(disease_data)}}
+
+    {{ mytable_info(disease_data) }}
 
 
 
