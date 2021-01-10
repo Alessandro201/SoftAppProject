@@ -34,7 +34,6 @@ class DataTables(ABC):
 
 
 class Analysis(ABC):
-
     @abstractmethod
     def correlation_gene_disease(self):
         pass
@@ -244,94 +243,156 @@ class DiseaseTable(DataTables):
 
 class Testing(Analysis):
     def __init__(self, table, table2, delimiter='\t'):
-        """
-        The function find the correlations and the relation between genes and diseases of  the two dataframes
-
-        :param table: dataframe
-        :type: dataframe
-        :param table2: dataframe
-        :type: dataframe
-        """
         self.__diseaseTable = pd.read_csv(table, delimiter=delimiter)
         self.__geneTable = pd.read_csv(table2, delimiter=delimiter)
 
     def correlation_gene_disease(self):
-        # todo: finish comment
-
         """
+        The function returns a database with the correlation between genes and diseases sorted by the most frequent.
+
+        Steps:
+        1) Merging of the two dataframes:
+            The merge occurs on pmid and nsentence (instead of sentence) because they are interchangeable as
+            in the same publication the nth sentence ("nsentence") will always be "sentence".
+            But in this way the program runs faster because it has to check only some numbers instead of whole strings
+            to know which rows to merge.
+        2) Dropping duplicates:
+            The same concept goes for "drop_duplicates". When the function drop_duplicates() search for duplicates
+            of the subset, with "nsentence" it avoids checking for whole strings as it would instead do with sentences.
+            "geneid" and "diseaseid" follow the same concept and are used instead of "gene_symbol" and "disease_name".
+        3) Keeping only the columns needed, thus one for gene and one for disease
+        4) Count occurrences of the couple gene-disease and create a new dataframe with a couple as row and their
+            occurrences in a new column; labels: ['gene_symbol', 'disease_name', 'occurrences'].
+
 
         :returns: a DataFrame containing the correlations between genes and diseases and their count
         :rtype: pandas.DataFrame
         """
 
-        # obtain the union with all possible sentences of the two dataframes without duplicates like the professor asked
-        # same as your file
-
-        # The merge occurs on pmid and nsentence (instead of sentence) because in the same publication the
-        # nth sentence ("nsentence") will always be "sentence", but in this way the program runs faster
-        # because it has to check only some numbers instead of whole strings.
-        # The same goes for drop duplicates. When the function drop_duplicates search for duplicates
-        # of the subset, with nsentence it avoids checking for whole strings as it would instead do with sentences.
+        # Step 1)
         df = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner', on=['pmid', 'nsentence'])
-        df.drop_duplicates(subset=['pmid', 'gene_symbol', 'disease_name', 'nsentence'], inplace=True)
 
-        # Once all cleaning operations are done it keeps only the two columns needed for the analysis
+        # Step 2)
+        df.drop_duplicates(subset=['pmid', 'geneid', 'diseaseid', 'nsentence'], inplace=True)
+
+        # Step 3)
         df = df[['gene_symbol', 'disease_name']]
 
-        # Returns a DataFrame containing the couple gene-disease and the num of correlations
-        return df.value_counts().to_frame('occurrences').reset_index()
+        # Step 4)
+        df = df.value_counts().to_frame('occurrences').reset_index()
+        return df
 
-        # todo: check it, if I'm not wrong we should add an else to the if
+    def find_diseases_related_to_gene(self, gene):
 
-    def find_diseases_related_to_gene(self, user_input):
-        """The function receive as input a geneID or a gene symbol and then returns a dataframe with the
-        disesase related to the gene.
-
-        :param user_input: the geneID or gene symbol input
-        :type user_input: str
-        :returns: a dataframe with the diseases related to the gene given in the input
-        :rtype: pandas.DataFrame
         """
-        rel = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner')
-
-        if type(user_input) is int:
-            user_input = self.__geneTable[self.__geneTable['geneid'] == user_input]
-            user_input = user_input.loc[user_input.index[0], 'gene_symbol']
-
-        # keeping only the rows which contain the user_input
-        rel = rel[rel['sentence'].str.contains('>' + user_input + '<', regex=False)]
-
-        # keeping only 'disease_name' and 'diseaseid' columns
-        rel = rel[['disease_name', 'diseaseid']]
-
-        # Using title() on all entries of 'disease_name' to avoid the sorting
-        # of uppercase diseases first and lowercase diseases last
-        rel['disease_name'] = rel['disease_name'].str.title()
-        return rel.drop_duplicates(subset='disease_name').sort_values('disease_name')
-
-    # todo: check it, if I'm not wrong we should add an else to the if
-    def find_genes_related_to_disease(self, user_input):
-        """The function receive as input a diseaseID or a disease name and then returns a dataframe with the
-        genes related to the disease.
-
-        :param user_input: the diseaseID or disease name input
-        :type user_input: str
-        :returns: a dataframe with the genes related to the disease given in the input
+        The function receive as input a geneID or a gene symbol and then returns a dataframe with the
+        diseases related to the gene.
+        
+        Steps:
+        1) Merging of the two dataframes:
+            The merge occurs on pmid and nsentence (instead of sentence) because they are interchangeable as
+            in the same publication the nth sentence ("nsentence") will always be "sentence". 
+            But in this way the program runs faster because it has to check only some numbers instead of whole strings
+            to know which rows to merge.
+        2) Dropping duplicates:
+            The same concept goes for "drop_duplicates". When the function drop_duplicates() search for duplicates 
+            of the subset, with "nsentence" it avoids checking for whole strings as it would instead do with sentences.
+            "geneid" and "diseaseid" follow the same concept and are used instead of "gene_symbol" and "disease_name".
+        3) Performing search: 
+            It first tries to convert gene (string) given as input to an int. If it can, then it means it's a genid and only
+            only the rows whose value in the columns 'geneid' will be "gene" will be kept. Otherwise it means "gene"
+            given as input is a "gene_symbol" and only the rows whose value in the columns 'gene_symbol' will be 
+            "gene" given as input will be kept.  
+        4) Keeping only the columns needed
+        5) Using title() on all diseases:
+            Some diseases are all lowercase and when sorted will be placed at the end of the table as the majority 
+            have the first letter uppercase. With title() all words of the diseases are now capitalized, 
+            and sort_values() will do what we want.
+        6) Dropping duplicates and sorting
+            
+            
+        :param gene: the geneid or gene_symbol input
+        :type gene: str or int
+        :returns: a dataframe with the diseases related to gene
         :rtype: pandas.DataFrame
         """
 
-        rel = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner')
+        # step 1)
+        df = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner', on=['pmid', 'nsentence'])
 
-        if user_input.startswith('C') and len(user_input) == 8:
-            user_input = self.__diseaseTable[self.__diseaseTable['diseaseid'] == user_input]
-            user_input = user_input.loc[user_input.index[0], 'disease_name']
+        # step 2)
+        df.drop_duplicates(subset=['pmid', 'geneid', 'diseaseid', 'nsentence'], inplace=True)
 
-        rel = rel[rel['sentence'].str.contains('>' + user_input + '<', regex=False)]
+        # step 3)
+        try:
+            gene = int(gene)
+            df = df[df['geneid'] == gene]
+        except ValueError:
+            df = df[df['gene_symbol'] == gene]
 
-        # keeping only 'gene_symbol' and 'geneid' columns
-        rel = rel[['gene_symbol', 'geneid']]
+        # step 4)
+        df = df[['disease_name', 'diseaseid']]
 
-        return rel.drop_duplicates(subset='gene_symbol').sort_values('gene_symbol')
+        # step 5)
+        df['disease_name'] = df['disease_name'].str.title()
+
+        # step 6)
+        df = df.drop_duplicates(subset='diseaseid').sort_values('disease_name')
+
+        return df
+
+    def find_genes_related_to_disease(self, disease):
+        """
+        The function receive as input a diseaseid or a disease_name and then returns a dataframe with the
+        diseases related to the gene.
+
+        Steps:
+        1) Merging of the two dataframes:
+            The merge occurs on pmid and nsentence (instead of sentence) because they are interchangeable as
+            in the same publication the nth sentence ("nsentence") will always be "sentence".
+            But in this way the program runs faster because it has to check only some numbers instead of whole strings
+            to know which rows to merge.
+        2) Dropping duplicates:
+            The same concept goes for "drop_duplicates". When the function drop_duplicates() search for duplicates
+            of the subset, with "nsentence" it avoids checking for whole strings as it would instead do with sentences.
+            "geneid" and "diseaseid" follow the same concept and are used instead of "gene_symbol" and "disease_name".
+        3) Performing search:
+            Check if the disease matches a pattern which consist of the first element as a 'C' and then at least
+            7 numbers until the end of the string. If it matches, then it means it's a "diseaseid" and only
+            the rows whose value in the columns "diseaseid" are "disease" will be kept. Otherwise it means "disease"
+            given as input is a "disease_name" and only the rows whose value in the columns 'disease_name' are the
+            "gene" given as input will be kept.
+        4) Keeping only the columns needed.
+        6) Dropping duplicates and sorting
+
+
+        :param disease: the geneid or gene_symbol input
+        :type disease: str
+        :returns: a dataframe with the diseases related to gene
+        :rtype: pandas.DataFrame
+        """
+
+        # Step 1)
+        df = pd.DataFrame.merge(self.__diseaseTable, self.__geneTable, how='inner',
+                                on=['pmid', 'nsentence'])
+
+        # Step 2)
+        df.drop_duplicates(subset=['pmid', 'geneid', 'diseaseid', 'nsentence'], inplace=True)
+
+        # Step 3)
+        if re.match('^C\d{7,}$', disease) is not None:
+            # First select all rows which match the diseaseid, then take its disease_name from the first row
+            df = df[df['diseaseid'] == disease]
+        else:
+            df = df[df['disease_name'] == disease]
+
+        # Step 4)
+        df = df[['gene_symbol', 'geneid']]
+
+        # Step 5)
+        df = df.drop_duplicates(subset='geneid').sort_values('gene_symbol')
+
+        return df
 
 
 if __name__ == '__main__':
