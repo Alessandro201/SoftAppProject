@@ -2,146 +2,37 @@
 {% block title %}Documentation{% endblock %}
 
 {% block head %}
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="pyinstxtractor-master_files/_pydoc.css">
-<script src="https://unpkg.com/feather-icons"></script>
 {% endblock %}
 
 {% block DocumentationNavBar %}class="nav-item active"{% endblock %}
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle"{% endblock %}
 
 {% block style %}
-    div.body {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
 
 {% endblock %}
 
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2.6 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column" style="padding: 0.5rem">
-                    <li>
-                        <form class="form-inline" action="/documentation/search" >
-                            <input type="text" class="form-control form-control-dark " name="page" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-primary" type="submit" name="query" aria-label="Search">Search</button>
-                        </form>
+    <h1>Documentation</h1>
+    <p>Bug in the pagination in the webpage that let's you browse the datasets.</p>
+    <p>If you write in the form a negative number it will produce wrong values ad indexes and in the info.</p>
+    <p>To fix it go to the package folder and open __init__.py :</p>
+        <ul>
+        <li>Windows: 'C:\ProgramData\Miniconda3\envs\SoftAppProject\Lib\site-packages\flask_paginate\__init__.py'</li>
+        </ul>
+    <p>Then go to Pagination.__init__() and after
 
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/documentation">
-                            <img src="static\hexagon.svg" alt="documentation_icon" width="24px" height="24px">
-                            Index <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            Orders
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Products
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            Customers
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
-                            Reports
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            Integrations
-                        </a>
-                    </li>
-                </ul>
+        <pre >
+             <code style="background: beige">
+         self.page = int(kwargs.get(self.page_parameter, 1))</code>
+         </pre>
 
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Saved reports</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Current month
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Last quarter
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Social engagement
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Year-end sale
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        at line 317 add</p>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Documentation</h1>
-            </div>
-
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-        </main>
-    </div>
-</div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="/docs/4.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-<script src="dashboard.js"></script>
+         <pre >
+             <code style="background: beige">
+         if self.page &#60; 1:
+              self.page = 1</code>
+         </pre>
 
 {% endblock %}

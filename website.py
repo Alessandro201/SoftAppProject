@@ -78,7 +78,7 @@ def download():
     return output
 
 
-@app.route('/tableGenesEvidences/')
+@app.route('/tableGenesEvidences/', methods=['GET', 'POST'])
 def genesTable():
     """A webpage which lets you go through gene data table.
     To do the pagination it uses Pagination() from flask-paginate"""
@@ -89,13 +89,10 @@ def genesTable():
     per_page = 30
 
     # Get the page from the form to let the user go to a specific page
-    try:
-        page = int(request.form['page'])
-        if page < 1:
-            page = 1
 
-    except (KeyError, ValueError):
-        page = request.args.get(get_page_parameter(), type=int, default=1)
+    page = int(request.args.get(get_page_parameter(), type=int, default=1))
+    if page < 1:
+        flash('You need to insert a positive number!')
 
     # start and end index of the table
     start = page * per_page
@@ -125,13 +122,10 @@ def diseasesTable():
     per_page = 30
 
     # Get the page from the form to let the user go to a specific page
-    try:
-        page = int(request.form['page'])
-        if page < 1:
-            page = 1
-
-    except (KeyError, ValueError):
-        page = request.args.get(get_page_parameter(), type=int, default=1)
+    # The value of "page" is taken with functions from flask-paginate otherwise it raises errors
+    page = int(request.args.get(get_page_parameter(), type=int, default=1))
+    if page < 1:
+        flash('You need to insert a positive number!')
 
     # start and end index of the table
     start = page * per_page
