@@ -296,9 +296,13 @@ def correlation():
         try:
             occurrences = request.form['occurrence']
             occurrences = int(occurrences)
+
+            if occurrences < 0:
+                occurrences = 0
+
         except ValueError:
-            # If it raise ValueError it means it's a string which cannot be converted to a number.
-            # It's either an empty string or a word. If it's an empty string it set "occurrences" to the default value
+            # If it raise ValueError it means "occurrence" it's a string which cannot be converted to a number.
+            # It's either an empty string or a word. If it's an empty string it sets "occurrences" to the default value
             if occurrences != '':
                 flash('You need to insert a number!')
                 return redirect(request.referrer)
@@ -308,6 +312,11 @@ def correlation():
         try:
             nrows = request.form['rows']
             nrows = int(nrows)
+
+            if nrows < 0:
+                flash('You need to insert a positive number!')
+                return redirect(request.referrer)
+
         except ValueError:
             # If it raise ValueError it means it's a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's an empty string it set "nrows" to the default value
