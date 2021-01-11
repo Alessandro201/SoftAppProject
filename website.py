@@ -4,7 +4,7 @@ from flask_caching import Cache
 from settings import *
 from io import StringIO
 import csv
-from datetime import datetime
+
 import mediator
 
 app = Flask(__name__)
@@ -12,8 +12,8 @@ app = Flask(__name__)
 # Used by "flash" for flashing comments or errors
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-# tell Flask to use the above defined config
-app.config.from_mapping(config)
+# tell Flask to use the config (defined in settings.py)
+app.config.from_mapping(CACHE_CONFIG)
 cache = Cache(app)
 
 
@@ -41,7 +41,7 @@ def download():
     3) Extract from "data_to_save" which is a dictionary the rows and the labels of the table
     4) A csv.writer is instantiated. It needs StringIO
     5) Write as the first row the labels of the columns, then write all the rows
-    6) Make a response which allows the .csv file to be downloaded
+    6) Make a response which allows the .tsv file to be downloaded
     7) Set some information of the file that will be downloaded like its name and filetype
 
     """
@@ -374,5 +374,4 @@ def genesRelatedToDisease():
 if __name__ == '__main__':
     import mediator
 
-    BASE_PMID_URL = 'https://pubmed.ncbi.nlm.nih.gov/'
     app.run(debug=True)
