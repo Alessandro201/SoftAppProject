@@ -4,7 +4,7 @@ from flask_caching import Cache
 from settings import *
 from io import StringIO
 import csv
-from datetime import datetime
+
 import mediator
 
 app = Flask(__name__)
@@ -12,8 +12,8 @@ app = Flask(__name__)
 # Used by "flash" for flashing comments or errors
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-# tell Flask to use the above defined config
-app.config.from_mapping(config)
+# tell Flask to use the config (defined in settings.py)
+app.config.from_mapping(CACHE_CONFIG)
 cache = Cache(app)
 
 
@@ -41,7 +41,7 @@ def download():
     3) Extract from "data_to_save" which is a dictionary the rows and the labels of the table
     4) A csv.writer is instantiated. It needs StringIO
     5) Write as the first row the labels of the columns, then write all the rows
-    6) Make a response which allows the .csv file to be downloaded
+    6) Make a response which allows the .tsv file to be downloaded
     7) Set some information of the file that will be downloaded like its name and filetype
 
     """
@@ -296,9 +296,13 @@ def correlation():
         try:
             occurrences = request.form['occurrence']
             occurrences = int(occurrences)
+
+            if occurrences < 0:
+                occurrences = 0
+
         except ValueError:
-            # If it raise ValueError it means it's a string which cannot be converted to a number.
-            # It's either an empty string or a word. If it's an empty string it set "occurrences" to the default value
+            # If it raise ValueError it means "occurrence" it's a string which cannot be converted to a number.
+            # It's either an empty string or a word. If it's an empty string it sets "occurrences" to the default value
             if occurrences != '':
                 flash('You need to insert a number!')
                 return redirect(request.referrer)
@@ -308,6 +312,11 @@ def correlation():
         try:
             nrows = request.form['rows']
             nrows = int(nrows)
+
+            if nrows < 0:
+                flash('You need to insert a positive number!')
+                return redirect(request.referrer)
+
         except ValueError:
             # If it raise ValueError it means it's a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's an empty string it set "nrows" to the default value
@@ -374,5 +383,4 @@ def genesRelatedToDisease():
 if __name__ == '__main__':
     import mediator
 
-    BASE_PMID_URL = 'https://pubmed.ncbi.nlm.nih.gov/'
     app.run(debug=True)
