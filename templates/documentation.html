@@ -14,25 +14,6 @@
 
 {% block content %}
     <h1>Documentation</h1>
-    <p>Bug in the pagination in the webpage that let's you browse the datasets.</p>
-    <p>If you write in the form a negative number it will produce wrong values ad indexes and in the info.</p>
-    <p>To fix it go to the package folder and open __init__.py :</p>
-        <ul>
-        <li>Windows: 'C:\ProgramData\Miniconda3\envs\SoftAppProject\Lib\site-packages\flask_paginate\__init__.py'</li>
-        </ul>
-    <p>Then go to Pagination.__init__() and after
 
-        <pre >
-             <code style="background: beige">
-         self.page = int(kwargs.get(self.page_parameter, 1))</code>
-         </pre>
-
-        at line 317 add</p>
-
-         <pre >
-             <code style="background: beige">
-         if self.page &#60; 1:
-              self.page = 1</code>
-         </pre>
 
 {% endblock %}
