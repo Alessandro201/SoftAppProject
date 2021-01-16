@@ -1,12 +1,9 @@
-from flask import Flask, render_template, url_for, request, send_file, flash, make_response, redirect, Markup
+from flask import Flask, render_template, request, send_file, flash, make_response, redirect
 from flask_paginate import Pagination, get_page_parameter
 from flask_caching import Cache
 from settings import *
 from io import StringIO
 import csv
-import json
-
-import mediator
 
 app = Flask(__name__)
 
