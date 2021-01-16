@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import mytable_info %}
+{% from 'macros/operations_macros.html' import mytable_info %}
 
 {% block title %}Info{% endblock %}
 
@@ -9,10 +9,6 @@
 {% block style %}
     table {
         width:90%;
-    }
-
-    p.caption {
-        text-align: center;
     }
 
 {% endblock %}
