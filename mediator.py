@@ -158,3 +158,10 @@ def getGenesRelatedToDisease(disease):
             'lenght': table.shape[0]}
 
     return data
+
+
+def getDocumentation():
+    with open(DOCS_PATH) as f:
+        docs = json.load(f)
+
+    return docs
