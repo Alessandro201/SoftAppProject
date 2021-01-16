@@ -2,15 +2,16 @@ from functions import *
 from settings import *
 import pandas as pd
 import os
+import json
 
 # Compute the path to the databases
-gene_evidences_path = os.path.join(TABLES_LOCATION, GENE_TABLE_NAME)
-disease_evidences_path = os.path.join(TABLES_LOCATION, DISEASE_TABLE_NAME)
+gene_evidences_path = os.path.join(DATASET_LOCATION, GENE_TABLE_NAME)
+disease_evidences_path = os.path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
 
 # Instantiate the classes from functions.py
-geneTable = GeneTable(gene_evidences_path, DELIMITER)
-diseaseTable = DiseaseTable(disease_evidences_path, DELIMITER)
-test = Testing(gene_evidences_path, disease_evidences_path, DELIMITER)
+geneTable = GeneTable(gene_evidences_path)
+diseaseTable = DiseaseTable(disease_evidences_path)
+test = Testing(gene_evidences_path, disease_evidences_path)
 
 
 def getInfo():
