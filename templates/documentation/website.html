@@ -1,0 +1,32 @@
+{% extends "documentation/base.html" %}
+{% from "documentation/../macros/docs_macros.html" import class, attribute, method, function %}
+
+{% block title %}Documentation Website{% endblock %}
+
+{% block DocumentationNavBar %}class="nav-item active"{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle"{% endblock %}
+
+{% block documentation_content %}
+    <h1>website.py</h1>
+
+    <br>
+    <p>Description of the file</p>
+    <br>
+
+    <h2>Classes:</h2>
+
+    <div style="margin-left: 50px">
+
+        <br>
+
+        {% for a_class in docs.classes %}
+            {{ class(name=a_class.name,
+                     parameters=a_class.parameters,
+                     description=a_class.description,
+                     attributes=a_class.attributes,
+                     methods=a_class.methods) }}
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

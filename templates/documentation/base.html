@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="\static\docs_style.css">
+{% endblock %}
+
+{% block DocumentationNavBar %}class="nav-item active"{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle"{% endblock %}
+
+{% block content %}
+    <section class="main-content columns is-fullheight">
+
+  <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
+    <p class="menu-label is-hidden-touch">Navigation</p>
+    <ul class="menu-list">
+      <li>
+        <a href="#" class="">
+          <span class="icon"><i class="fa fa-home"></i></span> Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="">
+          <span class="icon"><i class="fa fa-table"></i></span> Links
+        </a>
+
+        <ul>
+          <li>
+            <a href="#">
+              <span class="icon is-small"><i class="fa fa-link"></i></span> Link1
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="icon is-small"><i class="fa fa-link"></i></span> Link2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="">
+          <span class="icon"><i class="fa fa-info"></i></span> About
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="\documentation\homepage">
+                                <img src="\static\icons\home.svg" alt="home.svg"> Project Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="\documentation\website">
+                                <img src="\static\icons\file.svg" alt="file.svg"> Website.py</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="\documentation\mediator">
+                                <img src="\static\icons\file.svg" alt="file.svg"> Mediator.py</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="\documentation\functions">
+                                <img src="\static\icons\file.svg" alt="file.svg"> Functions.py</a>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="\documentation\settings">
+                                <img src="\static\icons\file.svg" alt="file.svg"> Settings.py</a>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    {% block documentation_content %}{% endblock %}
+                </div>
+            </main>
+        </div>
+    </div>
+
+{% endblock %}
