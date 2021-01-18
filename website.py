@@ -3,8 +3,8 @@ from flask_paginate import Pagination, get_page_parameter
 from flask_caching import Cache
 from settings import *
 from io import StringIO
+from os import path
 import csv
-
 import mediator
 
 app = Flask(__name__)
@@ -29,6 +29,13 @@ def homepage():
     return render_template('homepage.html')
 
 
+@app.route('/test')
+def test():
+    """A webpage which explains briefly the project and allows you to download the datasets or to go through them"""
+
+    return render_template('test.html')
+
+
 @app.route('/download', methods=['POST'])
 def download():
     """Allows to download the table computed as tsv file.
@@ -36,6 +43,8 @@ def download():
     Steps:
     1) Get what_to_download to know the name by which the table is stored in the cache. It will also be
         the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page
+    1.1) If name_file is either diseaseTable or geneTable then it downloads the whole dataset from it's
+        actual location, NOT from the cache.
     2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout
         defined in the config.py. You need to reload the page to compute again the table
     3) Extract from "data_to_save" which is a dictionary the rows and the labels of the table
@@ -52,10 +61,24 @@ def download():
         flash('Error in downloading the table, please try reloading the page.')
         return redirect(request.referrer)
 
+    elif name_file == ' diseaseTable':
+        # Compute the path to the databases
+        disease_evidences_path = path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
+        return send_file(disease_evidences_path, as_attachment=True)
+
+    elif name_file == 'geneTable':
+        # Compute the path to the databases
+        gene_evidences_path = path.join(DATASET_LOCATION, GENE_TABLE_NAME)
+        return send_file(gene_evidences_path, as_attachment=True)
+
     # Step 2)
     data_to_save = cache.get(TABLE_CACHE_NAME)
     if data_to_save is None:
-        flash('Timeout Error, please try reloading the page.')
+        flash({
+            'header': 'Something went wrong!',
+            'message': 'I could not get the table to let you download it, please try reloading the page.',
+        })
+        return redirect(request.referrer)
 
     # Step 3)
     rows = data_to_save['rows']
@@ -103,7 +126,7 @@ def genesTable():
 
     # Prepares the pagination that allows you to click the number of the page and view it
     pagination = Pagination(page=page, total=nrows, record_name="gene entries",
-                            css_framework='bootstrap4', per_page=per_page)
+                            css_framework='bulma', per_page=per_page)
 
     return render_template('tableGenesEvidences.html',
                            rows=df_list,
@@ -136,7 +159,7 @@ def diseasesTable():
 
     # Prepares the pagination that allows you to click the number of the page and view it
     pagination = Pagination(page=page, total=nrows, record_name="diseases entries",
-                            css_framework='bootstrap4', bs_version=4, per_page=per_page)
+                            css_framework='bulma', bs_version=4, per_page=per_page)
 
     return render_template('tableDiseasesEvidences.html',
                            labels=disease_info['labels'],
@@ -150,7 +173,7 @@ def diseasesTableDownload():
     from os import path
 
     # Compute the path to the databases
-    disease_evidences_path = path.join(TABLES_LOCATION, DISEASE_TABLE_NAME)
+    disease_evidences_path = path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
     return send_file(disease_evidences_path, as_attachment=True)
 
 
@@ -160,16 +183,19 @@ def genesTableDownload():
     from os import path
 
     # Compute the path to the databases
-    gene_evidences_path = path.join(TABLES_LOCATION, GENE_TABLE_NAME)
+    gene_evidences_path = path.join(DATASET_LOCATION, GENE_TABLE_NAME)
 
     return send_file(gene_evidences_path, as_attachment=True)
 
 
-@app.route('/documentation')
-def documentation():
+@app.route('/documentation', defaults={'file': 'homepage'})
+@app.route('/documentation/<file>')
+def documentation(file):
     """A webpage with the documentation of the project"""
 
-    return render_template('documentation.html')
+    docs = mediator.getDocumentation()
+
+    return render_template('documentation/%s.html' % file, docs=docs)
 
 
 @app.route('/about')
@@ -192,7 +218,7 @@ def info():
 
     gene_data, disease_data = mediator.getInfo()
 
-    return render_template('info.html', gene_data=gene_data, disease_data=disease_data)
+    return render_template('operations/info.html', gene_data=gene_data, disease_data=disease_data)
 
 
 # for c objective
@@ -206,7 +232,7 @@ def distinctGenes():
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for e objective
@@ -220,7 +246,7 @@ def distinctDiseases():
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for d objective
@@ -234,14 +260,14 @@ def geneEvidences():
     NAME_FUNCTION = '_evidences'
 
     if request.method == "GET":
-        return render_template('inputGeneEvidences.html')
+        return render_template('operations/inputGeneEvidences.html')
     else:
         gene = request.form['gene']
         data = mediator.getGeneEvidences(gene)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template("geneEvidences.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION,
+        return render_template("operations/geneEvidences.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION,
                                base_pmid_url=BASE_PMID_URL)
 
 
@@ -256,14 +282,14 @@ def diseaseEvidences():
     NAME_FUNCTION = '_evidences'
 
     if request.method == "GET":
-        return render_template('inputDiseaseEvidences.html')
+        return render_template('operations/inputDiseaseEvidences.html')
     else:
         disease = request.form['disease']
         data = mediator.getDiseaseEvidences(disease)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template('diseaseEvidences.html', disease=disease, data=data,
+        return render_template('operations/diseaseEvidences.html', disease=disease, data=data,
                                base_pmid_url=BASE_PMID_URL, NAME_FUNCTION=NAME_FUNCTION)
 
 
@@ -329,7 +355,7 @@ def correlation():
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for h objective
@@ -343,14 +369,15 @@ def diseasesRelatedToGene():
     NAME_FUNCTION = 'diseases_rel_to_'
 
     if request.method == "GET":
-        return render_template('inputDiseasesRelatedToGene.html')
+        return render_template('operations/inputDiseasesRelatedToGene.html')
     else:
         gene = request.form['gene']
         data = mediator.getDiseasesRelatedToGene(gene)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template("diseasesRelatedToGene.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION)
+        return render_template("operations/diseasesRelatedToGene.html", gene=gene, data=data,
+                               NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for i objective
@@ -364,13 +391,13 @@ def genesRelatedToDisease():
     NAME_FUNCTION = 'genes_rel_to_'
 
     if request.method == "GET":
-        return render_template('inputGenesRelatedToDisease.html')
+        return render_template('operations/inputGenesRelatedToDisease.html')
     else:
         disease = request.form['disease']
         data = mediator.getGenesRelatedToDisease(disease)
 
         cache.set(TABLE_CACHE_NAME, data)
-        return render_template("genesRelatedToDisease.html", data=data, disease=disease,
+        return render_template("operations/genesRelatedToDisease.html", data=data, disease=disease,
                                NAME_FUNCTION=NAME_FUNCTION)
 
 
