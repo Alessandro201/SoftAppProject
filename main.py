@@ -1,4 +1,4 @@
-from python_files import website
+import website
 
 if __name__ == '__main__':
     #todo: remove debug
