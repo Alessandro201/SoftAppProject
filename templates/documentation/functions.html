@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends "documentation/base.html" %}
+{% from "documentation/../macros/docs_macros.html" import class, attribute, method, function %}
+
+{% block title %}Documentation Website{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block DocumentationNavBar %}class="nav-item active"{% endblock %}
+{% block FunctionsNavBar %}class="nav-link dropdown-toggle"{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block documentation_content %}
+    <h1>functions.py</h1>
+
+    <h2>Classes</h2>
+
+
+    {% for arg in args %}
+        {{ class('Flask', arg, 'Initialize a flask object and allow you to do stuff') }}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+/* Global */
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+p.caption {
+    text-align: center;
+}
+
+
+/* For the tables */
+table, th, td {
+    text-align: center;
+    border: 1px solid #000000;
+    border-collapse: collapse;
+    padding: 15px;
+}
+
+table {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+}
+
+th {
+    color: white;
+    background-color: #3a3b3d;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}

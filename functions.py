@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import re
 import pandas as pd
+import os
 
 
 class DataTables(ABC):
@@ -49,12 +50,21 @@ class Analysis(ABC):
 
 class GeneTable(DataTables):
 
-    def __init__(self, table, delimiter='\t'):
+    def __init__(self, table, delimiter=None):
         """
         The function creates the GeneTable with the parameter table
         :param table: tha tsv file containing the table
         :type table: pandas.DataFrame
         """
+
+        # Finds the delimiter based on the extension
+        if delimiter is None:
+            extension = os.path.splitext(table)[1]
+            if extension == '.tsv':
+                delimiter = '\t'
+            else:
+                delimiter = ','
+
         self.__geneTable = pd.read_csv(table, delimiter=delimiter)
 
     def __getitem__(self, item):
@@ -140,12 +150,21 @@ class GeneTable(DataTables):
 
 
 class DiseaseTable(DataTables):
-    def __init__(self, table, delimiter='\t'):
+    def __init__(self, table, delimiter=None):
         """
         The function creates the GeneTable with the parameter table
         :param table: tha tsv file containing the table
         :type table: pandas.DataFrame
         """
+
+        # Finds the delimiter based on the extension
+        if delimiter is None:
+            extension = os.path.splitext(table)[1]
+            if extension == '.tsv':
+                delimiter = '\t'
+            else:
+                delimiter = ','
+
         self.__diseaseTable = pd.read_csv(table, delimiter=delimiter)
 
     def __getitem__(self, item):
@@ -242,9 +261,26 @@ class DiseaseTable(DataTables):
 
 
 class Testing(Analysis):
-    def __init__(self, table, table2, delimiter='\t'):
-        self.__diseaseTable = pd.read_csv(table, delimiter=delimiter)
-        self.__geneTable = pd.read_csv(table2, delimiter=delimiter)
+    def __init__(self, geneTable, diseaseTable, geneDelimiter=None, diseaseDelimiter=None):
+
+        # Finds the delimiter of the gene dataset based on the extension
+        if geneDelimiter is None:
+            extension = os.path.splitext(geneTable)[1]
+            if extension == '.tsv':
+                geneDelimiter = '\t'
+            else:
+                geneDelimiter = ','
+
+        # Finds the delimiter of the disease dataset based on the extension
+        if diseaseDelimiter is None:
+            extension = os.path.splitext(diseaseTable)[1]
+            if extension == '.tsv':
+                diseaseDelimiter = '\t'
+            else:
+                diseaseDelimiter = ','
+
+        self.__diseaseTable = pd.read_csv(diseaseTable, delimiter=geneDelimiter)
+        self.__geneTable = pd.read_csv(geneTable, delimiter=diseaseDelimiter)
 
     def correlation_gene_disease(self):
         """

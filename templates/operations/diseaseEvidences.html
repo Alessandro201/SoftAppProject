@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% from 'macros.html' import mytable_with_pmid_links %}
+{% from 'macros/operations_macros.html' import mytable_with_pmid_links %}
 
-{% block title %}GeneEvidences{% endblock %}
+{% block title %}DiseaseEvidence{% endblock %}
 
 {% block style %}
 
@@ -11,7 +11,7 @@
 
 {% endblock %}
 
-<!--Set function tab as active-->
+<!--Set the tab function as active-->
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 {% block content %}
     <h1>Covid-19 relation evidences</h1>
@@ -19,10 +19,10 @@
     <br><br/>
 
     <p class="center-align">Hereafter are reported the evidences in literature of the relation between
-        Covid-19 and the gene "<i><b>{{gene}}</b></i>".</p>
+        Covid-19 and the disease "<i><b>{{disease}}</b></i>".</p>
 
     {% if data.lenght == 0 %}
-        <p class="center-align">No evidence was found which relates covid-19 with the gene.</p>
+        <p class="center-align">No evidence was found which relates covid-19 with the disease.</p>
     {% else %}
         <!--Display the number of evidences found and a button to download the table-->
         <form class="form-inline" action="/download" method="POST" style="justify-content: center; margin-bottom: 1rem">
@@ -32,16 +32,17 @@
 
             <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
             <div class="center">
-                <button class="btn btn-primary" type="submit" value="{{gene ~ NAME_FUNCTION}}" name="name_file">Download as tsv!</button>
+                <button class="btn btn-primary" type="submit" value="{{disease ~ NAME_FUNCTION}}" name="name_file">Download as tsv!</button>
             </div>
         </form>
+
 
         <!--Display the table with pmid links-->
         {{mytable_with_pmid_links(data, base_pmid_url)}}
 
-        <br>
-        <br>
 
     {% endif %}
+
+
 
 {% endblock %}

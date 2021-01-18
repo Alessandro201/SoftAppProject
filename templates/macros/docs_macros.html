@@ -1,0 +1,57 @@
+{%  macro class(name, parameters, description, attributes, methods) %}
+    <div>
+    <!--Name of the class-->
+        <h4>{{ name }}</h4>
+        <!--Name of the class with parameters and their default if present-->
+        class {{ name }}
+            <b>(
+                {% for param in parameters %}
+                    <i>{{ param.name}}{{ param.default }},</i>
+                {% endfor %}
+                ):
+            </b>
+
+
+        <div style="margin-left: 50px;">
+            <p class="description" >{{ description }}</p>
+        </div>
+
+        <br>
+        <dl class="field-list">
+            <dt class="field-odd">Parameters:</dt>
+            <dd class="field-odd">
+                <dl>
+                    {% for param in parameters %}
+                        <dt><span class="attr-name">{{ param.name }} : </span>
+                            <span class="attr-types"><i>{{ param.type }}</i></span></dt>
+                        <dd><p>{{ param.description }}</p></dd>
+                    {% endfor %}
+                </dl>
+            </dd>
+        </dl>
+    </div>
+{%  endmacro %}
+
+
+
+
+{%  macro attribute(name, type, description) %}
+
+
+{%  endmacro %}
+
+
+
+
+{%  macro method(name, arguments, description, rtype) %}
+
+
+{%  endmacro %}
+
+
+
+
+{%  macro function(name, arguments, description, rtype) %}
+
+
+{%  endmacro %}

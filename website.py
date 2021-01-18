@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, send_file, flash, make_response, redirect
+from flask import Flask, render_template, url_for, request, send_file, flash, make_response, redirect, Markup
 from flask_paginate import Pagination, get_page_parameter
 from flask_caching import Cache
 from settings import *
 from io import StringIO
 import csv
+import json
 
 import mediator
 
@@ -150,7 +151,7 @@ def diseasesTableDownload():
     from os import path
 
     # Compute the path to the databases
-    disease_evidences_path = path.join(TABLES_LOCATION, DISEASE_TABLE_NAME)
+    disease_evidences_path = path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
     return send_file(disease_evidences_path, as_attachment=True)
 
 
@@ -160,16 +161,19 @@ def genesTableDownload():
     from os import path
 
     # Compute the path to the databases
-    gene_evidences_path = path.join(TABLES_LOCATION, GENE_TABLE_NAME)
+    gene_evidences_path = path.join(DATASET_LOCATION, GENE_TABLE_NAME)
 
     return send_file(gene_evidences_path, as_attachment=True)
 
 
-@app.route('/documentation')
-def documentation():
+@app.route('/documentation', defaults={'file': 'homepage'})
+@app.route('/documentation/<file>')
+def documentation(file):
     """A webpage with the documentation of the project"""
 
-    return render_template('documentation.html')
+    docs = mediator.getDocumentation()
+
+    return render_template('documentation/%s.html' % file, docs=docs)
 
 
 @app.route('/about')
@@ -192,7 +196,7 @@ def info():
 
     gene_data, disease_data = mediator.getInfo()
 
-    return render_template('info.html', gene_data=gene_data, disease_data=disease_data)
+    return render_template('operations/info.html', gene_data=gene_data, disease_data=disease_data)
 
 
 # for c objective
@@ -206,7 +210,7 @@ def distinctGenes():
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for e objective
@@ -220,7 +224,7 @@ def distinctDiseases():
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for d objective
@@ -234,14 +238,14 @@ def geneEvidences():
     NAME_FUNCTION = '_evidences'
 
     if request.method == "GET":
-        return render_template('inputGeneEvidences.html')
+        return render_template('operations/inputGeneEvidences.html')
     else:
         gene = request.form['gene']
         data = mediator.getGeneEvidences(gene)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template("geneEvidences.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION,
+        return render_template("operations/geneEvidences.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION,
                                base_pmid_url=BASE_PMID_URL)
 
 
@@ -256,14 +260,14 @@ def diseaseEvidences():
     NAME_FUNCTION = '_evidences'
 
     if request.method == "GET":
-        return render_template('inputDiseaseEvidences.html')
+        return render_template('operations/inputDiseaseEvidences.html')
     else:
         disease = request.form['disease']
         data = mediator.getDiseaseEvidences(disease)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template('diseaseEvidences.html', disease=disease, data=data,
+        return render_template('operations/diseaseEvidences.html', disease=disease, data=data,
                                base_pmid_url=BASE_PMID_URL, NAME_FUNCTION=NAME_FUNCTION)
 
 
@@ -329,7 +333,7 @@ def correlation():
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for h objective
@@ -343,14 +347,14 @@ def diseasesRelatedToGene():
     NAME_FUNCTION = 'diseases_rel_to_'
 
     if request.method == "GET":
-        return render_template('inputDiseasesRelatedToGene.html')
+        return render_template('operations/inputDiseasesRelatedToGene.html')
     else:
         gene = request.form['gene']
         data = mediator.getDiseasesRelatedToGene(gene)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template("diseasesRelatedToGene.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION)
+        return render_template("operations/diseasesRelatedToGene.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION)
 
 
 # for i objective
@@ -364,13 +368,13 @@ def genesRelatedToDisease():
     NAME_FUNCTION = 'genes_rel_to_'
 
     if request.method == "GET":
-        return render_template('inputGenesRelatedToDisease.html')
+        return render_template('operations/inputGenesRelatedToDisease.html')
     else:
         disease = request.form['disease']
         data = mediator.getGenesRelatedToDisease(disease)
 
         cache.set(TABLE_CACHE_NAME, data)
-        return render_template("genesRelatedToDisease.html", data=data, disease=disease,
+        return render_template("operations/genesRelatedToDisease.html", data=data, disease=disease,
                                NAME_FUNCTION=NAME_FUNCTION)
 
 

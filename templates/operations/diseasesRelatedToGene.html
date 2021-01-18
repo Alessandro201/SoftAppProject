@@ -1,37 +1,36 @@
 {% extends "base.html" %}
-{% from 'macros.html' import mytable %}
+{% from 'macros/operations_macros.html' import mytable %}
 
-{% block title %}GenesRelatedToDisease{% endblock %}
+{% block title %}DiseasesRelatedToGene{% endblock %}
 
 {% block style %}
 
     table {
-        width:30%;
+        width:40%;
     }
-
 
 {% endblock %}
 
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle active"{% endblock %}
 {% block content %}
-    <h1>Genes related to a disease</h1>
+    <h1>Diseases related to a Gene</h1>
 
     <br><br/>
 
     {% if data.lenght == 0 %}
-        <p class="center-align">It doesn't exist any gene related to the disease:  "<i><b>{{disease}}</b></i>".</p>
+        <p class="center-align">It doesn't exist any disease related to the gene "<i>{{gene}}</i>".</p>
     {% else %}
-        <p class="center-align">Here are presented all the genes related to the disease "<i><b>{{disease}}</b></i>":</p>
+        <p class="center-align">Here are presented all the diseases related to the gene "<i><b>{{gene}}</b></i>":</p>
 
         <!--Display the number of diseases found and a button to download the table-->
         <form class="form-inline" action="/download" method="POST" style="justify-content: center; margin-bottom: 1rem">
             <div class="center" style="margin-right: 1rem;">
-                <p class="center-align">Number of genes found: <b>{{data.lenght}}</b></p>
+                <p class="center-align">Number of diseases found: <b>{{data.lenght}}</b></p>
             </div>
 
             <!--Button to download the table. It sends to /download NAME_FUNCTION which indicates the table to download-->
             <div class="center">
-                <button class="btn btn-primary" type="submit" value="{{NAME_FUNCTION ~ disease}}" name="name_file">Download as tsv!</button>
+                <button class="btn btn-primary" type="submit" value="{{NAME_FUNCTION ~ gene}}" name="name_file">Download as tsv!</button>
             </div>
         </form>
 
@@ -40,7 +39,6 @@
 
         <br>
         <br>
-
 
     {% endif %}
 
