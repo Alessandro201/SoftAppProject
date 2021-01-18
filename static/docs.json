@@ -1,23 +1,22 @@
 {
   "classes": [
     {
-      "name": "ExampleClass",
-      "description": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"",
+      "name": "GeneTable",
+      "description": "The function creates the GeneTable with the parameter table",
 
 
       "parameters": [
         {
-          "name": "table_path",
-          "default": "=None",
-          "description": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. datat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"",
-
-          "type": "type"
+          "name": "table",
+          "default": "",
+          "description": "The .tsv file containing the table",
+          "type": "pandas.DataFrame"
         },
         {
           "name": "delimiter",
-          "default": "='\\t'",
-          "description": "description2",
-          "type": "type2"
+          "default": "=None",
+          "description": "Is the delimiter of the dataset",
+          "type": "str or None"
         }
       ],
 
