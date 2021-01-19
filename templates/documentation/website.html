@@ -6,27 +6,53 @@
 {% block DocumentationNavBar %}class="nav-item active"{% endblock %}
 {% block FunctionsNavBar %}class="nav-link dropdown-toggle"{% endblock %}
 
-{% block documentation_content %}
-    <h1>website.py</h1>
 
-    <br>
+{% block docs_title %}
+    <h1>website.py</h1>
+{% endblock %}
+
+{% block docs_content %}
     <p>Description of the file</p>
     <br>
 
-    <h2>Classes:</h2>
+    {% if docs.classes|length > 0 %}
 
-    <div style="margin-left: 50px">
+        <h2>Classes:</h2>
 
-        <br>
+        <div style="margin-left: 50px">
 
-        {% for a_class in docs.classes %}
-            {{ class(name=a_class.name,
+            <br>
+
+            {% for a_class in docs.classes %}
+                {{ class(name=a_class.name,
                      parameters=a_class.parameters,
                      description=a_class.description,
                      attributes=a_class.attributes,
                      methods=a_class.methods) }}
 
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
+
+    <br>
+    <br>
+    <br>
+
+    {% if docs.functions|length > 0 %}
+        <h2>Functions:</h2>
+
+        <div style="margin-left: 50px">
+
+            <br>
+
+            {% for a_funct in docs.functions %}
+                {{ function(name=a_funct.name,
+                     parameters=a_funct.parameters,
+                     description=a_funct.description,
+                     rtype=a_funct.rtype) }}
+
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
