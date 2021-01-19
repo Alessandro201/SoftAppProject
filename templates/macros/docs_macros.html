@@ -13,8 +13,8 @@
                 </b>
             </p>
 
-            <div style="margin-left: 50px;">
-                <p class="description">{{ description }}</p>
+            <div style="margin-left: 2rem;">
+                <p>{{ description }}</p>
             </div>
 
             <br>
@@ -49,43 +49,34 @@
                 <dt>Methods:</dt>
                 <dd>
                     {% for meth in methods %}
-                        <dt>
-                            <span style="font-weight: 700">class</span> {{ meth.name }}
-                            (
-                                {% for param in meth.parameters %}
-                                    <i>{{ param.name }}{{ param.default }},</i>
-                                {% endfor %}
-                                ): --> <span style="font-weight: 500"><i>{{ meth.rtype }}</i></span>
-                        </dt>
+                        <dl>
+                            <dt>
+                                <p style="font-weight: 700"> {{ meth.name }}(
+                                    {% for param in meth.parameters %}
+                                        <i>{{ param.name }}{{ param.default }},</i>
+                                    {% endfor %}
+                                    ): --> <span style="font-weight: 500"><i>{{ meth.rtype }}</i></span></p>
+                            </dt>
 
-                        <dd>
-                            <dl>
-                                {% for param in meth.parameters %}
-                                    <dt><span style="font-weight: 700">{{ param.name }} : </span>
-                                        <span style="font-weight: 500"><i>{{ param.type }}</i></span>
-                                    </dt>
-                                    <dd style="margin-left: 2rem">{{ param.description }}</dd>
-                                {% endfor %}
-                            </dl>
-                        </dd>
-
+                            <dd>
+                                <div style="margin-left: 1rem;">
+                                    <p>{{ meth.description }}</p>
+                                </div>
+                                <dl style="margin-left: 1rem">
+                                    {% for param in meth.parameters %}
+                                        <dt><span style="font-weight: 700">{{ param.name }} : </span>
+                                            <span style="font-weight: 500"><i>{{ param.type }}</i></span>
+                                        </dt>
+                                        <dd style="margin-left: 2rem">{{ param.description }}</dd>
+                                    {% endfor %}
+                                </dl>
+                            </dd>
+                        </dl>
                     {% endfor %}
-
                 </dd>
             </dl>
         </section>
-
     </section>
-
-
-
-
-
-
-
-
-
-
 {% endmacro %}
 
 
@@ -99,7 +90,46 @@
 
 
 
-{% macro function(name, arguments, description, rtype) %}
+{% macro function(name, parameters, description, rtype) %}
+    <section class="section">
+        <!--Name of the function-->
+        <h4>{{ name }}</h4>
 
+        <!--Name of the function with parameters and their default if present-->
+        <section style="margin-left: 3rem">
+            <p><span style="font-weight: 700">function</span> {{ name }}
+                <b>(
+                    {% for param in parameters %}
+                        <i>{{ param.name }}{{ param.default }},</i>
+                    {% endfor %}
+                    ):</b>
+                <span style="font-weight: 500"> --> <i>{{ rtype }}</i></span>
+            </p>
+
+            <div style="margin-left: 2rem">
+                <p>{{ description }}</p>
+
+            </div>
+
+            <br>
+            <dl>
+                <dt>Parameters:</dt>
+                <dd>
+                    <dl>
+                        {% for param in parameters %}
+                            <dt><span style="font-weight: 700">{{ param.name }} : </span>
+                                <span style="font-weight: 500"><i>{{ param.type }}</i></span>
+                            </dt>
+                            <dd style="margin-left: 2rem">{{ param.description }}</dd>
+                        {% endfor %}
+                    </dl>
+                </dd>
+
+                <dd><br></dd>
+
+            </dl>
+        </section>
+
+    </section>
 
 {% endmacro %}
