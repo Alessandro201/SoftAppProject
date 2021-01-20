@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% from 'macros/operations_macros.html' import mytable_info %}
+{% block title %}Information on the datasets{% endblock %}
+
+{% block content %}
+    <section class="hero full-width ">
+        <div class="columns is-justify-content-center mt-4 has-text-centered">
+            <div class="column is-11">
+
+                <!-- Diseases Table Information -->
+                <div class="block mb-6 pb-6">
+                    <p class="title is-size-2">Information of the datasets</p>
+
+                    <div class="block mt-6">
+                        <!--Prints dimensionality of the disease table-->
+                        <p class="title is-size-4">Disease evidences table</p>
+                        <p>
+                            Number of rows: <b>{{ disease_data.nrows }}</b><br/>
+                            Number of columns: <b>{{ disease_data.ncols }}</b>
+                        </p>
+
+                        <!--Prints labels of the disease table-->
+                        <p>
+                            <b>Labels</b>:
+                            {% for label in disease_data.labels %}
+                                {{ label }},
+                            {% endfor %}
+                        </p>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="block">
+                        <p class="tag is-info is-light is-italic mb-1">Head and Tail</p>
+                        {{ mytable_info(data=disease_data,
+                    table_class="table is-bordered is-hoverable has-hover-blue-light is-mystyle has-text-centered") }}
+                    </div>
+                </div>
+
+
+                <!-- Genes Table Information -->
+                <div class="block mb-6 pb-6">
+                    <div class="block">
+
+                        <!--Prints dimensionality of the disease table-->
+                        <p class="title is-size-4">Gene evidences table</p>
+                        <p>
+                            Number of rows: <b>{{ gene_data.nrows }}</b><br/>
+                            Number of columns: <b>{{ gene_data.ncols }}</b>
+                        </p>
+
+                        <!--Prints labels of the disease table-->
+                        <p>
+                            <b>Labels</b>:
+                            {% for label in gene_data.labels %}
+                                {{ label }},
+                            {% endfor %}
+                        </p>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="block">
+                        <p class="tag is-info is-light is-italic mb-1">Head and Tail</p>
+                        {{ mytable_info(data=gene_data,
+                    table_class="table is-bordered is-hoverable has-hover-blue-light is-mystyle has-text-centered") }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

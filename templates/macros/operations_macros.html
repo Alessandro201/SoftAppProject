@@ -1,6 +1,6 @@
 <!--Standard table-->
-{% macro mytable(data, table_class) %}
-    <table class="{{ table_class }}">
+{% macro mytable(data, table_class, style='') %}
+    <table class="{{ table_class }}" style="{{ style }}">
         <tr>
             <!--The first column "#" is the index of the row-->
             <th>#</th>
@@ -24,7 +24,7 @@
 
 
 <!--Table for info.html-->
-{% macro mytable(data, table_class) %}
+{% macro mytable_info(data, table_class) %}
     <table class="{{ table_class }}">
         <tr>
             {% for column in data.labels %}

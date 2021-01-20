@@ -3,6 +3,10 @@
 {% set DocsNavBarActive = "is-active" %}
 
 {% block style %}
+    .has-hover-dark a:hover {
+        background-color: dimgrey;
+        text-color: white;
+    }
 {% endblock %}
 
 {% block content %}
@@ -14,18 +18,18 @@
                         <p class="menu-label has-text-white is-hoverable has-hover-transparent">
                             Project Overview
                         </p>
-                        <ul class="menu-list is-3">
-                            <li><a class="has-text-link-light" href="\documentation\homepage">
+                        <ul class="menu-list is-3 has-hover-dark">
+                            <li><a class="has-text-light" style="" href="\documentation\homepage">
                                 <i class="fas fa-home"></i> Project Overview</a></li>
-                            <li><a class="has-text-link-light" href="\documentation\main">
+                            <li><a class="has-text-light" href="\documentation\main">
                                 <i class="fas fa-file-alt"></i> Main.py</a></li>
-                            <li><a class="has-text-link-light" href="\documentation\website">
+                            <li><a class="has-text-light" href="\documentation\website">
                                 <i class="fas fa-file-alt"></i> Website.py</a></li>
-                            <li><a class="has-text-link-light" href="\documentation\mediator">
+                            <li><a class="has-text-light" href="\documentation\mediator">
                                 <i class="fas fa-file-alt"></i> Mediator.py</a></li>
-                            <li><a class="has-text-link-light" href="\documentation\functions">
+                            <li><a class="has-text-light" href="\documentation\functions">
                                 <i class="fas fa-file-alt"></i> Functions.py</a></li>
-                            <li><a class="has-text-link-light" href="\documentation\settings">
+                            <li><a class="has-text-light" href="\documentation\settings">
                                 <i class="fas fa-file-alt"></i> Settings.py</a></li>
                         </ul>
                     </aside>

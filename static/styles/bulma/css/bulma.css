@@ -2815,35 +2815,39 @@ fieldset[disabled] .button {
 
 /* My modifications */
 
-.table.is-hoverable.is-mystyle tbody tr:not(.is-selected):nth-child(even) {
+.table.is-three-fourth {
+  width: 75%;
+}
+
+.table.is-one-third {
+  width: 33%;
+}
+
+.table.is-mystyle tbody tr:not(.is-selected):nth-child(even) {
   background-color: #eee;
 }
 
-.table.is-hoverable.is-mystyle tbody tr:not(.is-selected):nth-child(odd) {
+.table.is-mystyle tbody tr:not(.is-selected):nth-child(odd) {
   background-color: #fff;
 }
 
-.is-hoverable.has-hover-yellow-light :hover {
+.table.is-hoverable.has-hover-yellow-light tr:not(.is-selected):hover {
   background-color: lightyellow;
 }
 
-.is-hoverable.has-hover-red-light :hover {
-  background-color: #ffd1d1;
-}
-
-.is-hoverable.has-hover-blue-light :hover {
+.table.is-hoverable.has-hover-blue-light tr:not(.is-selected):hover {
   background-color: #d1f6ff;
 }
 
-.is-hoverable.has-hover-grey :hover {
+.table.is-hoverable.has-hover-grey tr:not(.is-selected):hover {
   background-color: grey;
 }
 
-.is-hoverable.has-hover-aquamarine :hover {
+.table.is-hoverable.has-hover-aquamarine tr:not(.is-selected):hover {
   background-color: aquamarine;
 }
 
-.is-hoverable.has-hover-green-light :hover {
+.table.is-hoverable.has-hover-green-light tr:not(.is-selected):hover {
   background-color: lightgreen;
 }
 
@@ -2851,6 +2855,11 @@ fieldset[disabled] .button {
     color: whitesmoke;
     background-color: #3a3b3d;
 }
+
+.has-hover-light :hover {
+  background-color: #e8e8e3;
+}
+
 
 /* End of my modifications */
 
