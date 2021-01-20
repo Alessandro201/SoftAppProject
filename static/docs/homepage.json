@@ -5,7 +5,7 @@
       "title_dimension": 1,
       "text": [
         "In this project we are using two datasets - Gene table and Disease table. By manipulating these datesets we can perform many operations. We have designed a program which is composed of three parts."
-      "These three parts are working in the following way: part1 is a mediator, which means that part2 and part3 are comunicating by it. Part2 is composed of clases which have methods coresponding to the operations that we want to perform. Part 3 is a Web page, correlated with html files. And in part1 we have all the functions which are taking the results of the methods used in part2 and by part1 we can present those results in the way we want, which is later used by part3." \""
+      "These three parts are working in the following way: part1 is a mediator, which means that part2 and part3 are comunicating by it. Part2 is composed of clases which have methods coresponding to the operations that we want to perform. Part 3 is a Web page, correlated with html files. And in part1 we have all the functions which are taking the results of the methods used in part2 and by part1 we can present those results in the way we want, which is later used by part3." 
       ]
     },
     {
