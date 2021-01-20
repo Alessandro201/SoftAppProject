@@ -159,7 +159,7 @@ def browseGeneDataset():
     end = (page + 1) * rows_per_page
 
     # Returns a list of the rows from index start to index end
-    data['rows'] = mediator.getDiseaseTableList(start, end)
+    data['rows'] = mediator.getGeneTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it in the webpage
     pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",

@@ -15,7 +15,7 @@ BASE_PMID_URL = 'https://pubmed.ncbi.nlm.nih.gov/'
 # ---------- Paths Settings ----------
 
 # Location of the documentation json file. The default path is "\static\docs"
-DOCS_PATH = os.path.join(os.getcwd(), r'static\docs')
+DOCS_PATH = os.path.join(os.getcwd(), r'static/docs')
 
 
 # Locations of the two datasets. The default path is "\datasets"
