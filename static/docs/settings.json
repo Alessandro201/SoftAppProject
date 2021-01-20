@@ -1,3 +1,38 @@
 {
-  "": ""
+  "sections": [
+    {
+      "title": "Settings",
+      "title_dimension": 1,
+      "text": [
+        "Settings.py gives to the user the capacity to edit the global variables of the project and the possibility to edit advanced settings."
+       ]
+    },
+    {
+      "title": "PMID Settings",
+      "title_dimension": 3,
+      "text": [
+        "BASE_PMID_URL variable set the link that is used to add to each PubMedId the pubmed article associated with it"
+      ]
+    },
+    {
+      "title": "Paths Settings",
+      "title_dimension": 3,
+      "text": [
+        "DOCS_PATH variable set the path on which the json documentation files are stored\n",
+        "DATASET_LOCATION variable set the path on which the datasets used are located\n",
+        "GENE_TABLE_NAME variable set the name of the GeneTable file\n",
+        "DISEASE_TABLE_NAME variable set the name of the GeneTable file"
+      ]
+    },
+    {
+      "title": "Cache Settings",
+      "title_dimension": 3,
+      "text": [
+        "Settings for the Flask cache used for downloading the tables\n",
+        "CACHE_CONFIG dictionary set some options about the cache\n",
+        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as list) computed when an operation on the datasets is called, to be later downloaded.\n",
+        "TABLE_CACHE_NAME variable set the name of the table cache"
+      ]
+    }
+  ]
 }
