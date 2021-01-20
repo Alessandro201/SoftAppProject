@@ -38,7 +38,7 @@ def about():
 @app.route('/documentation', defaults={'file': 'homepage'})
 @app.route('/documentation/<file>')
 def documentation(file):
-    """Return a webpage with the docs of the project.
+    """Return the webpages with the documentation of the project.
 
     Every webpage of the docs has it's name added after "/documentation/"
     This means that you can add all the webpages that you want and you won't need to write a single line of code,
@@ -92,9 +92,9 @@ def download():
     name_file = request.form.get('name_file')
     if name_file is None:
         flash({'type': 'warning',
-               'header': 'Error!',
-               'message': 'Error in downloading the table, please try reloading the page!'
-                          '\n\nDetails: "name_file" not found in the forms'})
+               'header': 'Something went wrong!',
+               'message': 'Error in downloading the table, please try reloading the page!',
+               'details': f"\"name_file\":{name_file} not found in the forms"})
         return redirect(request.referrer)
 
     elif name_file == 'diseaseTable':

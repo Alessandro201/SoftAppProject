@@ -157,17 +157,18 @@
 
 <!-- Is the html that manage the introduction-->
 {% macro text_sections(docs) %}
-    <section class="section">
-        {% for section in docs.sections %}
-            <div class="block">
-                <p class="title is-size-{{ section.title_dimension }}">
-                    {{ section.title }}
-                </p>
-                {% for paragraph in section.text %}
-                    <div class="block ml-5" style="white-space:pre-wrap;">{{ paragraph }}</div>
-                {% endfor %}
-            </div>
-
+<section class="section">
+    {% for section in docs.sections %}
+    <div class="block">
+        <p class="title is-size-{{ section.title_dimension }}">
+            {{ section.title }}
+        </p>
+        {% for paragraph in section.text %}
+            <div class="block ml-5" style="white-space:pre-wrap;">
+            {% autoescape off %}{{ paragraph }}{% endautoescape %}</div>
         {% endfor %}
-    </section>
+    </div>
+
+    {% endfor %}
+</section>
 {% endmacro %}

@@ -1,30 +1,79 @@
 {
+  "sections": [
+    {
+      "title": "title",
+      "title_dimension": 1,
+      "text": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
+      ]
+    },
+    {
+      "title": "title2",
+      "title_dimension": 3,
+      "text": [
+        "text12",
+        "text22",
+        "text32"
+      ]
+    },
+    {
+      "title": "title3",
+      "title_dimension": 6,
+      "text": [
+        "text13",
+        "text23",
+        "text33"
+      ]
+    }
+  ],
+
   "functions": [
     {
-      "name": "getDiseaseTableList",
-      "description": "Returns a list of rows of the disease table from 'start' to 'end'",
-      "rtype": "pandas.DataFrame",
+      "name": "run",
+      "description": "It's called by main.py to start the website.",
 
       "parameters": [
         {
-          "name": "start",
-          "description": "Starting row to return",
-          "default": "=0",
-          "type": "int"
-        },
-        {
-          "name": "end",
-          "description": "Ending row to return",
-          "default": "=None",
-          "type": "int"
-        },
-        {
-          "name": "step",
-          "description": "Every 'step' row is taken",
-          "default": "=1",
-          "type": "int"
+          "name": "**kwargs",
+          "description": "The arguments are directly passed to Flask when he runs the website",
+          "type": "dict"
         }
       ]
+    },
+
+    {
+      "name": "homepage",
+      "description": "The function renders the homepage in which the project is explained briefly."
+    },
+
+    {
+      "name": "documentation",
+      "description": "Return the webpages with the documentation of the project.\n\nEvery webpage of the docs has it's name added after \"/documentation/\"\nThis means that you can add all the webpages that you want and you won't need to write a single line of code, just add the html files to \"templates/documentation/\" and the .json files with the documentation to the folder containing all the .json written in \"settings.py\".\n\nAny eventual OSError exception is purposefully caught here and not in mediator.py to show the error as a popup with flash()",
+
+      "parameters": [
+        {
+          "name": "file",
+          "description": "Is the name of the documentation webpage. For example if file=\"settings\" then the url will be \"documentation/setting\"",
+          "type": "str"
+        }
+      ]
+    },
+
+    {
+      "name": "functions",
+      "description": "Returns the webpage which lets you select the operation you want to do with the datasets."
+    },
+
+    {
+      "name": "download",
+      "description": "Allows to download the table computed by an operation as tsv file.\n\nSteps:\n1) Get what_to_download to know the name by which the table is stored in the cache. It will also be the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page\n1.1) If name_file is either diseaseTable or geneTable then it downloads the whole dataset from it's actual location, NOT from the cache.\n2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout defined in the config.py. You need to reload the page to compute again the table\n3) Extract from \"data_to_save\" which is a dictionary the rows and the labels of the table\n4) A csv.writer is instantiated. It needs StringIO\n5) Write as the first row the labels of the columns, then write all the rows\n6) Make a response which allows the .tsv file to be downloaded\n7) Set some information of the file that will be downloaded like its name and filetype",
+      "rtype": "download"
+    },
+    {
+      "name": "browseGeneDataset",
+      "description": "Renders the webpage which lets you go through gene dataset. To do the pagination it uses Pagination() from flask-paginate."
     }
   ]
 }
