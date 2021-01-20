@@ -284,7 +284,7 @@ class Testing(Analysis):
 
     def correlation_gene_disease(self):
         """
-        The function returns a database with the correlation between genes and diseases sorted by the most frequent.
+        The function returns a dataframe with the correlation between genes and diseases sorted by the most frequent.
 
         Steps:
         1) Merging of the two dataframes:

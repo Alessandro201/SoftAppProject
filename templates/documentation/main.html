@@ -1,12 +1,33 @@
 {% extends "documentation/base.html" %}
-{% from "macros/docs_macros.html" import class, attribute, method, function %}
-{% from "macros/operations_macros.html" import loading_icon %}
+{% from "macros/docs_macros.html" import classes_docs, functions_docs, text_sections %}
 
-{% block title %}Documentation Website{% endblock %}
+{% block title %}Documentation Main{% endblock %}
+
 
 {% block docs_content %}
-    <p class="title">Main.py</p>
-    <p class="block">Description of the file</p>
+    <div class="columns">
+        <div class="column is-three-quarters">
+
+            <p class="title is-size-1">Main.py</p>
+            <div class="block">It's the starting file from which the whole website is started.</div>
+
+
+            {% if docs.sections|length > 0 %}
+                {{ text_sections(docs=docs) }}
+            {% endif %}
+
+
+            {% if docs.classes|length > 0 %}
+                {{ classes_docs(docs=docs) }}
+            {% endif %}
+
+
+            {% if docs.functions|length > 0 %}
+                {{ functions_docs(docs=docs) }}
+            {% endif %}
+
+        </div>
+    </div>
 
 
 {% endblock %}

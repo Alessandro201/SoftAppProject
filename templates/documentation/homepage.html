@@ -1,10 +1,22 @@
 {% extends "documentation/base.html" %}
-{% from "macros/docs_macros.html" import class, attribute, method, function %}
+{% from "macros/docs_macros.html" import text_sections %}
 
 {% block title %}Documentation Homepage{% endblock %}
 
-{% block docs_content %}
-    <p class="title">Project Overview</p>
 
+{% block docs_content %}
+    <div class="columns">
+        <div class="column is-three-quarters">
+
+            <p class="title is-size-1">Project Overview</p>
+            <div class="block">Here is the main page of the website.</div>
+
+
+            {% if docs.sections|length > 0 %}
+                {{ text_sections(docs=docs) }}
+            {% endif %}
+
+        </div>
+    </div>
 
 {% endblock %}
