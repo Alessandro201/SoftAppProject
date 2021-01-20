@@ -28,12 +28,10 @@
       ]
     }
   ],
-
   "functions": [
     {
       "name": "run",
       "description": "It's called by main.py to start the website.",
-
       "parameters": [
         {
           "name": "**kwargs",
@@ -42,16 +40,13 @@
         }
       ]
     },
-
     {
       "name": "homepage",
       "description": "The function renders the homepage in which the project is explained briefly."
     },
-
     {
       "name": "documentation",
       "description": "Return the webpages with the documentation of the project.\n\nEvery webpage of the docs has it's name added after \"/documentation/\"\nThis means that you can add all the webpages that you want and you won't need to write a single line of code, just add the html files to \"templates/documentation/\" and the .json files with the documentation to the folder containing all the .json written in \"settings.py\".\n\nAny eventual OSError exception is purposefully caught here and not in mediator.py to show the error as a popup with flash()",
-
       "parameters": [
         {
           "name": "file",
@@ -60,12 +55,10 @@
         }
       ]
     },
-
     {
       "name": "functions",
       "description": "Returns the webpage which lets you select the operation you want to do with the datasets."
     },
-
     {
       "name": "download",
       "description": "Allows to download the table computed by an operation as tsv file.\n\nSteps:\n1) Get what_to_download to know the name by which the table is stored in the cache. It will also be the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page\n1.1) If name_file is either diseaseTable or geneTable then it downloads the whole dataset from it's actual location, NOT from the cache.\n2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout defined in the config.py. You need to reload the page to compute again the table\n3) Extract from \"data_to_save\" which is a dictionary the rows and the labels of the table\n4) A csv.writer is instantiated. It needs StringIO\n5) Write as the first row the labels of the columns, then write all the rows\n6) Make a response which allows the .tsv file to be downloaded\n7) Set some information of the file that will be downloaded like its name and filetype",
@@ -74,6 +67,30 @@
     {
       "name": "browseGeneDataset",
       "description": "Renders the webpage which lets you go through gene dataset. To do the pagination it uses Pagination() from flask-paginate."
+    },
+    {
+      "name": "browseDiseasesDataset",
+      "description": "Renders the webpage which lets you go through gene dataset. To do the pagination it uses Pagination() from flask-paginate."
+    },
+    {
+      "name": "info",
+      "description": "Renders the webpage which presents all the information about the datasets and a preview of heads and tails."
+    },
+    {
+      "name": "distinctGenes",
+      "description": "Renders the webpage which presents all the unique distinct genes in the gene dataset. \nIt let's you download the table computed, refer to <a href=\"#download\">download</a>"
+    },
+    {
+      "name": "geneEvidences",
+      "description": "The first time the user access \"geneEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a geneSymbol or a geneID. It is then submitted back to \"geneEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the gene and COVID-19"
+    },
+    {
+      "name": "diseaseEvidences",
+      "description": "The first time the user access \"diseaseEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseID or a diseaseName. It is then submitted back to \"diseaseEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the disease and COVID-19"
+    },
+    {
+      "name": "diseaseEvidences",
+      "description": "The first time the user access \"diseaseEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseID or a diseaseName. It is then submitted back to \"diseaseEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the disease and COVID-19"
     }
   ]
 }

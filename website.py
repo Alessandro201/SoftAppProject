@@ -139,7 +139,7 @@ def download():
 
 @app.route('/browseGeneDataset')
 def browseGeneDataset():
-    """A webpage which lets you go through gene data table.
+    """A webpage which lets you go through gene dataset.
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
@@ -173,7 +173,7 @@ def browseGeneDataset():
 
 @app.route('/browseDiseasesDataset')
 def browseDiseasesDataset():
-    """A webpage which lets you go through gene data table.
+    """A webpage which lets you go through disease dataset.
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
@@ -221,7 +221,7 @@ def info():
 # for c objective
 @app.route('/distinctGenes')
 def distinctGenes():
-    """A webpage with all the unique distinct genes in the gene table"""
+    """A webpage with all the unique distinct genes in the gene dataset"""
 
     NAME_FUNCTION = 'distinct_genes'
 
@@ -252,7 +252,8 @@ def geneEvidences():
     """The first time the user access "geneEvidences" it is requested with 'GET' method.
     Then it returns a webpage which lets the user input a geneSymbol or a geneID.
     It is then submitted back to "geneEvidences" but with 'POST' method.
-    Now it returns a webpage which lists all the evidences in literature of the gene"""
+    Now it returns a webpage which lists all the evidences in literature of the relation between
+    the gene and COVID-19"""
 
     NAME_FUNCTION = '_evidences'
 
