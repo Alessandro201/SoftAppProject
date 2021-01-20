@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Functions{% endblock %}
+
+{% set FunctNavBarActive = "is-active" %}
+
+{% block content_half_page %}
+    <h1 class="title">Functions</h1>
+
+    <p>These are the operations which can be done on the data tables:</p>
+    <div class="content">
+        <ul>
+            <li><a href='/info'>Get info of the tables</a></li>
+            <li><a href='/distinctGenes'>Get all the distinct genes</a></li>
+            <li><a href='/distinctDiseases'>Get all the distinct diseases</a></li>
+            <li><a href='/geneEvidences'>Find the evidences of the relation between covid-19 and a gene</a></li>
+            <li><a href='/diseaseEvidences'>Find the evidences of the relation between covid-19 and a disease</a></li>
+            <li><a href='/correlation'>Get all the distinct associations between genes and diseases</a></li>
+            <li><a href='/diseasesRelatedToGene'>Find all the diseases related to a gene</a></li>
+            <li><a href='/genesRelatedToDisease'>Find all the genes related to a disease</a></li>
+        </ul>
+    </div>
+
+{% endblock %}

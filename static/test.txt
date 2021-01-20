@@ -1,0 +1,75 @@
+# side bar old
+
+<div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+              <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link" href="\documentation\homepage">
+                        <img src="\static\icons\home.svg" alt="home.svg"> Project Overview</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="\documentation\website">
+                        <img src="\static\icons\file.svg" alt="file.svg"> Website.py</a>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="\documentation\mediator">
+                        <img src="\static\icons\file.svg" alt="file.svg"> Mediator.py</a>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="\documentation\functions">
+                        <img src="\static\icons\file.svg" alt="file.svg"> Functions.py</a>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="\documentation\settings">
+                        <img src="\static\icons\file.svg" alt="file.svg"> Settings.py</a>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+            <div style="margin-left: 30px; width: 70%">
+                {% block documentation_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+
+# old macro class
+    <div>
+    <!--Name of the class-->
+        <h4>{{ name }}</h4>
+        <!--Name of the class with parameters and their default if present-->
+        class {{ name }}
+            <b>(
+                {% for param in parameters %}
+                    <i>{{ param.name}}{{ param.default }},</i>
+                {% endfor %}
+                ):
+            </b>
+
+
+        <div style="margin-left: 50px;">
+            <p class="description" >{{ description }}</p>
+        </div>
+
+        <br>
+        <dl class="field-list">
+            <dt class="field-odd">Parameters:</dt>
+            <dd class="field-odd">
+                <dl>
+                    {% for param in parameters %}
+                        <dt><span class="attr-name">{{ param.name }} : </span>
+                            <span class="attr-types"><i>{{ param.type }}</i></span></dt>
+                        <dd><p>{{ param.description }}</p></dd>
+                    {% endfor %}
+                </dl>
+            </dd>
+        </dl>
+    </div>

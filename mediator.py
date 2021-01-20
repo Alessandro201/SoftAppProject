@@ -14,13 +14,11 @@ diseaseTable = DiseaseTable(disease_evidences_path)
 test = Testing(gene_evidences_path, disease_evidences_path)
 
 
-def getInfo():
-    """
-    Returns two dictionaries containing informations on the two datasets
+def getInfoGenes():
+    """Return a dictionary containing informations of geneTable
 
-    :return two dictionaries
-    :rtype dict
-    """
+    :return Info about geneTable
+    :rtype dict"""
 
     gene_data = {'nrows': geneTable.get_dimensions()[0],
                  'ncols': geneTable.get_dimensions()[1],
@@ -28,13 +26,33 @@ def getInfo():
                  'head': geneTable.get_head().values.tolist(),
                  'tail': geneTable.get_tail().values.tolist()}
 
+    return gene_data
+
+
+def getInfoDiseases():
+    """Return a dictionary containing informations of diseaseTable
+
+    :return Info about diseaseTable
+    :rtype dict"""
+
     disease_data = {'nrows': diseaseTable.get_dimensions()[0],
                     'ncols': diseaseTable.get_dimensions()[1],
                     'labels': diseaseTable.get_labels(),
                     'head': diseaseTable.get_head().values.tolist(),
                     'tail': diseaseTable.get_tail().values.tolist()}
 
-    return gene_data, disease_data
+    return disease_data
+
+
+def getInfo():
+    """
+    Returns two dictionaries containing informations on the two datasets
+
+    :return two dictionaries
+    :rtype tuple(dict, dict)
+    """
+
+    return getInfoGenes(), getInfoDiseases()
 
 
 def getDiseaseTableList(start=0, end=None, step=1):
@@ -160,8 +178,29 @@ def getGenesRelatedToDisease(disease):
     return data
 
 
-def getDocumentation():
-    with open(DOCS_PATH) as f:
+def getDocumentation(path, file=''):
+    """Reads the documentation from .json files and return a dict.
+    You can either input the whole path, or the folder and the name of the file.
+
+    :param path: The path to the file or the path to the folder
+    :type path: str
+    :param file: The name of the file. It can be either with extension or without.
+    It's optional if you input the path to the file in "path"
+    :type file: str
+
+    :return: The documentation
+    :rtype: dict
+    """
+
+    if path.endswith('.json'):
+        docs_path = path
+    else:
+        if file.endswith('.json'):
+            docs_path = os.path.join(path, file)
+        else:
+            docs_path = os.path.join(path, file + '.json')
+
+    with open(docs_path) as f:
         docs = json.load(f)
 
     return docs

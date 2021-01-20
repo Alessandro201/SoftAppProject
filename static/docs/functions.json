@@ -1,0 +1,279 @@
+{
+  "classes": [
+    {
+      "name": "DataTables",
+      "description": "The interface that defines the abstract methods for the class DiseaseTable and GeneTable."
+    },
+    {
+      "name": "Analysis",
+      "description": "The interface that defines the abstract methods for the class Testing."
+    },
+    {
+      "name": "DiseaseTable",
+      "description": "The class creates the DiseaseTable with the parameter table.",
+
+
+      "parameters": [
+        {
+          "name": "table",
+          "default": "",
+          "description": "the tsv file containing the table.",
+
+          "type": "pandas.DataFrame"
+        },
+        {
+          "name": "delimiter",
+          "default": "=None",
+          "description": "",
+          "type": "string or none"
+        }
+      ],
+
+
+      "attributes": [
+        {
+          "name": "__diseaseTable",
+          "description": "(private) The disease dataframe used by the class methods.",
+          "type": "pandas.DataFrame"
+        }
+      ],
+
+
+      "methods": [
+        {
+          "name": "__getitem__",
+          "description": "Allows the use of slicing on the instance of the class. It return the data table sliced by index(es).",
+          "rtype": "pandas.DataFrame",
+
+          "parameters": [
+            {
+              "name": "item",
+              "default": "",
+              "description": "the index of the row(s) to use for slicing.",
+              "type": "slice"
+            }
+          ]
+        },
+        {
+          "name": "get_table",
+          "description": "The function returns the table.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "get_dimensions",
+          "description": "The function records the number of rows and column of dataframe.",
+          "rtype": "tuple"
+        },
+        {
+          "name": "get_labels",
+          "description": "The function records the labels of each columns of a dataframe.",
+          "rtype": "list"
+        },
+        {
+          "name": "get_head",
+          "description": "The function returns the first ten rows of the dataframe.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "get_tail",
+          "description": "The function returns the last ten rows of the dataframe.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "distinct",
+          "description": "It returns a dataframe of unique diseases (disease_name, diseaseid) present in the dataframe.\nEvery word of the diseases is capitalized to allow the sorting algorithm to sort them correctly instead of putting the lowercase at the end.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "evidence",
+          "description": "Receives as input a diseaseID or a disease name and returns a dataframe with the sentences that relates the COVID-19 with the disease.",
+          "rtype": "pandas.DataFrame",
+
+          "parameters": [
+            {
+              "name": "disease",
+              "default": "",
+              "description": "the diseaseID or disease name input.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GeneTable",
+      "description": "The class creates the GeneTable with the parameter table.",
+
+
+      "parameters": [
+        {
+          "name": "table",
+          "default": "",
+          "description": "the tsv file containing the table.",
+
+          "type": "pandas.DataFrame"
+        },
+        {
+          "name": "delimiter",
+          "default": "=None",
+          "description": "",
+          "type": "string or none"
+        }
+      ],
+
+
+      "attributes": [
+        {
+          "name": "__geneTable",
+          "description": "(private) The gene dataframe used by the class methods.",
+          "type": "pandas.DataFrame"
+        }
+      ],
+
+
+      "methods": [
+        {
+          "name": "__getitem__",
+          "description": "Allows the use of slicing on the instance of the class and returns the data table sliced by index(es).",
+          "rtype": "pandas.DataFrame",
+
+          "parameters": [
+            {
+              "name": "item",
+              "default": "",
+              "description": "the index of the row(s) to use for slicing.",
+              "type": "slice"
+            }
+          ]
+        },
+        {
+          "name": "get_table",
+          "description": "The function returns the table.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "get_dimensions",
+          "description": "The function records the number of rows and column of dataframe.",
+          "rtype": "tuple"
+        },
+        {
+          "name": "get_labels",
+          "description": "The function records the labels of each columns of a dataframe.",
+          "rtype": "list"
+        },
+        {
+          "name": "get_head",
+          "description": "The function returns the first ten rows of the dataframe.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "get_tail",
+          "description": "The function returns the last ten rows of the dataframe.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "distinct",
+          "description": "It returns a dataframe of unique genes (gene_symbol, geneid) present in the dataframe.",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "evidence",
+          "description": "Receives as input a geneID or a gene symbol and returns a dataframe with the sentences that relates the COVID-19 with the gene.",
+          "rtype": "pandas.DataFrame",
+
+          "parameters": [
+            {
+              "name": "gene",
+              "default": "",
+              "description": "the geneID or gene symbol input.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Testing",
+      "description": "The class obtain both dataframes to find associations and relations between the element of the datasets.",
+
+
+      "parameters": [
+        {
+          "name": "geneTable",
+          "default": "",
+          "description": "the tsv file containing the genetable.",
+
+          "type": "pandas.DataFrame"
+        },
+        {
+          "name": "diseaseTable",
+          "default": "",
+          "description": "the tsv file containing the diseasetable.",
+
+          "type": "pandas.DataFrame"
+        },
+        {
+          "name": "geneDelimiter",
+          "default": "=None",
+          "description": "",
+          "type": "string or none"
+        },
+        {
+          "name": "diseaseDelimiter",
+          "default": "=None",
+          "description": "",
+          "type": "string or none"
+        }
+      ],
+
+
+      "attributes": [
+        {
+          "name": "__diseaseTable",
+          "description": "(private) The disease dataframe used by the class methods.",
+          "type": "pandas.DataFrame"
+        },
+        {
+          "name": "__geneTable",
+          "description": "(private) The gene dataframe used by the class methods.",
+          "type": "pandas.DataFrame"
+        }
+      ],
+
+
+      "methods": [
+        {
+          "name": "correlation_gene_disease",
+          "description": "The function returns a database with the correlation between genes and diseases sorted by the most frequent.\n\nSteps:\n1) Merging of the two dataframes:\n  The merge occurs on pmid and nsentence (instead of sentence) because they are interchangeable as in the same publication the nth sentence ('nsentence') will always be 'sentence'. But in this way the program runs faster because it has to check only some numbers instead of whole strings to know which rows to merge.\n2) Dropping duplicates:\nThe same concept goes for 'drop_duplicates'. When the function drop_duplicates() search for duplicates of the subset, with 'nsentence' it avoids checking for whole strings as it would instead do with sentences. 'geneid' and 'diseaseid' follow the same concept and are used instead of 'gene_symbol' and 'disease_name'.\n3) Keeping only the columns needed, thus one for gene and one for disease\n4) Count occurrences of the couple gene-disease and create a new dataframe with a couple as row and their occurrences in a new column; labels: ['gene_symbol', 'disease_name', 'occurrences'].",
+          "rtype": "pandas.DataFrame"
+        },
+        {
+          "name": "find_diseases_related_to_gene",
+          "description": "The function receive as input a geneID or a gene symbol and then returns a dataframe with the diseases related to the gene.\n\nSteps:\n1) Merging of the two dataframes:\nThe merge occurs on pmid and nsentence (instead of sentence) because they are interchangeable as in the same publication the nth sentence ('nsentence') will always be 'sentence'. But in this way the program runs faster because it has to check only some numbers instead of whole strings to know which rows to merge.\n2) Dropping duplicates:\nThe same concept goes for 'drop_duplicates'. When the function drop_duplicates() search for duplicates of the subset, with 'nsentence' it avoids checking for whole strings as it would instead do with sentences. 'geneid' and 'diseaseid' follow the same concept and are used instead of 'gene_symbol' and 'disease_name'.\n3) Performing search:\nIt first tries to convert gene (string) given as input to an int. If it can, then it means it's a genid and only only the rows whose value in the columns 'geneid' will be 'gene' will be kept. Otherwise it means 'gene' given as input is a 'gene_symbol' and only the rows whose value in the columns 'gene_symbol' will be 'gene' given as input will be kept.\n4) Keeping only the columns needed\n5) Using title() on all diseases:\nSome diseases are all lowercase and when sorted will be placed at the end of the table as the majority have the first letter uppercase. With title() all words of the diseases are now capitalized, and sort_values() will do what we want.\n6) Dropping duplicates and sorting.",
+          "rtype": "pandas.DataFrame",
+          "parameters": [
+            {
+              "name": "gene",
+              "default": "",
+              "description": "the geneid or gene_symbol input.",
+              "type": "str or int"
+            }
+          ]
+        },
+        {
+          "name": "find_genes_related_to_disease",
+          "description": "The function receive as input a diseaseid or a disease_name and then returns a dataframe with the diseases related to the gene.\n\nSteps:\n1) Merging of the two dataframes:\nThe merge occurs on pmid and nsentence (instead of sentence) because they are interchangeable as in the same publication the nth sentence ('nsentence') will always be 'sentence'. But in this way the program runs faster because it has to check only some numbers instead of whole strings to know which rows to merge.\n2) Dropping duplicates:\nThe same concept goes for 'drop_duplicates'. When the function drop_duplicates() search for duplicates of the subset, with 'nsentence' it avoids checking for whole strings as it would instead do with sentences. 'geneid' and 'diseaseid' follow the same concept and are used instead of 'gene_symbol' and 'disease_name'.\n3) Performing search:\nCheck if the disease matches a pattern which consist of the first element as a 'C' and then at least 7 numbers until the end of the string. If it matches, then it means it's a 'diseaseid' and only the rows whose value in the columns 'diseaseid' are 'disease' will be kept. Otherwise it means 'disease' given as input is a 'disease_name' and only the rows whose value in the columns 'disease_name' are the 'gene' given as input will be kept.\n4) Keeping only the columns needed.\n5) Dropping duplicates and sorting.",
+          "rtype": "pandas.DataFrame",
+          "parameters": [
+            {
+              "name": "disease",
+              "default": "",
+              "description": "the diseaseid or disease_name input.",
+              "type": "str"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+<!--Standard table-->
+{% macro mytable(data, table_class) %}
+    <table class="{{ table_class }}">
+        <tr>
+            <!--The first column "#" is the index of the row-->
+            <th>#</th>
+            {% for column in data.labels %}
+                <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in data.rows %}
+            <tr>
+                <!--Is the index of the for loop, which is used as index for the row-->
+                <td>{{ loop.index }}</td>
+
+                {% for col in row %}
+                    <td> {{ col }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endmacro %}
+
+
+<!--Table for info.html-->
+{% macro mytable(data, table_class) %}
+    <table class="{{ table_class }}">
+        <tr>
+            {% for column in data.labels %}
+                <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in data.head %}
+            <tr>
+                {% for col in row %}
+                    <td> {{ col }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+        <tr>
+            {% for column in data.labels %}
+                <th>......</th>
+            {% endfor %}
+        </tr>
+
+
+        {% for row in data.tail %}
+            <tr>
+                {% for col in row %}
+                    <td> {{ col }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endmacro %}
+
+
+<!--Table with the link of pmid publications-->
+{% macro mytable_with_pmid_links(data, base_pmid_url, table_class, pagination={'skip': 0}) %}
+    <table class="{{ table_class }}">
+        <tr>
+            <th>#</th>
+
+            <!--Jinja2 does not allow variables defined inside the scope of a for loop to be used outside.
+                A way to do it is to define a new namespace outside of it and add an attribute with the value we want-->
+            {% set ns = namespace(found=false) %}
+
+            {% for label in data.labels %}
+                <th>{{ label }}</th>
+
+                <!--If the name of the column is 'pmid' save it's index in ns.pmid_index-->
+                {% if label == 'pmid' %}
+                    {% set ns.pmid_index = loop.index %}
+                {% endif %}
+            {% endfor %}
+        </tr>
+
+        {% for row in data.rows %}
+            <tr>
+                <td>{{ loop.index + pagination.skip }}</td>
+                {% for col in row %}
+
+                    <!--If the index of the columns is the same as the one of pmid then add a link to the pmid publication-->
+                    {% if loop.index == ns.pmid_index %}
+                        <td><a href="{{ base_pmid_url ~ col }}">{{ col }}</a></td>
+                    {% else %}
+                        <td> {{ col }} </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endmacro %}

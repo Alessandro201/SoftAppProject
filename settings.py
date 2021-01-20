@@ -2,11 +2,12 @@ import os
 
 # todo: add .css document
 # todo: Finish documentation
-# todo: write docs.json
+# todo: write the .json
 # todo: update git
 # todo: add color to documentation
 # todo: add dropdown menu to the documentation
 # todo: organize python files in a folder, keep main out
+# todo: finish the documentation of mediator and of the files
 
 
 
@@ -18,8 +19,8 @@ BASE_PMID_URL = 'https://pubmed.ncbi.nlm.nih.gov/'
 
 # ---------- Paths Settings ----------
 
-# Location of the documentation json file. The default path is "\static\docs.json"
-DOCS_PATH = os.path.join(os.getcwd(), r'static\docs.json')
+# Location of the documentation json file. The default path is "\static\docs"
+DOCS_PATH = os.path.join(os.getcwd(), r'static\docs')
 
 
 # Locations of the two datasets. The default path is "\datasets"

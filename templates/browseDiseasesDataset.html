@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% from 'macros/operations_macros.html' import mytable_with_pmid_links, mytable %}
+{% block title %}browseDiseasesDataset{% endblock %}
+
+{% block style %}
+
+    .pagination-page-info {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: auto;
+    margin: auto;
+    font-size: 90%;
+    alignment: center;
+    align-items: center;
+    }
+
+    .pagination-page-info b {
+    padding-left: 2px;
+    padding: .1em .25rem;
+    font-size: 130%;
+    }
+
+{% endblock %}
+
+
+{% block content %}
+    <section class="hero full-width ">
+        <div class="columns is-justify-content-center mt-4">
+            <div class="column is-11">
+                <p class="title has-text-centered">Browse Diseases Dataset</p>
+
+                <!-- Show the info about the current rows displayed, shows the pagination
+                and let the user choose the specific page to go. The info and the pagination
+                are obtained from "paginate", which is the instantiation of flask-paginate.Pagination()-->
+                <div class="section">
+                    {{ pagination.info }}
+
+                    <form method="GET" action="/browseDiseasesDataset">
+                        <div class="field is-grouped is-grouped-centered">
+                            <div class="control">
+                                {{ pagination.links }}
+                            </div>
+
+                            <div class="control">
+                                <div class="field has-addons">
+                                    <div class="control">
+                                        <input class="input" type="text" name="page" placeholder="Go to page...">
+                                    </div>
+                                    <div class="control">
+                                        <button type="submit" class="button is-link">Go!</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <!-- Pass all the data to the macro "mytable_with_pmid_links" which then returns the table computed-->
+                {{ mytable_with_pmid_links(
+                    data=data,
+                    base_pmid_url=base_pmid_url,
+                    table_class="table is-bordered is-hoverable has-hover-blue-light is-mystyle has-text-centered",
+                    pagination=pagination) }}
+
+
+                <!-- Same block as above, show as above the info about the current rows displayed and the pagination-->
+                <div class="section">
+                    {{ pagination.info }}
+
+                    <form method="GET" action="/browseDiseasesDataset">
+                        <div class="field is-grouped is-grouped-centered">
+                            <div class="control">
+                                {{ pagination.links }}
+                            </div>
+
+                            <div class="control">
+                                <div class="field has-addons">
+                                    <div class="control">
+                                        <input class="input" type="text" name="page" placeholder="Go to page...">
+                                    </div>
+                                    <div class="control">
+                                        <button type="submit" class="button is-link">Go!</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

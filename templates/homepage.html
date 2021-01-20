@@ -1,95 +1,92 @@
-{% extends 'base_bulma.html' %}
+{% extends 'base.html' %}
 {% block title %}Homepage{% endblock %}
 
-{% block content %}
-    <section class="section">
-        <div class="columns is-centered">
-            <div class="column is-half">
-                <section class="hero full-width has-text-left">
-                    <p class="title">Homepage</p>
+{% block content_half_page %}
+    <section class="hero full-width has-text-left">
+        <p class="title">Homepage</p>
 
-                    <!-- Introduction -->
-                    <div class="block">
-                        <p>This is the webpage made for the
-                            <a href="https://github.com/anuzzolese/genomics-unibo/tree/master/2020-2021/project">
-                                Data Analysis Project</a> of the software application course of Genomics.</p>
-                    </div>
 
-                    <div class="block">
-                        <p class="is-italic">"The COVID-19 DisGeNET data collection is the result of applying
-                            state-of-the art text mining tools developed by MedBioinformatics solutions to the LitCovid
-                            dataset <a href="https://pubmed.ncbi.nlm.nih.gov/32157233/">Chen et al., 2020</a>, to
-                            identify mentions of diseases, signs and symptoms. The LitCovid dataset contains a selection
-                            of
-                            papers referring to Coronavirus 19 disease."
-                        </p>
-                        <p>The goal of the project is to write a program able to analyse two datasets about
-                            diseases and genes obtained from the COVID-19 DisGeNET data collection and present the
-                            results
-                            in a web-based user interface.</p>
-                    </div>
+        <!-- Introduction -->
+        <div class="block">
+            <p>This is the webpage made for the
+                <a href="https://github.com/anuzzolese/genomics-unibo/tree/master/2020-2021/project">
+                    Data Analysis Project</a> of the software application course of Genomics.</p>
+        </div>
 
-                    <br>
 
-                    <!-- Browse Datasets -->
-                    <div class="block">
-                        <p class="subtitle is-4 has-text-weight-semibold">Browse datasets </p>
-                        <p>By clicking on the links below you can go through the datasets and explore
-                            them page by page.</p>
+        <!-- Introduction pt2 -->
+        <div class="block">
+            <p class="is-italic">"The COVID-19 DisGeNET data collection is the result of applying
+                state-of-the art text mining tools developed by MedBioinformatics solutions to the LitCovid
+                dataset <a href="https://pubmed.ncbi.nlm.nih.gov/32157233/">Chen et al., 2020</a>, to
+                identify mentions of diseases, signs and symptoms. The LitCovid dataset contains a selection
+                of
+                papers referring to Coronavirus 19 disease."
+            </p>
+            <p>The goal of the project is to write a program able to analyse two datasets about
+                diseases and genes obtained from the COVID-19 DisGeNET data collection and present the
+                results
+                in a web-based user interface.</p>
+        </div>
 
-                        <div class="columns">
-                            <div class="column is-narrow">
-                                <a class="button my-2 is-info" href="/tableDiseasesEvidences/">
-                                    <span class="icon is-small">
-                                        <i class="fas fa-file-alt"></i>
-                                    </span>
-                                    <span>Disease Dataset</span>
-                                </a>
-                            </div>
-                            <div class="column is-narrow pl-0">
-                                <a class="button my-2 is-info" href="/tableGenesEvidences/">
-                                    <span class="icon is-small">
-                                        <i class="fas fa-file-alt"></i>
-                                    </span>
-                                    <span>Gene Dataset</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <br>
+        <!-- Browse Datasets -->
+        <div class="block mt-6">
+            <p class="subtitle is-4 has-text-weight-semibold">Browse datasets </p>
+            <p>By clicking on the links below you can go through the datasets and explore
+                them page by page.</p>
 
-                    <!-- Download Datasets -->
-                    <div class="block">
-                        <p class="subtitle is-4 has-text-weight-semibold">Download</p>
-                        <p>Here you can download the datasets:</p>
-
-                        <div class="columns">
-                            <div class="column is-narrow">
-                                <form class="buttons my-2" action="/download" method="POST">
-                                    <button class="button is-info" type="submit" value="diseaseTable" name="name_file">
-                                        <span class="icon is-small">
-                                        <i class="fas fa-download"></i>
-                                        </span>
-                                        <span>diseases_evidences.tsv</span>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="column is-narrow pl-0">
-                                <form class="buttons my-2" action="/download" method="POST">
-                                    <button class="button is-info" type="submit" value="geneTable" name="name_file">
-                                        <span class="icon is-small">
-                                            <i class="fas fa-download"></i>
-                                        </span>
-                                        <span>gene_evidences.tsv</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div class="columns">
+                <div class="column is-narrow">
+                    <a class="button my-2 is-info" href="/browseDiseasesDataset">
+                        <span class="icon is-small">
+                            <i class="fas fa-file-alt"></i>
+                        </span>
+                        <span>Disease Dataset</span>
+                    </a>
+                </div>
+                <div class="column is-narrow pl-0">
+                    <a class="button my-2 is-info" href="/browseGeneDataset">
+                        <span class="icon is-small">
+                            <i class="fas fa-file-alt"></i>
+                        </span>
+                        <span>Gene Dataset</span>
+                    </a>
+                </div>
             </div>
         </div>
+
+
+        <!-- Download Datasets -->
+        <div class="block">
+            <p class="subtitle is-4 has-text-weight-semibold">Download</p>
+            <p>Here you can download the datasets:</p>
+
+            <div class="columns">
+                <div class="column is-narrow">
+                    <form class="buttons my-2" action="/download" method="POST">
+                        <button class="button is-info" type="submit" value="diseaseTable" name="name_file">
+                            <span class="icon is-small">
+                                <i class="fas fa-download"></i>
+                            </span>
+                            <span>diseases_evidences.tsv</span>
+                        </button>
+                    </form>
+                </div>
+                <div class="column is-narrow pl-0">
+                    <form class="buttons my-2" action="/download" method="POST">
+                        <button class="button is-info" type="submit" value="geneTable" name="name_file">
+                            <span class="icon is-small">
+                                <i class="fas fa-download"></i>
+                            </span>
+                            <span>gene_evidences.tsv</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </section>
+
 {% endblock %}
 

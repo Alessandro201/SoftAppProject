@@ -9,7 +9,7 @@ import mediator
 
 app = Flask(__name__)
 
-# Used by "flash" for flashing comments or errors
+# Used by "flash" for flashing comments or errors as popup
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # tell Flask to use the config (defined in settings.py)
@@ -29,11 +29,44 @@ def homepage():
     return render_template('homepage.html')
 
 
-@app.route('/test')
-def test():
-    """A webpage which explains briefly the project and allows you to download the datasets or to go through them"""
+@app.route('/about')
+def about():
+    """A webpage with the member of the group"""
+    return render_template('about.html')
 
-    return render_template('test.html')
+
+@app.route('/documentation', defaults={'file': 'homepage'})
+@app.route('/documentation/<file>')
+def documentation(file):
+    """Return a webpage with the docs of the project.
+
+    Every webpage of the docs has it's name added after "/documentation/"
+    This means that you can add all the webpages that you want and you won't need to write a single line of code,
+    just add the html files to "templates/documentation/" and the .json files with the documentation to the
+    folder containing all the .json written in "settings.py".
+
+    Any eventual exception is purposefully caught here and not in mediator.py to show the error
+    as a popup with flash()"""
+
+    try:
+        docs = mediator.getDocumentation(DOCS_PATH, file)
+    except OSError as err:
+        flash({
+            'type': 'error',
+            'header': 'Something went wrong!',
+            'message': 'There was an error in loading the documentation. You are redirected to the Project Overview',
+            'details': err,
+        })
+        return render_template('documentation/homepage.html')
+
+    return render_template('documentation/%s.html' % file, docs=docs)
+
+
+@app.route('/functions')
+def functions():
+    """A webpage which lets you select the operation you want to do with the datasets"""
+
+    return render_template('functions.html')
 
 
 @app.route('/download', methods=['POST'])
@@ -58,10 +91,13 @@ def download():
     # Step 1)
     name_file = request.form.get('name_file')
     if name_file is None:
-        flash('Error in downloading the table, please try reloading the page.')
+        flash({'type': 'warning',
+               'header': 'Error!',
+               'message': 'Error in downloading the table, please try reloading the page!'
+                          '\n\nDetails: "name_file" not found in the forms'})
         return redirect(request.referrer)
 
-    elif name_file == ' diseaseTable':
+    elif name_file == 'diseaseTable':
         # Compute the path to the databases
         disease_evidences_path = path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
         return send_file(disease_evidences_path, as_attachment=True)
@@ -74,10 +110,10 @@ def download():
     # Step 2)
     data_to_save = cache.get(TABLE_CACHE_NAME)
     if data_to_save is None:
-        flash({
-            'header': 'Something went wrong!',
-            'message': 'I could not get the table to let you download it, please try reloading the page.',
-        })
+        flash({'type': 'warning',
+               'header': 'Something went wrong!',
+               'message': 'I could not get the table to let you download it, please try reloading the page!'
+                          '\n\nDetaild: The data is not in the cache!'})
         return redirect(request.referrer)
 
     # Step 3)
@@ -101,114 +137,75 @@ def download():
     return output
 
 
-@app.route('/tableGenesEvidences/', methods=['GET', 'POST'])
-def genesTable():
+@app.route('/browseGeneDataset')
+def browseGeneDataset():
     """A webpage which lets you go through gene data table.
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    gene_info, _ = mediator.getInfo()
-    nrows = gene_info['nrows']
-    per_page = 30
-
-    # Get the page from the form to let the user go to a specific page
-
-    page = int(request.args.get(get_page_parameter(), type=int, default=1))
-    if page < 1:
-        flash('You need to insert a positive number!')
-
-    # start and end index of the table
-    start = page * per_page
-    end = (page + 1) * per_page
-
-    # Returns a list of the rows from index start to index end
-    df_list = mediator.getGeneTableList(start, end)
-
-    # Prepares the pagination that allows you to click the number of the page and view it
-    pagination = Pagination(page=page, total=nrows, record_name="gene entries",
-                            css_framework='bulma', per_page=per_page)
-
-    return render_template('tableGenesEvidences.html',
-                           rows=df_list,
-                           labels=gene_info['labels'],
-                           pagination=pagination)
-
-
-@app.route('/tableDiseasesEvidences/')
-def diseasesTable():
-    """A webpage which lets you go through gene data table.
-    To do the pagination it uses Pagination() from flask-paginate"""
-
-    # variables
-    _, disease_info = mediator.getInfo()
-    nrows = disease_info['nrows']
-    per_page = 30
+    data = mediator.getInfoGenes()
+    rows_per_page = 30
 
     # Get the page from the form to let the user go to a specific page
     # The value of "page" is taken with functions from flask-paginate otherwise it raises errors
     page = int(request.args.get(get_page_parameter(), type=int, default=1))
     if page < 1:
-        flash('You need to insert a positive number!')
+        flash({'type': 'warning',
+               'header': 'Warning!',
+               'message': 'You need to insert a positive number!'})
+
+    # start and end indexes of the table
+    start = page * rows_per_page
+    end = (page + 1) * rows_per_page
+
+    # Returns a list of the rows from index start to index end
+    data['rows'] = mediator.getDiseaseTableList(start, end)
+
+    # Prepares the pagination that allows you to click the number of the page and view it in the webpage
+    pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",
+                            css_framework='bulma', per_page=rows_per_page)
+
+    return render_template('browseDiseasesDataset.html',
+                           base_pmid_url=BASE_PMID_URL,
+                           data=data,
+                           pagination=pagination)
+
+
+@app.route('/browseDiseasesDataset')
+def browseDiseasesDataset():
+    """A webpage which lets you go through gene data table.
+    To do the pagination it uses Pagination() from flask-paginate"""
+
+    # variables
+    data = dict()
+    data['nrows'] = mediator.getInfoDiseases()['nrows']
+    data['labels'] = mediator.getInfoDiseases()['labels']
+    per_page = 30
+
+    # Get the page from the form to let the user go to a specific page
+    # The value of "page" is taken with functions from flask-paginate otherwise it raises errors
+
+    page = int(request.args.get(get_page_parameter(), type=int, default=1))
+    if page < 1:
+        flash({'type': 'warning',
+               'header': 'Warning!',
+               'message': 'You need to insert a positive number!'})
 
     # start and end index of the table
     start = page * per_page
     end = (page + 1) * per_page
 
     # Returns a list of the rows from index start to index end
-    df_list = mediator.getDiseaseTableList(start, end)
+    data['rows'] = mediator.getDiseaseTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
-    pagination = Pagination(page=page, total=nrows, record_name="diseases entries",
-                            css_framework='bulma', bs_version=4, per_page=per_page)
+    pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",
+                            css_framework='bulma', per_page=per_page)
 
-    return render_template('tableDiseasesEvidences.html',
-                           labels=disease_info['labels'],
-                           rows=df_list,
+    return render_template('browseDiseasesDataset.html',
+                           base_pmid_url=BASE_PMID_URL,
+                           data=data,
                            pagination=pagination)
-
-
-@app.route('/downloadDiseases')
-def diseasesTableDownload():
-    """Let the user download the file"""
-    from os import path
-
-    # Compute the path to the databases
-    disease_evidences_path = path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
-    return send_file(disease_evidences_path, as_attachment=True)
-
-
-@app.route('/downloadGenes')
-def genesTableDownload():
-    """Let the user download the file"""
-    from os import path
-
-    # Compute the path to the databases
-    gene_evidences_path = path.join(DATASET_LOCATION, GENE_TABLE_NAME)
-
-    return send_file(gene_evidences_path, as_attachment=True)
-
-
-@app.route('/documentation', defaults={'file': 'homepage'})
-@app.route('/documentation/<file>')
-def documentation(file):
-    """A webpage with the documentation of the project"""
-
-    docs = mediator.getDocumentation()
-
-    return render_template('documentation/%s.html' % file, docs=docs)
-
-
-@app.route('/about')
-def about():
-    """A webpage with the member of the group"""
-    return render_template('about.html')
-
-
-@app.route('/functions')
-def functions():
-    """A webpage which lets you select the operation you want to do with the datasets"""
-
-    return render_template('functions.html')
 
 
 # for a and b objective
@@ -324,7 +321,9 @@ def correlation():
             # If it raise ValueError it means "occurrence" it's a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's an empty string it sets "occurrences" to the default value
             if occurrences != '':
-                flash('You need to insert a number!')
+                flash({'type': 'warning',
+                       'header': 'Warning!',
+                       'message': 'You need to insert a positive number!'})
                 return redirect(request.referrer)
             else:
                 occurrences = 0
@@ -334,14 +333,18 @@ def correlation():
             nrows = int(nrows)
 
             if nrows < 0:
-                flash('You need to insert a positive number!')
+                flash({'type': 'warning',
+                       'header': 'Warning!',
+                       'message': 'You need to insert a positive number!'})
                 return redirect(request.referrer)
 
         except ValueError:
             # If it raise ValueError it means it's a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's an empty string it set "nrows" to the default value
             if nrows != '':
-                flash('You need to insert a number!')
+                flash({'type': 'warning',
+                       'header': 'Warning!',
+                       'message': 'You need to insert a number!'})
                 return redirect(request.referrer)
             else:
                 if occurrences != 0:

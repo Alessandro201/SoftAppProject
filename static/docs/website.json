@@ -1,0 +1,30 @@
+{
+  "functions": [
+    {
+      "name": "getDiseaseTableList",
+      "description": "Returns a list of rows of the disease table from 'start' to 'end'",
+      "rtype": "pandas.DataFrame",
+
+      "parameters": [
+        {
+          "name": "start",
+          "description": "Starting row to return",
+          "default": "=0",
+          "type": "int"
+        },
+        {
+          "name": "end",
+          "description": "Ending row to return",
+          "default": "=None",
+          "type": "int"
+        },
+        {
+          "name": "step",
+          "description": "Every 'step' row is taken",
+          "default": "=1",
+          "type": "int"
+        }
+      ]
+    }
+  ]
+}

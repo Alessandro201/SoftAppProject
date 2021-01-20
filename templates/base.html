@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+
+    <link rel="stylesheet" href='/static/styles/bulma/css/bulma.css'>
+    <link rel="stylesheet" href='/static/styles/style.css'>
+    <script src="https://kit.fontawesome.com/2d7cca69e4.js" crossorigin="anonymous"></script>
+    <!-- All of BulmaJS-->
+    <script src="../static/styles/bulma/bulmaJS/dist/bulma.js"></script>
+    <!--jquery-->
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+
+
+    {% block head %}{% endblock %}
+
+
+    <style>
+        {%  block  style  %}{%  endblock  %}
+    </style>
+
+
+</head>
+
+<body class="has-navbar-fixed-top">
+
+<!--Navigation top bar-->
+<nav class="navbar is-fixed-top is-dark">
+    <div class="navbar-brand">
+        <a class="navbar-item is-size-3 has-text-centered" href="/">Soft App Project</a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarMenu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div role="navigation" id="navbarMenu" class="navbar-menu"
+         aria-label="main navigation">
+        <div class="navbar-start">
+            <a class="{{ "navbar-item " ~ AboutNavBarActive }}" href="/about">About</a>
+
+            <a class="{{ "navbar-item " ~ DocsNavBarActive }}" href="/documentation">Documentation</a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="{{ "navbar-link " ~ FunctNavBarActive }}" href="/functions">
+                    Functions
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href='/info'>Get info of the tables</a>
+                    <a class="navbar-item" href='/distinctGenes'>Get all the genes</a>
+                    <a class="navbar-item" href='/distinctDiseases'>Get all the diseases</a>
+
+                    <hr class="navbar-divider">
+
+                    <a class="navbar-item" href='/geneEvidences'>Find the evidences of the relation between
+                        covid-19
+                        and a gene</a>
+                    <a class="navbar-item" href='/diseaseEvidences'>Find the evidences of the relation between
+                        covid-19 and a disease</a>
+
+                    <hr class="navbar-divider">
+
+                    <a class="navbar-item" href='/correlation'>Get the distinct associations between genes and
+                        diseases</a>
+
+                    <hr class="navbar-divider">
+
+                    <a class="navbar-item" href='/diseasesRelatedToGene'>Find all the diseases related to a
+                        gene</a>
+                    <a class="navbar-item" href='/genesRelatedToDisease'>Find all the genes related to a
+                        disease</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Message popup which shows all the messages of "flash()". To be displayed the page needs to be reloaded -->
+{% for message in get_flashed_messages() %}
+    <div class="columns is-centered m-0 p-0">
+        <div class="column is-narrow m-0 p-0">
+            <article class='message is-{{ message.type }} mt-2 is-size-6-desktop'>
+                <div class="message-header">
+                    {{ message.header }}
+                    <button class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                    <p class="block">{{ message.message }}</p>
+                    <p class="block">Details: {{ message.details }}</p>
+                </div>
+            </article>
+        </div>
+    </div>
+{% endfor %}
+
+
+<!-- In case the programmer wants all the page -->
+{% block content %}
+    <!-- Standard page, the content is in the center in about half page -->
+    <section class="section">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                {% block content_half_page %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
+</html>
