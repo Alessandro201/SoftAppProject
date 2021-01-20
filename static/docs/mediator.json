@@ -5,18 +5,18 @@
       "description": "Return a dictionary containing informations of geneTable.",
       "rtype": "dictionary",   
     },
-      
+      { 
       "name": "getInfoDiseases",
       "description": "Return a dictionary containing informations of diseaseTable.",
       "rtype": "dictionary",
         },
-     
+      { 
       "name": "getInfo",
       "description": "Returns two dictionaries containing informations on the two datasets.",
       "rtype": "tuple containing two dictionaries",
      
         },
-     
+      {
       "name": "getDiseaseTableList",
       "description": "Return a dictionary containing information of the disease dataset.",
       "rtype": "dictionary",
@@ -37,7 +37,7 @@
           "description": "interval index",
           "type": "int"
         },
-     
+         {
       "name": "getGeneTableList",
       "description": "Return a dictionary containing information of the gene dataset.",
       "rtype": "dictionary",
@@ -57,13 +57,16 @@
           "name": "step",
           "description": "interval index",
           "type": "int"
-        },
+        }
+      ]
+         }
+         {
       "name": " getDistinctGenes",
       "description": "Return a list of unique genes present in the dataframe.",
       "rtype": "list",
      
         },
-     
+         {
       "name": "getDistinctDiseases",
       "description": "Return a list of unique disease present in the dataframe.",
       "rtype": "list",
