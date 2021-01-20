@@ -1,5 +1,4 @@
 pandas~=1.2.0
-timebudget~=0.7.1
 flask~=1.1.2
 flask-paginate~=0.8.0
 Flask-Caching~=1.9.0
