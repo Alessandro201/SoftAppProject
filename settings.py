@@ -1,14 +1,9 @@
 import os
 
-# todo: add .css document
-# todo: Finish documentation
-# todo: write the .json
-# todo: update git
 # todo: add color to documentation
-# todo: add dropdown menu to the documentation
-# todo: organize python files in a folder, keep main out
-# todo: finish the documentation of mediator and of the files
-
+# todo: finish the .json of mediator and of the files
+# todo: Check that each table of the operation has mb-6
+# todo: Check that each download.tsv has a bit of space around
 
 
 # ---------- Settings ----------

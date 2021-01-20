@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% from 'macros/operations_macros.html' import mytable %}
+{% block title %}Correlation{% endblock %}
+
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+    <section class="hero full-width">
+        <div class="columns is-centered mt-4 has-text-centered">
+            <div class="column is-5">
+                <p class="title is-3">Correlations between genes and diseases</p>
+
+
+                <!--Display the number of genes found and a button to download the table-->
+                <div class="block">
+                    <p>Hereafter is reported a table with the distinct correlations found between genes and
+                        diseases.</p>
+                </div>
+
+                {% if data.lenght == 0 %}
+                    <p>No correlation was found :(.</p>
+                {% else %}
+
+                    <div class="section">
+                        <form action="/correlation" method="POST">
+                            <div class="columns">
+                                <div class="column">
+                                    <p>You can customize the table based on the number
+                                        of correlations you would like to see.
+                                        The default value is 10. Enter 0 to see them all.</p>
+                                </div>
+                                <div class="column is-4">
+                                    <input type="text" class="input" name="rows"
+                                           placeholder="Correlations to show">
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p>You can select the minimum number of occurrences
+                                        each correlation needs to have. The default value is 0.</p>
+                                </div>
+                                <div class="column is-4">
+                                    <input type="text" class="input" name="occurrence"
+                                           placeholder="Minimum occurrences">
+                                </div>
+                            </div>
+                            <div class="block">
+                                <button class="button is-info" type="submit">Go</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                    <!--Button to download the table.
+                    It sends to /download "NAME_FUNCTION" which indicates the table to download-->
+                    <p>Number of correlations showed: <b>{{ data.lenght }}</b> - Minimum number of occurrences:
+                        <b>{{ data.min_occurrences }}</b></p>
+                    <form class="buttons is-centered mt-2" action="/download" method="POST">
+                        <button class="button is-info" type="submit" value="{{ NAME_FUNCTION }}" name="name_file">
+                            <span class="icon is-small">
+                                <i class="fas fa-download"></i>
+                            </span>
+                            <span>Download as tsv!</span>
+                        </button>
+                    </form>
+
+                {% endif %}
+
+            </div>
+        </div>
+
+        <!--Print the table using the macro "mytable()"-->
+        <div class="columns is-justify-content-center mt-4 mb-6">
+            <div class="column is-6">
+                {{ mytable(data=data,
+                    table_class="table is-bordered is-hoverable is-one-third has-hover-blue-light is-mystyle has-text-centered",
+                    style="width: 100%;") }}
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

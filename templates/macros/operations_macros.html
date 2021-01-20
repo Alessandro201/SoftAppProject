@@ -59,8 +59,8 @@
 
 
 <!--Table with the link of pmid publications-->
-{% macro mytable_with_pmid_links(data, base_pmid_url, table_class, pagination={'skip': 0}) %}
-    <table class="{{ table_class }}">
+{% macro mytable_with_pmid_links(data, base_pmid_url, table_class, style, pagination={'skip': 0}) %}
+    <table class="{{ table_class }}" style="{{ style }}">
         <tr>
             <th>#</th>
 

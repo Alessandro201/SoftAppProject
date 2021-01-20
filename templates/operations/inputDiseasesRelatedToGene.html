@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Input Disease Related To Gene{% endblock %}
+
+{% block content_half_page %}
+    <p class="title">Insert a disease</p>
+
+    <div class="block">
+        <p>Here you can insert a GeneSymbol or a GeneID and the program will search
+            in the dataset for any disease related to it and it will present the
+            results in a table.</p>
+    </div>
+
+    <div class="block">
+        <div class="field">
+            <label class="label">GeneSymbol or GeneID:</label>
+
+            <form action="/diseasesRelatedToGene" method="POST">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Gene" name="gene">
+                    </div>
+                    <div class="control">
+                        <button class="button is-info" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
