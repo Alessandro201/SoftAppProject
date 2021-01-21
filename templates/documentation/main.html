@@ -9,8 +9,10 @@
         <div class="column is-three-quarters">
 
             <p class="title is-size-1">Main.py</p>
-            <div class="block">It's the starting file from which the whole website is started.</div>
-
+            <div class="block">It's the starting file from which the whole website is started,
+                it does not have any functions and at the start it calls “run()” from “website.py”.
+            </div>
+            <div class="block">Inside "run()" you can insert any argument you would insert inside app.run().</div>
 
             {% if docs.sections|length > 0 %}
                 {{ text_sections(docs=docs) }}

@@ -95,7 +95,10 @@
                 </div>
                 <div class="message-body">
                     <p class="block">{{ message.message }}</p>
-                    <p class="block">Details: {{ message.details }}</p>
+
+                    {% if message.details |length >0 %}
+                        <p class="block">Details: {{ message.details }}</p>
+                    {% endif %}
                 </div>
             </article>
         </div>

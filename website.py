@@ -57,7 +57,8 @@ def documentation(file):
             'message': 'There was an error in loading the documentation. You are redirected to the Project Overview',
             'details': err,
         })
-        return render_template('documentation/homepage.html')
+        docs = mediator.getDocumentation(DOCS_PATH, 'homepage')
+        return render_template('documentation/homepage.html', docs=docs)
 
     return render_template('documentation/%s.html' % file, docs=docs)
 
@@ -137,8 +138,8 @@ def download():
     return output
 
 
-@app.route('/browseGeneDataset')
-def browseGeneDataset():
+@app.route('/browseGenesDataset')
+def browseGenesDataset():
     """A webpage which lets you go through gene dataset.
     To do the pagination it uses Pagination() from flask-paginate"""
 
@@ -155,17 +156,17 @@ def browseGeneDataset():
                'message': 'You need to insert a positive number!'})
 
     # start and end indexes of the table
-    start = page * rows_per_page
-    end = (page + 1) * rows_per_page
+    start = (page - 1) * rows_per_page
+    end = page * rows_per_page
 
     # Returns a list of the rows from index start to index end
     data['rows'] = mediator.getGeneTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it in the webpage
-    pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",
+    pagination = Pagination(page=page, total=data['nrows'], record_name="gene entries",
                             css_framework='bulma', per_page=rows_per_page)
 
-    return render_template('browseDiseasesDataset.html',
+    return render_template('browseGenesDataset.html',
                            base_pmid_url=BASE_PMID_URL,
                            data=data,
                            pagination=pagination)
@@ -177,10 +178,8 @@ def browseDiseasesDataset():
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    data = dict()
-    data['nrows'] = mediator.getInfoDiseases()['nrows']
-    data['labels'] = mediator.getInfoDiseases()['labels']
-    per_page = 30
+    data = mediator.getInfoDiseases()
+    rows_per_page = 30
 
     # Get the page from the form to let the user go to a specific page
     # The value of "page" is taken with functions from flask-paginate otherwise it raises errors
@@ -192,15 +191,15 @@ def browseDiseasesDataset():
                'message': 'You need to insert a positive number!'})
 
     # start and end index of the table
-    start = page * per_page
-    end = (page + 1) * per_page
+    start = (page - 1) * rows_per_page
+    end = page * rows_per_page
 
     # Returns a list of the rows from index start to index end
     data['rows'] = mediator.getDiseaseTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
     pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",
-                            css_framework='bulma', per_page=per_page)
+                            css_framework='bulma', per_page=rows_per_page)
 
     return render_template('browseDiseasesDataset.html',
                            base_pmid_url=BASE_PMID_URL,

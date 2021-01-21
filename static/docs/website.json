@@ -4,27 +4,7 @@
       "title": "title",
       "title_dimension": 1,
       "text": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
-      ]
-    },
-    {
-      "title": "title2",
-      "title_dimension": 3,
-      "text": [
-        "text12",
-        "text22",
-        "text32"
-      ]
-    },
-    {
-      "title": "title3",
-      "title_dimension": 6,
-      "text": [
-        "text13",
-        "text23",
-        "text33"
+        ""
       ]
     }
   ],
@@ -35,7 +15,7 @@
       "parameters": [
         {
           "name": "**kwargs",
-          "description": "The arguments are directly passed to Flask when he runs the website",
+          "description": "The arguments are directly passed to Flask when he runs the website.",
           "type": "dict"
         }
       ]
@@ -46,11 +26,11 @@
     },
     {
       "name": "documentation",
-      "description": "Return the webpages with the documentation of the project.\n\nEvery webpage of the docs has it's name added after \"/documentation/\"\nThis means that you can add all the webpages that you want and you won't need to write a single line of code, just add the html files to \"templates/documentation/\" and the .json files with the documentation to the folder containing all the .json written in \"settings.py\".\n\nAny eventual OSError exception is purposefully caught here and not in mediator.py to show the error as a popup with flash()",
+      "description": "Return the webpages with the documentation of the project.\n\nEvery webpage of the docs has it's name added after \"/documentation/\"\nThis means that you can add all the webpages that you want and you won't need to write a single line of code, just add the html files to \"templates/documentation/\" and the .json files with the documentation to the folder containing all the .json written in \"settings.py\".\n\nAny eventual OSError exception is purposefully caught here and not in mediator.py to show the error as a popup with flash().",
       "parameters": [
         {
           "name": "file",
-          "description": "Is the name of the documentation webpage. For example if file=\"settings\" then the url will be \"documentation/setting\"",
+          "description": "Is the name of the documentation webpage. For example if file=\"settings\" then the url will be \"documentation/setting\".",
           "type": "str"
         }
       ]
@@ -61,7 +41,7 @@
     },
     {
       "name": "download",
-      "description": "Allows to download the table computed by an operation as tsv file.\n\nSteps:\n1) Get what_to_download to know the name by which the table is stored in the cache. It will also be the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page\n1.1) If name_file is either diseaseTable or geneTable then it downloads the whole dataset from it's actual location, NOT from the cache.\n2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout defined in the config.py. You need to reload the page to compute again the table\n3) Extract from \"data_to_save\" which is a dictionary the rows and the labels of the table\n4) A csv.writer is instantiated. It needs StringIO\n5) Write as the first row the labels of the columns, then write all the rows\n6) Make a response which allows the .tsv file to be downloaded\n7) Set some information of the file that will be downloaded like its name and filetype",
+      "description": "Allows to download the table computed by an operation as tsv file.\n\nSteps:\n1) Get what_to_download to know the name by which the table is stored in the cache. It will also be the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page\n1.1) If name_file is either diseaseTable or geneTable then it downloads the whole dataset from it's actual location, NOT from the cache.\n2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout defined in the config.py. You need to reload the page to compute again the table\n3) Extract from \"data_to_save\" which is a dictionary the rows and the labels of the table\n4) A csv.writer is instantiated. It needs StringIO\n5) Write as the first row the labels of the columns, then write all the rows\n6) Make a response which allows the .tsv file to be downloaded\n7) Set some information of the file that will be downloaded like its name and filetype.",
       "rtype": "download"
     },
     {
@@ -78,19 +58,27 @@
     },
     {
       "name": "distinctGenes",
-      "description": "Renders the webpage which presents all the unique distinct genes in the gene dataset. \nIt let's you download the table computed, refer to <a href=\"#download\">download</a>"
+      "description": "Renders the webpage which presents all the unique distinct genes in the gene dataset."
     },
     {
       "name": "geneEvidences",
-      "description": "The first time the user access \"geneEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a geneSymbol or a geneID. It is then submitted back to \"geneEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the gene and COVID-19"
+      "description": "The first time the user access \"geneEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a geneSymbol or a geneID. It is then submitted back to \"geneEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the gene and COVID-19."
     },
     {
       "name": "diseaseEvidences",
-      "description": "The first time the user access \"diseaseEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseID or a diseaseName. It is then submitted back to \"diseaseEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the disease and COVID-19"
+      "description": "The first time the user access \"diseaseEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseID or a diseaseName. It is then submitted back to \"diseaseEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the disease and COVID-19."
     },
     {
-      "name": "diseaseEvidences",
-      "description": "The first time the user access \"diseaseEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseID or a diseaseName. It is then submitted back to \"diseaseEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the disease and COVID-19"
+      "name": "correlation",
+      "description": "The webpage lists the correlations between genes and diseases.\n\nIt allows th user to customize the results, he can decide the number of correlations to show (\"rows\") and the minimum number of occurrences a correlation needs to have to be shown (\"occurrences\").\n\nIf \"occurrence\" is given and the user hasn't written anything in \"rows\" then it sets \"rows\" to 0 which means that all rows will be returned. Also, if the user wants 50 rows, but the rows which meet the occurrence requirement are 30, only 30 rows will be returned."
+    },
+    {
+      "name": "diseasesRelatedToGene",
+      "description": "The first time the user access \"diseasesRelatedToGene\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a geneSymbol or a geneID. It is then submitted back to \"diseasesRelatedToGene\" but with 'POST' method. Now it returns a webpage which lists all the diseases related to the gene found in literature."
+    },
+    {
+      "name": "genesRelatedToDisease",
+      "description": "The first time the user access \"genesRelatedToDisease\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseName or a diseaseID. It is then submitted back to \"genesRelatedToDisease\" but with 'POST' method. Now it returns a webpage which lists all the genes related to the disease found in literature."
     }
   ]
 }
