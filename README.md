@@ -22,7 +22,7 @@ a web-based user interface.
 
 To install the program download the .zip and extract it, then open a terminal window from the installation folder and execute:
 
-    pip install requirements.txt
+    pip install -r requirements.txt
     
 To start the program type in the terminal:
 
