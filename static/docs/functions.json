@@ -24,7 +24,7 @@
         {
           "name": "delimiter",
           "default": "=None",
-          "description": "",
+          "description": "Set the delimiter based on the extension (.tsv or .csv).",
           "type": "string or none"
         }
       ],
@@ -116,7 +116,7 @@
         {
           "name": "delimiter",
           "default": "=None",
-          "description": "",
+          "description": "Set the delimiter based on the extension (.tsv or .csv).",
           "type": "string or none"
         }
       ],
@@ -215,13 +215,13 @@
         {
           "name": "geneDelimiter",
           "default": "=None",
-          "description": "",
+          "description": "Set the delimiter based on the extension (.tsv or .csv).",
           "type": "string or none"
         },
         {
           "name": "diseaseDelimiter",
           "default": "=None",
-          "description": "",
+          "description": "Set the delimiter based on the extension (.tsv or .csv).",
           "type": "string or none"
         }
       ],
