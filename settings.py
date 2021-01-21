@@ -40,6 +40,6 @@ CACHE_CONFIG = {
 }
 
 # The cache stores the data as "Key: Value" pairs. This is the name of the Key which will contain
-# the table (as list) computed when an operation on the datasets is called, to be later downloaded.
+# the table (as dict) computed when an operation on the datasets is called, to be later downloaded.
 # If you haven't changed the code, any name is fine.
 TABLE_CACHE_NAME = 'table_cache'
