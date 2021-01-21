@@ -4,6 +4,20 @@ This is the webpage made for the
 
 <br>
 
+<h2>Goal</h2>
+
+<i>"The COVID-19 DisGeNET data collection is the result of applying state-of-the art text
+mining tools developed by MedBioinformatics solutions to the LitCovid dataset
+<a href="https://pubmed.ncbi.nlm.nih.gov/32157233/">Chen et al., 2020</a>, 
+to identify mentions of diseases, signs and symptoms. The LitCovid dataset contains a selection of
+papers referring to Coronavirus 19 disease."</i>
+<br>
+The goal of the project is to write a program able to analyse two datasets about
+diseases and genes obtained from the COVID-19 DisGeNET data collection and present the results in
+a web-based user interface.
+
+<br>
+
 <h2>Installation</h2>
 
 To install the program download the .zip and extract it, then open a terminal window from the installation folder and execute:
@@ -29,20 +43,6 @@ To start the program type in the terminal:
 
 - <a href="https://pandas.pydata.org/">**Pandas**</a>
 : to execute operations on the datasets.
-
-<br>
-
-<h2>Goal</h2>
-
-<i>"The COVID-19 DisGeNET data collection is the result of applying state-of-the art text
-mining tools developed by MedBioinformatics solutions to the LitCovid dataset
-<a href="https://pubmed.ncbi.nlm.nih.gov/32157233/">Chen et al., 2020</a>, 
-to identify mentions of diseases, signs and symptoms. The LitCovid dataset contains a selection of
-papers referring to Coronavirus 19 disease."</i>
-<br>
-The goal of the project is to write a program able to analyse two datasets about
-diseases and genes obtained from the COVID-19 DisGeNET data collection and present the results in
-a web-based user interface.
 
 <br>
 
