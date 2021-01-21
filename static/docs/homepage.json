@@ -1,11 +1,58 @@
 {
   "sections": [
     {
-      "title": "title",
-      "title_dimension": 1,
+      "title": "Features",
+      "title_dimension": 2,
       "text": [
-        "In this project we are using two datasets - Gene table and Disease table. By manipulating these datesets we can perform many operations. We have designed a program which is composed of three parts.",
-        "These three parts are working in the following way: part1 is a mediator, which means that part2 and part3 are comunicating by it. Part2 is composed of clases which have methods coresponding to the operations that we want to perform. Part 3 is a Web page, correlated with html files. And in part1 we have all the functions which are taking the results of the methods used in part2 and by part1 we can present those results in the way we want, which is later used by part3."
+        "Here are described all the features and techniques used to write the program.",
+        "The website is made using <a href='https://bulma.io/'>bulma</a> as CSS framework and <a href='https://fontawesome.com/'>FontAwesome</a> for the icons."
+      ]
+    },
+    {
+      "title": "Templates",
+      "title_dimension": 3,
+      "text": [
+        "To keep the style of the website consistent throughout all the webpages, we used a template called <span class=\"has-text-weight-semibold\">'base.html'</span> which contains code needed on all webpages like:",
+        "<span class='title is-size-5'>Initialization code:</span> here is declared the doctype, the language, the stylesheets, the fonts and jsquery.",
+        "<span class='title is-size-5'>Navigation-bar:</span> here is all the code pertaining the navigation-bar at the top of the webpage with its links.",
+        "<span class='title is-size-5'>Popup notification:</span> in case there is a message that needs to be communicated to the user, here is the code which lets a popup notification appear at the top of the screen. All the messages can be sent by using <code>flash()</code> in a python file with Flask, they will queue up until a new page is loaded, then they will be presented. As argument it needs something to pass to the html file like a string or a dictionary. We've set up the popup to so that it's possible to pass a dict to provide some degree of customization and let the message box be usable both for warnings and for information.",
+        "<code>message = {<br>'type':'colour of the popup',<br>'header':'title of the popup',<br>'message':'text of the popup',<br>'details':'additional details'<br>}</code>.",
+        "The <code>'type'</code> can be of the all colors possible with <a href='https://bulma.io/documentation/components/message/'>bulma-message</a>. You just need to write the actual type, without <code>is-</code>.",
+        "Example: <code>info</code>, <code>success</code> or <code>warning</code>.",
+        "<div class='columns'><div class='column'><article class=\"message is-info\"><br>  <div class=\"message-header\"><br>    <p>Info</p><br>    <button class=\"delete\" aria-label=\"delete\"></button><br>  </div><br>  <div class=\"message-body\"><br>    Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. .<br>  </div><br></article></div><div class='column'><article class=\"message is-success\"><br>  <div class=\"message-header\"><br>    <p>Success</p><br>    <button class=\"delete\" aria-label=\"delete\"></button><br>  </div><br>  <div class=\"message-body\"><br>    Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. <br>  </div><br></article></div><div class='column'><article class=\"message is-warning\"><br>  <div class=\"message-header\"><br>    <p>Warning</p><br>    <button class=\"delete\" aria-label=\"delete\"></button><br>  </div><br>  <div class=\"message-body\"><br>    Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. <br>  </div><br></article></div></div>    "
+      ]
+    },
+    {
+      "title": "Macros",
+      "title_dimension": 3,
+      "text": [
+        "To avoid rewriting many times over the same code, we have implemented the use of macros to be called when needed.",
+        "For example in all the html documents of the operations, to show the tables, there are macros with the style customizable when called. The macros used are 3: <span class=\"has-text-weight-semibold\"> mytable, mytable_info, mytable_with_pmid_links</span>.<br> The first one is the main one, mytable_info instead is used in the webpage '/info' to show head and tail of the two datasets, while the last one is used to add pmid links to the original articles in the tables.",
+        "To let one macro be usable for all the tables and operations, the data passed to the html file by jinja and used by the tables needed to be as general as possible, thus is written as a dictionary with the following keys: <br><code>data = {<br>'labels': 'labels of the table',<br>'rows': 'rows of the table',<br>'lenght': 'length of the table'<br>}</code>",
+        ""
+      ]
+    },
+    {
+      "title": "download a table",
+      "title_dimension": 3,
+      "text": [
+        "In every page which presents the results of an operation the user has the ability to download the table just computed as a .tsv file.",
+        "To achieve this, we leveraged the power of flask-caching to save the table (dictionary) in the cache with the name of the functions that has produced the table and then once the user clicks on the button to download it, the name of the function is sent to <code>download()</code> in 'website.py' which retrieves the table from the cache, converts it to a tsv file and then let the user download it.",
+        "To know more about the process of conversion from the table dictionary to a tsv file please refer to the function <a href='/documentation/website#download'>download</a>"
+      ]
+    },
+    {
+      "title": "documentation",
+      "title_dimension": 3,
+      "text": [
+        ""
+      ]
+    },
+    {
+      "title": "block, a jinja template",
+      "title_dimension": 3,
+      "text": [
+        ""
       ]
     }
   ]

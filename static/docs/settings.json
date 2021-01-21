@@ -2,29 +2,29 @@
   "sections": [
     {
       "title": "PMID Settings",
-      "title_dimension": 4,
+      "title_dimension": 3,
       "text": [
-        "<b>BASE_PMID_URL</b> variable set the link that is used to add to each PubMedId the pubmed article associated with it."
+        "<b>BASE_PMID_URL:</b> is a variable which set the link that is used to add to each PubMedID the pubmed article associated with it."
       ]
     },
     {
       "title": "Paths Settings",
-      "title_dimension": 4,
+      "title_dimension": 3,
       "text": [
-        "<b>DOCS_PATH</b> variable set the path on which the json documentation files are stored.\n",
-        "<b>DATASET_LOCATION</b> variable set the path on which the datasets used are located.\n",
-        "<b>GENE_TABLE_NAME</b> variable set the name of the GeneTable file.\n",
-        "<b>DISEASE_TABLE_NAME</b> variable set the name of the GeneTable file."
+        "<b>DOCS_PATH:</b> is a variable which set the path where the json documentation files are stored.\n",
+        "<b>DATASET_LOCATION:</b> is a variable which set the path to the folder where the datasets are located.\n",
+        "<b>GENE_TABLE_NAME:</b> is a variable which set the name of the GeneTable file.\n",
+        "<b>DISEASE_TABLE_NAME:</b> is a variable which set the name of the GeneTable file."
       ]
     },
     {
       "title": "Cache Settings",
-      "title_dimension": 4,
+      "title_dimension": 3,
       "text": [
-        "Settings for the Flask cache used for downloading the tables.\n",
-        "<b>CACHE_CONFIG</b> dictionary set some options about the cache.\n",
-        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as list) computed when an operation on the datasets is called, to be later downloaded.\n",
-        "<b>TABLE_CACHE_NAME</b> variable set the name of the table cache."
+        "Here are settings used by flask-caching to store the tables and download them later.",
+        "<b>CACHE_CONFIG:</b> is a dictionary containing some options for the cache.",
+        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as list) computed when an operation on the datasets is called, to be later retrieved and downloaded.\n",
+        "<b>TABLE_CACHE_NAME:</b> variable set the name of the table cache."
       ]
     }
   ]
