@@ -19,18 +19,18 @@
 <!-- Is the actual html code for one class -->
 {% macro class(a_class) %}
     <!--Name of the class-->
-    <p class="title is-size-3">{{ a_class.name }}</p>
+    <p class="title is-size-3 has-text-success">{{ a_class.name |safe }}</p>
 
     <!--Name of the class with parameters and their default if present-->
     <div class="block ml-6">
         <p class="is-size-5 has-text-weight-semibold">class {{ a_class.name }}
             ({% for param in a_class.parameters %}
-                <i><b>{{ param.name }}</b>{{ param.default }},</i>
+                <i><b>{{ param.name |safe }}</b>{{ param.default }},</i>
             {% endfor %}):
         </p>
 
         <div class="block ml-6 pl-6">
-            <p style="white-space:pre-wrap;">{{ a_class.description }}</p>
+            <p>{{ a_class.description |safe }}</p>
         </div>
 
 
@@ -40,9 +40,9 @@
 
                 {% for param in a_class.parameters %}
                     <div class="block ml-6">
-                        <p class="has-text-weight-bold">{{ param.name }} :
+                        <p class="has-text-weight-bold">{{ param.name |safe }} :
                             <span class="has-text-weight-semibold is-italic">{{ param.type }}</span></p>
-                        <p class="ml-6" style="white-space:pre-wrap;">{{ param.description }}</p>
+                        <p class="ml-6">{{ param.description |safe }}</p>
                     </div>
                 {% endfor %}
             </div>
@@ -55,9 +55,9 @@
 
                 {% for attrib in a_class.attributes %}
                     <div class="block ml-6">
-                        <p class="has-text-weight-bold">{{ attrib.name }} :
+                        <p class="has-text-weight-bold">{{ attrib.name |safe }} :
                             <span class="has-text-weight-semibold is-italic">{{ attrib.type }}</span></p>
-                        <p class="ml-6" style="white-space:pre-wrap;">{{ attrib.description }}</p>
+                        <p class="ml-6">{{ attrib.description |safe }}</p>
                     </div>
                 {% endfor %}
             </div>
@@ -70,14 +70,14 @@
 
                 {% for meth in a_class.methods %}
                     <div class="block ml-6 my-5">
-                        <p class="has-text-weight-bold">{{ meth.name }}
+                        <p class="has-text-weight-bold has-text-primary">{{ meth.name |safe }}
                             ({% for param in meth.parameters %}
-                                <i>{{ param.name }}<span
-                                        class="has-text-weight-semibold">{{ param.default }},</span></i>
-                            {% endfor %}):<span class="has-text-weight-semibold"> --> {{ meth.rtype }}</span>
+                                <i>{{ param.name |safe }}<span
+                                        class="has-text-weight-semibold has-text-black">{{ param.default }},</span></i>
+                            {% endfor %}):<span class="has-text-weight-semibold has-text-black"> --> {{ meth.rtype }}</span>
                         </p>
 
-                        <p class="ml-6" style="white-space:pre-wrap;">{{ meth.description }}</p>
+                        <p class="ml-6">{{ meth.description |safe }}</p>
 
                         {% if meth.parameters|length > 0 %}
                             <div class="block ml-6 pl-4 mt-2">
@@ -85,9 +85,9 @@
 
                                 {% for param in meth.parameters %}
                                     <div class="block ml-6">
-                                        <p class="has-text-weight-bold">{{ param.name }} :
+                                        <p class="has-text-weight-bold">{{ param.name |safe }} :
                                             <span class="has-text-weight-semibold is-italic">{{ param.type }}</span></p>
-                                        <p class="ml-6" style="white-space:pre-wrap;">{{ param.description }}</p>
+                                        <p class="ml-6">{{ param.description |safe }}</p>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -109,7 +109,7 @@
 
             <section class="section">
                 {% for a_function in docs.functions %}
-                    <div class="box ml-3">
+                    <div class="box ml-3" id="{{ a_function.name |safe }}">
                         {{ function(a_function=a_function) }}
                     </div>
                 {% endfor %}
@@ -122,19 +122,19 @@
 <!-- Is the actual html code for one function -->
 {% macro function(a_function) %}
     <!--Title of the function-->
-    <p class="title is-size-3">{{ a_function.name }}</p>
+    <p class="title is-size-3 has-text-success">{{ a_function.name |safe }}</p>
 
     <!--Name of the function with parameters and their defaults if present-->
     <div class="block ml-6">
-        <p class="is-size-5 has-text-weight-semibold">class {{ a_function.name }}
+        <p class="is-size-5 has-text-weight-semibold">function {{ a_function.name | safe }}
             ({% for param in a_function.parameters %}
-                <i><b>{{ param.name }}</b>{{ param.default }},</i>
+                <i><b>{{ param.name |safe }}</b>{{ param.default }},</i>
             {% endfor %}): --> {{ a_function.rtype }}
         </p>
 
         <!--Description of the function-->
         <div class="block ml-6 pl-6">
-            <p style="white-space:pre-wrap;">{{ a_function.description }}</p>
+            <p>{{ a_function.description |safe }}</p>
         </div>
 
         <!--Description of the parameters of the functions-->
@@ -144,9 +144,9 @@
 
                 {% for param in a_function.parameters %}
                     <div class="block ml-6">
-                        <p class="has-text-weight-bold">{{ param.name }} :
+                        <p class="has-text-weight-bold">{{ param.name |safe }} :
                             <span class="has-text-weight-semibold is-italic">{{ param.type }}</span></p>
-                        <p class="ml-6" style="white-space:pre-wrap;">{{ param.description }}</p>
+                        <p class="ml-6">{{ param.description |safe }}</p>
                     </div>
                 {% endfor %}
             </div>
@@ -157,17 +157,18 @@
 
 <!-- Is the html that manage the introduction-->
 {% macro text_sections(docs) %}
-    <section class="section">
-        {% for section in docs.sections %}
-            <div class="block">
-                <p class="title is-size-{{ section.title_dimension }}">
-                    {{ section.title }}
-                </p>
-                {% for paragraph in section.text %}
-                    <div class="block ml-5" style="white-space:pre-wrap;">{{ paragraph }}</div>
-                {% endfor %}
-            </div>
-
+<section class="section">
+    {% for section in docs.sections %}
+    <div class="block mb-6">
+        <p class="title is-size-{{ section.title_dimension }}">
+            {{ section.title |safe }}
+        </p>
+        {% for paragraph in section.text %}
+            <div class="block ml-5">
+            {{ paragraph |safe }}</div>
         {% endfor %}
-    </section>
+    </div>
+
+    {% endfor %}
+</section>
 {% endmacro %}

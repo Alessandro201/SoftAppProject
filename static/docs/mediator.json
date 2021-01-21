@@ -1,49 +1,26 @@
 {
-   "functions": [
+  "functions": [
     {
       "name": "getInfoGenes",
       "description": "Return a dictionary containing informations of geneTable.",
-      "rtype": "dictionary",   
+      "rtype": "dictionary"
     },
-      { 
+    {
       "name": "getInfoDiseases",
       "description": "Return a dictionary containing informations of diseaseTable.",
-      "rtype": "dictionary",
-        },
-      { 
+      "rtype": "dictionary"
+    },
+    {
       "name": "getInfo",
       "description": "Returns two dictionaries containing informations on the two datasets.",
-      "rtype": "tuple containing two dictionaries",
-     
-        },
-      {
+      "rtype": "tuple containing two dictionaries"
+    },
+    {
       "name": "getDiseaseTableList",
       "description": "Return a dictionary containing information of the disease dataset.",
       "rtype": "dictionary",
-
       "parameters": [
         {
-          "name": "start",
-          "description": "start index",
-          "type": "int"
-        },
-        {
-          "name": "end",
-          "description": "end index",
-          "type": "int"
-        },
-        {
-          "name": "step",
-          "description": "interval index",
-          "type": "int"
-        },
-         {
-      "name": "getGeneTableList",
-      "description": "Return a dictionary containing information of the gene dataset.",
-      "rtype": "dictionary",
-
-      "parameters": [
-       {
           "name": "start",
           "description": "start index",
           "type": "int"
@@ -59,43 +36,67 @@
           "type": "int"
         }
       ]
-         }
-         {
+    },
+    {
+      "name": "getGeneTableList",
+      "description": "Return a dictionary containing information of the gene dataset.",
+      "rtype": "dictionary",
+      "parameters": [
+        {
+          "name": "start",
+          "description": "start index",
+          "type": "int"
+        },
+        {
+          "name": "end",
+          "description": "end index",
+          "type": "int"
+        },
+        {
+          "name": "step",
+          "description": "interval index",
+          "type": "int"
+        }
+      ]
+    },
+    {
       "name": " getDistinctGenes",
       "description": "Return a list of unique genes present in the dataframe.",
-      "rtype": "list",
-     
-        },
-         {
+      "rtype": "list"
+    },
+    {
       "name": "getDistinctDiseases",
       "description": "Return a list of unique disease present in the dataframe.",
-      "rtype": "list",
-        },
-     
+      "rtype": "list"
+    },
+    {
       "name": "getGeneEvidences",
       "description": "Receives as input a geneid or a gene_symbol and returns a list with the sentences that relates the COVID-19 with the gene.",
       "rtype": "list",
-
       "parameters": [
         {
           "name": "gene",
           "description": "the geneid or gene_symbol input",
           "type": "str or int"
-        },
+        }
+      ]
+    },
+    {
       "name": "getDiseaseEvidences",
-      "description": "eceives as input a diseaseID or a disease name and returns a list with the sentences that relates the COVID-19 with the disease.",
+      "description": "Receives as input a diseaseID or a disease name and returns a list with the sentences that relates the COVID-19 with the disease.",
       "rtype": "list",
-
       "parameters": [
         {
           "name": "disease",
-          "description": "the diseaseID or disease name input",
+          "description": "The diseaseID or disease name input",
           "type": "str or int"
-        },
+        }
+      ]
+    },
+    {
       "name": "getCorrelation",
       "description": "Returns a list of the correlations between genes and diseases sorted by the highest number of occurrences. It allows to customize the number of correlations and the minimum occurrence.Occurrence has priority over the number of rows.",
       "rtype": "dictionary",
-
       "parameters": [
         {
           "name": "num_rows",
@@ -106,31 +107,37 @@
           "name": "min_occurrence",
           "description": "number of minimum occurrences",
           "type": "int"
-        },
+        }
+      ]
+    },
+    {
       "name": " getDiseasesRelatedToGene",
       "description": "Receives as input a geneID or a gene symbol and then returns a list with the disesase related to the gene.",
       "rtype": "list",
-
       "parameters": [
         {
           "name": "gene",
           "description": "geneID or gene_symbol",
           "type": "str or int"
-        },
+        }
+      ]
+    },
+    {
       "name": "getGenesRelatedToDisease",
       "description": "Receives as input a diseaseID or a disease name and then returns a list with the genes related to the disease.",
       "rtype": "list",
-
       "parameters": [
         {
           "name": "disease",
           "description": "diseaseID or disease name",
           "type": "str or int"
-        },
+        }
+      ]
+    },
+    {
       "name": "getDocumentation",
       "description": "Reads the documentation from .json files and return a dict. You can either input the whole path, or the folder and the name of the file.",
       "rtype": "dictionary",
-
       "parameters": [
         {
           "name": "path",
@@ -140,12 +147,10 @@
         {
           "name": "file",
           "default": "",
-          "description":"The name of the file. It can be either with extension or without. It's optional if you input the path to the file in 'path'.",
+          "description": "The name of the file. It can be either with extension or without. It's optional if you input the path to the file in 'path'.",
           "type": "str"
-        }   
+        }
       ]
     }
   ]
-}
-  
 }

@@ -1,4 +1,4 @@
-{% extends "documentation/base.html" %}
+{% extends "documentation/base_docs.html" %}
 {% from "macros/docs_macros.html" import classes_docs, functions_docs, text_sections %}
 
 {% block title %}Documentation Settings{% endblock %}
@@ -6,10 +6,10 @@
 
 {% block docs_content %}
     <div class="columns">
-        <div class="column is-three-quarters">
+        <div class="column is-three-quarters has-text-justified">
 
             <p class="title is-size-1">Settings.py</p>
-            <div class="block">Contains all the global variables needed by the website.</div>
+            <div class="block">Settings.py gives to the user the capacity to edit the global variables of the project and the possibility to edit advanced settings.</div>
 
 
             {% if docs.sections|length > 0 %}

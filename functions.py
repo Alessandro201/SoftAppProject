@@ -91,7 +91,7 @@ class GeneTable(DataTables):
         :return: tuple with rows and columns
         :rtype: tuple
         """
-        return self.__geneTable.shape[0], self.__geneTable.shape[1]
+        return self.__geneTable.shape
 
     def get_labels(self):
         """
@@ -195,7 +195,7 @@ class DiseaseTable(DataTables):
         :return: tuple with rows and columns
         :rtype: tuple
         """
-        return self.__diseaseTable.shape[0], self.__diseaseTable.shape[1]
+        return self.__diseaseTable.shape
 
     def get_labels(self):
         """

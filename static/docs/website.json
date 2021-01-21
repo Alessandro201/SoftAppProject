@@ -1,30 +1,75 @@
 {
   "functions": [
     {
-      "name": "getDiseaseTableList",
-      "description": "Returns a list of rows of the disease table from 'start' to 'end'",
-      "rtype": "pandas.DataFrame",
-
+      "name": "run",
+      "description": "It's called by main.py to start the website.",
       "parameters": [
         {
-          "name": "start",
-          "description": "Starting row to return",
-          "default": "=0",
-          "type": "int"
-        },
-        {
-          "name": "end",
-          "description": "Ending row to return",
-          "default": "=None",
-          "type": "int"
-        },
-        {
-          "name": "step",
-          "description": "Every 'step' row is taken",
-          "default": "=1",
-          "type": "int"
+          "name": "**kwargs",
+          "description": "The arguments are directly passed to Flask when he runs the website.",
+          "type": "dict"
         }
       ]
+    },
+    {
+      "name": "homepage",
+      "description": "The function renders the homepage in which the project is explained briefly."
+    },
+    {
+      "name": "documentation",
+      "description": "Return the webpages with the documentation of the project.<br><br>Every webpage of the docs has it's name added after \"/documentation/\"<br>This means that you can add all the webpages that you want and you won't need to write a single line of code, just add the html files to \"templates/documentation/\" and the .json files with the documentation to the folder containing all the .json written in \"settings.py\".<br><br>Any eventual OSError exception is purposefully caught here and not in mediator.py to show the error as a popup with flash().",
+      "parameters": [
+        {
+          "name": "file",
+          "description": "Is the name of the documentation webpage. For example if file=\"settings\" then the url will be \"documentation/setting\".",
+          "type": "str"
+        }
+      ]
+    },
+    {
+      "name": "functions",
+      "description": "Returns the webpage which lets you select the operation you want to do with the datasets."
+    },
+    {
+      "name": "download",
+      "description": "Allows to download the table computed by an operation as tsv file.<br><br>Steps:<br>1) Get <code>what_to_download</code> to know the name by which the table is stored in the cache. It will also be the name of the file and of the function in \"website.py\" that made the table. If for some reason it can't find it, it flashes a popup and redirect to the previous page<br>1.1) If name_file is either \"diseaseTable\" or \"geneTable\" then it downloads the whole dataset from it's actual location, NOT from the cache.<br>2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout defined in the config.py. You need to reload the page to compute again the table<br>3) Extract from \"data_to_save\" which is a dictionary the rows and the labels of the table<br>4) A csv.writer is instantiated. It needs StringIO<br>5) Write as the first row the labels of the columns, then write all the rows<br>6) Make a response which allows the .tsv file to be downloaded<br>7) Set some information of the file that will be downloaded like its name and filetype.<br><br><code># Step 4)<br>    si = StringIO()<br>    cw = csv.writer(si, delimiter='\\t')<br><br>    # Step 5)<br>    cw.writerows(labels)<br>    cw.writerows(rows)<br><br>    # Step 6)<br>    output = make_response(si.getvalue())<br><br>    # Step 7)<br>    output.headers[\"Content-Disposition\"] = f\"attachment; filename={name_file}.tsv\"<br>    output.headers[\"Content-type\"] = \"text/tsv\"<br>    return output</code>",
+      "rtype": "download"
+    },
+    {
+      "name": "browseGeneDataset",
+      "description": "Renders the webpage which lets you go through gene dataset. To do the pagination it uses Pagination() from flask-paginate."
+    },
+    {
+      "name": "browseDiseasesDataset",
+      "description": "Renders the webpage which lets you go through gene dataset. To do the pagination it uses Pagination() from flask-paginate."
+    },
+    {
+      "name": "info",
+      "description": "Renders the webpage which presents all the information about the datasets and a preview of heads and tails."
+    },
+    {
+      "name": "distinctGenes",
+      "description": "Renders the webpage which presents all the unique distinct genes in the gene dataset."
+    },
+    {
+      "name": "geneEvidences",
+      "description": "The first time the user access \"geneEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a geneSymbol or a geneID. It is then submitted back to \"geneEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the gene and COVID-19."
+    },
+    {
+      "name": "diseaseEvidences",
+      "description": "The first time the user access \"diseaseEvidences\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseID or a diseaseName. It is then submitted back to \"diseaseEvidences\" but with 'POST' method. Now it returns a webpage which lists all the evidences in literature of the relation between the disease and COVID-19."
+    },
+    {
+      "name": "correlation",
+      "description": "The webpage lists the correlations between genes and diseases.<br><br>It allows th user to customize the results, he can decide the number of correlations to show (\"rows\") and the minimum number of occurrences a correlation needs to have to be shown (\"occurrences\").<br><br>If \"occurrence\" is given and the user hasn't written anything in \"rows\" then it sets \"rows\" to 0 which means that all rows will be returned. Also, if the user wants 50 rows, but the rows which meet the occurrence requirement are 30, only 30 rows will be returned."
+    },
+    {
+      "name": "diseasesRelatedToGene",
+      "description": "The first time the user access \"diseasesRelatedToGene\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a geneSymbol or a geneID. It is then submitted back to \"diseasesRelatedToGene\" but with 'POST' method. Now it returns a webpage which lists all the diseases related to the gene found in literature."
+    },
+    {
+      "name": "genesRelatedToDisease",
+      "description": "The first time the user access \"genesRelatedToDisease\" it is requested with 'GET' method. Then it returns a webpage which lets the user input a diseaseName or a diseaseID. It is then submitted back to \"genesRelatedToDisease\" but with 'POST' method. Now it returns a webpage which lists all the genes related to the disease found in literature."
     }
   ]
 }

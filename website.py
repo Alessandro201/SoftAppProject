@@ -38,7 +38,7 @@ def about():
 @app.route('/documentation', defaults={'file': 'homepage'})
 @app.route('/documentation/<file>')
 def documentation(file):
-    """Return a webpage with the docs of the project.
+    """Return the webpages with the documentation of the project.
 
     Every webpage of the docs has it's name added after "/documentation/"
     This means that you can add all the webpages that you want and you won't need to write a single line of code,
@@ -57,7 +57,8 @@ def documentation(file):
             'message': 'There was an error in loading the documentation. You are redirected to the Project Overview',
             'details': err,
         })
-        return render_template('documentation/homepage.html')
+        docs = mediator.getDocumentation(DOCS_PATH, 'homepage')
+        return render_template('documentation/homepage.html', docs=docs)
 
     return render_template('documentation/%s.html' % file, docs=docs)
 
@@ -92,9 +93,9 @@ def download():
     name_file = request.form.get('name_file')
     if name_file is None:
         flash({'type': 'warning',
-               'header': 'Error!',
-               'message': 'Error in downloading the table, please try reloading the page!'
-                          '\n\nDetails: "name_file" not found in the forms'})
+               'header': 'Something went wrong!',
+               'message': 'Error in downloading the table, please try reloading the page!',
+               'details': f"\"name_file\":{name_file} not found in the forms"})
         return redirect(request.referrer)
 
     elif name_file == 'diseaseTable':
@@ -137,9 +138,9 @@ def download():
     return output
 
 
-@app.route('/browseGeneDataset')
-def browseGeneDataset():
-    """A webpage which lets you go through gene data table.
+@app.route('/browseGenesDataset')
+def browseGenesDataset():
+    """A webpage which lets you go through gene dataset.
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
@@ -155,17 +156,17 @@ def browseGeneDataset():
                'message': 'You need to insert a positive number!'})
 
     # start and end indexes of the table
-    start = page * rows_per_page
-    end = (page + 1) * rows_per_page
+    start = (page - 1) * rows_per_page
+    end = page * rows_per_page
 
     # Returns a list of the rows from index start to index end
     data['rows'] = mediator.getGeneTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it in the webpage
-    pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",
+    pagination = Pagination(page=page, total=data['nrows'], record_name="gene entries",
                             css_framework='bulma', per_page=rows_per_page)
 
-    return render_template('browseDiseasesDataset.html',
+    return render_template('browseGenesDataset.html',
                            base_pmid_url=BASE_PMID_URL,
                            data=data,
                            pagination=pagination)
@@ -173,14 +174,12 @@ def browseGeneDataset():
 
 @app.route('/browseDiseasesDataset')
 def browseDiseasesDataset():
-    """A webpage which lets you go through gene data table.
+    """A webpage which lets you go through disease dataset.
     To do the pagination it uses Pagination() from flask-paginate"""
 
     # variables
-    data = dict()
-    data['nrows'] = mediator.getInfoDiseases()['nrows']
-    data['labels'] = mediator.getInfoDiseases()['labels']
-    per_page = 30
+    data = mediator.getInfoDiseases()
+    rows_per_page = 30
 
     # Get the page from the form to let the user go to a specific page
     # The value of "page" is taken with functions from flask-paginate otherwise it raises errors
@@ -192,15 +191,15 @@ def browseDiseasesDataset():
                'message': 'You need to insert a positive number!'})
 
     # start and end index of the table
-    start = page * per_page
-    end = (page + 1) * per_page
+    start = (page - 1) * rows_per_page
+    end = page * rows_per_page
 
     # Returns a list of the rows from index start to index end
     data['rows'] = mediator.getDiseaseTableList(start, end)
 
     # Prepares the pagination that allows you to click the number of the page and view it
     pagination = Pagination(page=page, total=data['nrows'], record_name="diseases entries",
-                            css_framework='bulma', per_page=per_page)
+                            css_framework='bulma', per_page=rows_per_page)
 
     return render_template('browseDiseasesDataset.html',
                            base_pmid_url=BASE_PMID_URL,
@@ -221,7 +220,7 @@ def info():
 # for c objective
 @app.route('/distinctGenes')
 def distinctGenes():
-    """A webpage with all the unique distinct genes in the gene table"""
+    """A webpage with all the unique distinct genes in the gene dataset"""
 
     NAME_FUNCTION = 'distinct_genes'
 
@@ -252,7 +251,8 @@ def geneEvidences():
     """The first time the user access "geneEvidences" it is requested with 'GET' method.
     Then it returns a webpage which lets the user input a geneSymbol or a geneID.
     It is then submitted back to "geneEvidences" but with 'POST' method.
-    Now it returns a webpage which lists all the evidences in literature of the gene"""
+    Now it returns a webpage which lists all the evidences in literature of the relation between
+    the gene and COVID-19"""
 
     NAME_FUNCTION = '_evidences'
 
