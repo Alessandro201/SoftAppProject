@@ -13,7 +13,7 @@
       "title_dimension": 3,
       "text": [
         "To keep the style of the website consistent throughout all the webpages, we used a template called <span class=\"has-text-weight-semibold\">'base.html'</span> which contains code needed on all webpages like:",
-        "<span class='title is-size-5'>Initialization code:</span> here is declared the doctype, the language, the stylesheets, the fonts and jsquery.",
+        "<span class='title is-size-5'>Initialization code:</span> here is declared the doctype, the language, the stylesheets, the icons and jsquery.",
         "<span class='title is-size-5'>Navigation-bar:</span> here is all the code pertaining the navigation-bar at the top of the webpage with its links.",
         "<span class='title is-size-5'>Popup notification:</span> in case there is a message that needs to be communicated to the user, here is the code which lets a popup notification appear at the top of the screen. All the messages can be sent by using <code>flash()</code> in a python file with Flask, they will queue up until a new page is loaded, then they will be presented. As argument it needs something to pass to the html file like a string or a dictionary. We've set up the popup to so that it's possible to pass a dict to provide some degree of customization and let the message box be usable both for warnings and for information.",
         "<code>message = {<br>'type':'colour of the popup',<br>'header':'title of the popup',<br>'message':'text of the popup',<br>'details':'additional details'<br>}</code>.",
