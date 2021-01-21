@@ -159,7 +159,7 @@
 {% macro text_sections(docs) %}
 <section class="section">
     {% for section in docs.sections %}
-    <div class="block mb-6">
+    <div class="block mb-6" id='{{ section.title }}'>
         <p class="title is-size-{{ section.title_dimension }}">
             {{ section.title |safe }}
         </p>

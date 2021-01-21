@@ -21,11 +21,22 @@
                 Part 2, <span class="has-text-weight-semibold">"functions.py"</span>, is the core of the analysis and
                 contains all the classes and methods needed in order to perform the operations on the datasets.
                 Part3 is <span class="has-text-weight-semibold">"website.py"</span> and contains all the functions
-                needed to interact with the user through a webpageand present him the results.
+                needed to interact with the user through a webpage and present him the results.
                 While part 1 is <span class="has-text-weight-semibold">"mediator.py"</span> and is the component
                 which links the other two parts and allows them to communicate.
-
             </div>
+            <div class="block">In general, <span class="has-text-weight-semibold">"functions.py"</span> returns the
+                results as <span class="has-text-weight-semibold">pandas.DataFrame</span>, and
+                <span class="has-text-weight-semibold">"mediator.py"</span> converts them in a list which is added
+                to a dictionary containing also information on the length of the table and on the labels.
+            </div>
+            <div class="block"><code>data={
+                <br>'nrows':'n of rows in the table',
+                <br>'labels':'labels of the table',
+                <br>'rows':'rows of the table'
+                <br>}</code>
+            </div>
+
 
             {% if docs.sections|length > 0 %}
                 {{ text_sections(docs=docs) }}
