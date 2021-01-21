@@ -44,11 +44,17 @@ To start the program type in the terminal:
 - <a href="https://pandas.pydata.org/">**Pandas**</a>
 : to execute operations on the datasets.
 
+- <a href="https://bulma.io/">**Bulma**</a>
+: css framework used for the website.
+
 <br>
 
 <h2>Components</h2>
 
-The program is divided in four components:
+The program is divided in five components:
+
+- <a href="https://github.com/AlessandroPoletti/SoftAppProject/blob/master/main.py">main.py</a>
+Is the part that start the execution of the program<br>
 
 - <a href="https://github.com/AlessandroPoletti/SoftAppProject/blob/master/mediator.py">mediator.py</a>
 Is the part1 described in the project specifications which connects part2 and part3<br>
