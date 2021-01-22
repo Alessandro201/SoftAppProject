@@ -23,7 +23,7 @@
       ]
     },
     {
-      "title": "jinja block",
+      "title": "Jinja block",
       "title_dimension": 3,
       "text": [
         "We used <code>{% block name %}{% endblock %}</code> inside the html files to pass pieces of code to \"base.html\" from which all html files inherit from. In this way it's possible to personalize the code for every webpage, for example by passing the code for the body using <code>{% block content %} {% endblock %}</code>."
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "title": "download a table",
+      "title": "Download a table",
       "title_dimension": 3,
       "text": [
         "In every page which presents the results of an operation the user has the ability to download the table just computed as a .tsv file.",
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "title": "documentation",
+      "title": "Documentation",
       "title_dimension": 3,
       "text": [
         ""
