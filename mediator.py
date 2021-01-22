@@ -80,7 +80,7 @@ def getDistinctGenes():
 
     data = {'labels': table.columns.values.tolist(),
             'rows': table.values.tolist(),
-            'lenght': table.shape[0]}
+            'length': table.shape[0]}
 
     return data
 
@@ -90,7 +90,7 @@ def getDistinctDiseases():
 
     data = {'labels': table.columns.values.tolist(),
             'rows': table.values.tolist(),
-            'lenght': table.shape[0]}
+            'length': table.shape[0]}
 
     return data
 
@@ -114,7 +114,7 @@ def getGeneEvidences(gene):
 
     data = {'labels': table.columns.values.tolist(),
             'rows': table.values.tolist(),
-            'lenght': table.shape[0]}
+            'length': table.shape[0]}
 
     return data
 
@@ -133,7 +133,7 @@ def getDiseaseEvidences(disease):
 
     data = {'labels': table.columns.values.tolist(),
             'rows': table.values.tolist(),
-            'lenght': table.shape[0]}
+            'length': table.shape[0]}
 
     return data
 
@@ -153,7 +153,7 @@ def getCorrelation(num_rows, min_occurrences):
     # create a dictionary containing the information and the rows of the dataframe
     data = {'labels': corr.columns.values.tolist(),
             'rows': corr.values.tolist(),
-            'lenght': corr.shape[0],
+            'length': corr.shape[0],
             'min_occurrences': min_occurrences}
 
     # if min_occurrences is at its default value (0) it means that the user hasn't input any min_occurrences
@@ -166,7 +166,7 @@ def getCorrelation(num_rows, min_occurrences):
         try:
             # Select only the first [num_rows] rows from the dataframe
             data['rows'] = corr.iloc[:num_rows].values.tolist()
-            data['lenght'] = len(data['rows'])
+            data['length'] = len(data['rows'])
             return data
 
         except IndexError:
@@ -183,11 +183,11 @@ def getCorrelation(num_rows, min_occurrences):
         # that he wants to see all correlations
         if num_rows < len(corr) and num_rows != 0:
             data['rows'] = corr.iloc[:num_rows].values.tolist()
-            data['lenght'] = len(data['rows'])
+            data['length'] = len(data['rows'])
             return data
         else:
             data['rows'] = corr.values.tolist()
-            data['lenght'] = len(data['rows'])
+            data['length'] = len(data['rows'])
             return data
 
 
@@ -196,7 +196,7 @@ def getDiseasesRelatedToGene(gene):
 
     data = {'labels': table.columns.values.tolist(),
             'rows': table.values.tolist(),
-            'lenght': table.shape[0]}
+            'length': table.shape[0]}
 
     return data
 
@@ -206,7 +206,7 @@ def getGenesRelatedToDisease(disease):
 
     data = {'labels': table.columns.values.tolist(),
             'rows': table.values.tolist(),
-            'lenght': table.shape[0]}
+            'length': table.shape[0]}
 
     return data
 
