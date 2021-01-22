@@ -23,17 +23,17 @@
 
     <!--Name of the class with parameters and their default if present-->
     <div class="block ml-6">
-        <p class="is-size-5 has-text-weight-semibold">class {{ a_class.name }}
+        <p class="is-size-5">class <span class=" has-text-weight-semibold">{{ a_class.name }}
             ({% for param in a_class.parameters %}
                 <i><b>{{ param.name |safe }}</b>{{ param.default }},</i>
-            {% endfor %}):
+            {% endfor %}):</span>
         </p>
 
         <div class="block ml-6 pl-6">
             <p>{{ a_class.description |safe }}</p>
         </div>
 
-
+        <!-- Parameters of the class -->
         {% if a_class.parameters|length > 0 %}
             <div class="block mt-6">
                 <p class="is-size-5 has-text-weight-semibold">Parameters:</p>
@@ -48,7 +48,7 @@
             </div>
         {% endif %}
 
-
+        <!-- Attributes of the class -->
         {% if a_class.attributes|length > 0 %}
             <div class="block mt-6">
                 <p class="is-size-5 has-text-weight-semibold">Attributes:</p>
@@ -63,7 +63,7 @@
             </div>
         {% endif %}
 
-
+        <!-- Methods of the class -->
         {% if a_class.methods|length > 0 %}
             <div class="block mt-6">
                 <p class="is-size-5 has-text-weight-semibold">Methods:</p>
@@ -74,11 +74,13 @@
                             ({% for param in meth.parameters %}
                                 <i>{{ param.name |safe }}<span
                                         class="has-text-weight-semibold has-text-black">{{ param.default }},</span></i>
-                            {% endfor %}):<span class="has-text-weight-semibold has-text-black"> --> {{ meth.rtype }}</span>
+                            {% endfor %}):<span
+                                    class="has-text-weight-semibold has-text-black"> --> {{ meth.rtype }}</span>
                         </p>
 
                         <p class="ml-6">{{ meth.description |safe }}</p>
 
+                        <!-- Parameters of the method -->
                         {% if meth.parameters|length > 0 %}
                             <div class="block ml-6 pl-4 mt-2">
                                 <p class="has-text-weight-semibold">Method parameters:</p>
@@ -126,10 +128,10 @@
 
     <!--Name of the function with parameters and their defaults if present-->
     <div class="block ml-6">
-        <p class="is-size-5 has-text-weight-semibold">function {{ a_function.name | safe }}
+        <p class="is-size-5">function <span class=" has-text-weight-semibold">{{ a_function.name | safe }}
             ({% for param in a_function.parameters %}
                 <i><b>{{ param.name |safe }}</b>{{ param.default }},</i>
-            {% endfor %}): --> {{ a_function.rtype }}
+            {% endfor %}): --> {{ a_function.rtype }}</span>
         </p>
 
         <!--Description of the function-->
@@ -157,18 +159,18 @@
 
 <!-- Is the html that manage the introduction-->
 {% macro text_sections(docs) %}
-<section class="section">
-    {% for section in docs.sections %}
-    <div class="block mb-6" id='{{ section.title }}'>
-        <p class="title is-size-{{ section.title_dimension }}">
-            {{ section.title |safe }}
-        </p>
-        {% for paragraph in section.text %}
-            <div class="block ml-5">
-            {{ paragraph |safe }}</div>
-        {% endfor %}
-    </div>
+    <section class="section">
+        {% for section in docs.sections %}
+            <div class="block mb-6" id='{{ section.title }}'>
+                <p class="title is-size-{{ section.title_dimension }}">
+                    {{ section.title |safe }}
+                </p>
+                {% for paragraph in section.text %}
+                    <div class="block ml-5">
+                        {{ paragraph |safe }}</div>
+                {% endfor %}
+            </div>
 
-    {% endfor %}
-</section>
+        {% endfor %}
+    </section>
 {% endmacro %}
