@@ -115,7 +115,7 @@ def download():
             return send_file(complete_path, as_attachment=True)
         else:
             # Step 3.1)
-            data_to_save = cache.get(TABLE_CACHE_NAME)
+            data_to_save = cache.get(name_file)
             if data_to_save is None:
                 flash({'type': 'warning',
                        'header': 'Something went wrong!',
@@ -232,7 +232,7 @@ def distinctGenes():
 
     data = mediator.getDistinctGenes()
 
-    cache.set(TABLE_CACHE_NAME, data)
+    cache.set(NAME_FILE, data)
 
     return render_template('operations/distinctGenes.html', data=data, NAME_FILE=NAME_FILE)
 
@@ -246,7 +246,7 @@ def distinctDiseases():
 
     data = mediator.getDistinctDiseases()
 
-    cache.set(TABLE_CACHE_NAME, data)
+    cache.set(NAME_FILE, data)
 
     return render_template('operations/distinctDiseases.html', data=data, NAME_FILE=NAME_FILE)
 
@@ -268,7 +268,7 @@ def geneEvidences():
 
         data = mediator.getGeneEvidences(gene)
 
-        cache.set(TABLE_CACHE_NAME, data)
+        cache.set(NAME_FILE, data)
 
         return render_template("operations/geneEvidences.html", gene=gene, data=data, NAME_FILE=NAME_FILE,
                                base_pmid_url=BASE_PMID_URL)
@@ -290,7 +290,7 @@ def diseaseEvidences():
 
         data = mediator.getDiseaseEvidences(disease)
 
-        cache.set(TABLE_CACHE_NAME, data)
+        cache.set(NAME_FILE, data)
 
         return render_template('operations/diseaseEvidences.html', disease=disease, data=data,
                                base_pmid_url=BASE_PMID_URL, NAME_FILE=NAME_FILE)
@@ -375,7 +375,7 @@ def correlation():
 
     NAME_FILE = 'correlation_top' + str(data['length'])
 
-    cache.set(TABLE_CACHE_NAME, data)
+    cache.set(NAME_FILE, data)
 
     return render_template('operations/correlation.html', data=data, NAME_FILE=NAME_FILE)
 
@@ -388,15 +388,15 @@ def diseasesRelatedToGene():
     It is then submitted back to "diseasesRelatedToGene" but with 'POST' method.
     Now it returns a webpage which lists all the diseases related to the gene found in literature"""
 
-    NAME_FILE = 'diseases_rel_to_'
-
     if request.method == "GET":
         return render_template('operations/inputDiseasesRelatedToGene.html')
     else:
         gene = request.form['gene']
+        NAME_FILE = 'diseases_rel_to_' + gene
+
         data = mediator.getDiseasesRelatedToGene(gene)
 
-        cache.set(TABLE_CACHE_NAME, data)
+        cache.set(NAME_FILE, data)
 
         return render_template("operations/diseasesRelatedToGene.html", gene=gene, data=data,
                                NAME_FILE=NAME_FILE)
@@ -410,15 +410,15 @@ def genesRelatedToDisease():
     It is then submitted back to "genesRelatedToDisease" but with 'POST' method.
     Now it returns a webpage which lists all the genes related to the disease found in literature"""
 
-    NAME_FILE = 'genes_rel_to_'
-
     if request.method == "GET":
         return render_template('operations/inputGenesRelatedToDisease.html')
     else:
         disease = request.form['disease']
+        NAME_FILE = 'genes_rel_to_' + disease
+
         data = mediator.getGenesRelatedToDisease(disease)
 
-        cache.set(TABLE_CACHE_NAME, data)
+        cache.set(NAME_FILE, data)
         return render_template("operations/genesRelatedToDisease.html", data=data, disease=disease,
                                NAME_FILE=NAME_FILE)
 

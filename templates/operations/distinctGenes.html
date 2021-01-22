@@ -14,7 +14,7 @@
                 <!--Display the number of genes found and a button to download the table-->
                 <div class="block">
                     <p>List of genes found in "<i><b>gene_evidences.tsv</b></i>":</p>
-                    <p>Number of genes found: <b>{{ data.lenght }}</b></p>
+                    <p>Number of genes found: <b>{{ data.length }}</b></p>
                 </div>
 
                 <!--Button to download the table.
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        {% if data.lenght != 0 %}
+        {% if data.length != 0 %}
             <div class="columns is-justify-content-center mt-4">
                 <div class="column is-3">
                     {{ mytable(data=data,

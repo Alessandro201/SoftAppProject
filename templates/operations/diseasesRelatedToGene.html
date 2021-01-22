@@ -17,13 +17,13 @@
                     <p>Here are presented all the diseases related to the gene "<i><b>{{ gene }}</b></i>":</p>
                 </div>
 
-                {% if data.lenght == 0 %}
+                {% if data.length == 0 %}
                     <p>It doesn't exist any disease related to the gene.</p>
                 {% else %}
 
                     <!--Button to download the table.
                     It sends to /download "NAME_FILE" which indicates the table to download-->
-                    <p>Number of diseases found: <b>{{ data.lenght }}</b></p>
+                    <p>Number of diseases found: <b>{{ data.length }}</b></p>
                     <form class="buttons is-centered mt-1" action="/download" method="POST">
                         <button class="button is-info" type="submit" value="{{ NAME_FILE }}"
                                 name="name_file">
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        {% if data.lenght != 0 %}
+        {% if data.length != 0 %}
             <div class="columns is-justify-content-center mt-4">
                 <div class="column is-5">
                     {{ mytable(data=data,
