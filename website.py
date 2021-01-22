@@ -8,7 +8,6 @@ import csv
 import mediator
 from mediator import DISEASE_TABLE_PATH, GENE_TABLE_PATH, DOCS_PATH
 
-
 app = Flask(__name__)
 
 # Used by "flash" for flashing comments or errors as popup
@@ -78,61 +77,68 @@ def download():
     """Allows to download the table computed as tsv file.
 
     Steps:
-    1) Get what_to_download to know the name by which the table is stored in the cache. It will also be
-        the name of the file. If for some reason it can't find it, it flashes a popup and redirect to the previous page
-    1.1) If name_file is either diseaseTable or geneTable then it downloads the whole dataset from it's
-        actual location, NOT from the cache.
-    2) Get the table from the cache. If the data is None, it's likely that the cache has exceeded the timout
-        defined in the config.py. You need to reload the page to compute again the table
-    3) Extract from "data_to_save" which is a dictionary the rows and the labels of the table
-    4) A csv.writer is instantiated. It needs StringIO
-    5) Write as the first row the labels of the columns, then write all the rows
-    6) Make a response which allows the .tsv file to be downloaded
-    7) Set some information of the file that will be downloaded like its name and filetype
+    Step 1) Get "name_file" from the page that requested the download.
+    Step 2) Check if "name_file" is None. If it is it means that the previous page did not return any value,
+        or does not have any button named "name_file".
+    Step 3) If "name_file" is not None, it computes the complete path by joining the current path of execution
+        of the program, thus the main directory of the program, and "name_file". Then it checks if it's a file
+        and if it's exists. It if does it means the previous page requested a file to download, and it downloads it,
+        Otherwise it means "name_file" is the name of the name that will have the table once it'll be converted to .tsv.
+    Step 3.1) In the latter case, it requests the table from the cache by using the global variable "TABLE_CACHE_NAME"
+        define in "settings.py". If the data retrieved is None it means that there was not any table in the cache, thus
+        it redirect to the previous page and tells the user through a notification that he needs to reload the page as
+        the table probably expired from the cache.
+    Step 4) Extract from the dictionary "data_to_save" the rows and the labels of the table.
+    Step 5) A csv.writer is instantiated. It needs StringIO to instantiate a file-object.
+    Step 6) Write as the first row the labels of the columns, then write all the rows
+    Step 7) Make a response which allows the .tsv file to be downloaded
+    Step 8) Set some information of the file that will be downloaded like its name and filetype
 
     """
 
     # Step 1)
     name_file = request.form.get('name_file')
 
-    try:
-        complete_path = os.path.join(os.getcwd(), name_file)
-        return send_file(complete_path, as_attachment=True)
-    except FileNotFoundError:
-        pass
-
+    # Step 2)
     if name_file is None:
         flash({'type': 'warning',
                'header': 'Something went wrong!',
                'message': 'Error in downloading the table, please try reloading the page!',
-               'details': f"\"name_file\": \"{name_file}\" not found in the forms"})
+               'details': f"\"name_file\" not found in the forms. It means that the page that "
+                          f"requested the download did not send any value."})
         return redirect(request.referrer)
+    else:
+        complete_path = os.path.join(os.getcwd(), name_file)
 
-    # Step 2)
-    data_to_save = cache.get(TABLE_CACHE_NAME)
-    if data_to_save is None:
-        flash({'type': 'warning',
-               'header': 'Something went wrong!',
-               'message': 'I could not get the table to let you download it, please try reloading the page!',
-               'details': f"\"{name_file}\" was not found or the data was not in the cache!"})
-        return redirect(request.referrer)
+        # Step 3)
+        if os.path.isfile(complete_path) is True:
+            return send_file(complete_path, as_attachment=True)
+        else:
+            # Step 3.1)
+            data_to_save = cache.get(TABLE_CACHE_NAME)
+            if data_to_save is None:
+                flash({'type': 'warning',
+                       'header': 'Something went wrong!',
+                       'message': 'I could not get the table to let you download it, please try reloading the page!',
+                       'details': f"\"{name_file}\" was not found or the data was not in the cache!"})
+                return redirect(request.referrer)
 
-    # Step 3)
+    # Step 4)
     rows = data_to_save['rows']
     labels = [data_to_save['labels']]
 
-    # Step 4)
+    # Step 5)
     si = StringIO()
     cw = csv.writer(si, delimiter='\t')
 
-    # Step 5)
+    # Step 6)
     cw.writerows(labels)
     cw.writerows(rows)
 
-    # Step 6)
+    # Step 7)
     output = make_response(si.getvalue())
 
-    # Step 7)
+    # Step 8)
     output.headers["Content-Disposition"] = f"attachment; filename={name_file}.tsv"
     output.headers["Content-type"] = "text/tsv"
     return output

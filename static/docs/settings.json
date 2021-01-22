@@ -23,7 +23,7 @@
       "text": [
         "Here are settings used by flask-caching to store the tables and download them later.",
         "<b>CACHE_CONFIG:</b> is a dictionary containing some options for the cache.",
-        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as dics) computed when an operation on the datasets is called, to be later retrieved and downloaded.\n",
+        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as dicts) computed when an operation on the datasets is called, to be later retrieved and downloaded.\n",
         "<b>TABLE_CACHE_NAME:</b> is a variable which set the name of the key to which the last table computed will be saved in the cache."
       ]
     }
