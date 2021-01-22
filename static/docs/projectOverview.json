@@ -40,21 +40,32 @@
       ]
     },
     {
-      "title": "Download a table",
+      "title": "Download button",
       "title_dimension": 3,
       "text": [
-        "In every page which presents the results of an operation the user has the ability to download the table just computed as a .tsv file.",
-        "To achieve this, we leveraged the power of flask-caching to save the table (as a dictionary) in the cache and then once the user clicks on the button to download it, the function <code>download()</code> in <a href='/documentation/website'>\"website.py\"</a> retrieves the table from the cache, converts it to a tsv file and lets the user download it.",
-        "Example: Suppose that the user wants to find the evidences in literature of the relation between the gene \"ACE2\" and COVID-19. Here's what happens: <br>Step1) <a href='/documentation/website#geneEvidences'>\"geneEvidences()\"</a> inside \"website.py\" is called, and it asks the user for a gene.<br> Step 2) \"geneEvidences()\" then send the gene to \"mediator.py\" which computes the results and send them back.<br>Step 3) Then \"geneEvidences()\" render the html page with the table and a part of its name ('_evidences') as arguments. <br>Step 4) The html file then shows the table and when the download-button is clicked the name that will have the .tsv table is computed using the name of the function, and then it's passed to \"download()\" in \"website.py\". In our example the gene is \"ACE2\" thus the name of the file will be \"ACE2_evidences\".<br>Step 5) Then \"download()\" retrieves the name and checks if it corresponds to a file. If it does then the file is downloaded. In our example it doesn't, thus it retrieves the table from the cache, convert it to a .tsv file and return it to be downloaded.",
+        "In many pages there is the possibility to download something by clicking a button. To make it as clean and general as possible, we have implemented the \"download()\" function inside in <a href='/documentation/website'>\"website.py\"</a>. It allows to download both an existing file and a table with the results of some operation done on the datasets.",
+        "To achieve this, we leveraged the power of <a href='https://flask-caching.readthedocs.io/en/latest/'>flask-caching</a> to save the table in the cache to be later retrieved by \"download()\" which then converts it to a tsv file and lets the user download it.",
+        "Example: Suppose that the user wants to find the evidences in literature of the relation between the gene \"ACE2\" and COVID-19. Here's what happens: <br>Step1) <a href='/documentation/website#geneEvidences'>\"geneEvidences()\"</a> inside \"website.py\" is called, and it asks the user for a gene.<br> Step 2) \"geneEvidences()\" then sends the gene to <a href='/documentation/mediator'>\"mediator.py\"</a> which returns back the results.<br>Step 3) Then \"geneEvidences()\" render the html page with the table and a the name of the file as arguments. In our example the gene is \"ACE2\" and the function is \"geneEvidences\" thus the name of the file will be \"ACE2_evidences\" <br>Step 4) The html file then shows the table and when the download-button is clicked, the name of the file (that will be the name of the .tsv table) is passed to \"download()\" in \"website.py\". .<br>Step 5) Then \"download()\" retrieves the name and checks if it corresponds to an already existing file. If it does then the file is downloaded. In our example on the other hand it doesn't, thus it retrieves the table from the cache, converts <span class='has-text-success has-text-weight-bold'>[*]</span> it to a .tsv  file and returns it to be downloaded.",
+        "Suppose instead that the user is in the homepage and clicks on the \"gene_evidences.tsv\" button which allows him to download the whole dataset. \"Homepage.html\" will send to download the relative path: \"dataset/gene_evidences.tsv\". \"download()\" then search if the file exists, and given that it does it will let the user download it.",
         "Going more in detail, the cache saves the data in a dictionary-like style, this means that each object is saved in a \"key:value\" pair, and the key for the table is <a href='/documentation/settings#Cache Settings'>TABLE_CACHE_NAME</a> defined in <a href='/documentation/settings'>\"settings.py\"</a>. ",
-        "To know more about the process of conversion from the table dictionary to a tsv file please refer to the function <a href='/documentation/website#download'>download</a>"
+        "<span class='has-text-success has-text-weight-bold'>[*]</span> To know more about the process of conversion from the table dictionary to a tsv file please refer to the function <a href='/documentation/website#download'>download</a>"
       ]
     },
     {
       "title": "Documentation",
       "title_dimension": 3,
       "text": [
-        ""
+        "On the website it's also possible to view the documentation, as you're doing now. To provide a better readability, here you have a side bar with the links accessible inside the documentation.",
+        "Every page of the documentation use \"docs_base.html\" as a template which extends \"base.html\".",
+        "Given that every webpage of the documentation follow the same format, we have created some macros inside \"docs_macros.html\" to show functions, classes and methods in every webpage. The function \"getDocumentation()\" inside \"mediator.py\" loads the .json files containing all the text and converts them to a dictionary. It finally returns it to \"documentation()\" inside \"website.py\".",
+        "\"documentation()\" inside \"website.py\" manages all the documentation webpages, without the need to write one function for every webpage of the documentation."
+      ]
+    },
+    {
+      "title": "Browse Datasets",
+      "title_dimension": 3,
+      "text": [
+        "In the homepage you have the possibility to browse through the datasets divided in pages to allow for better readability. The pagination is performed inside \"browseGeneDataset\" and \"browseDiseaseDataset\" in \"website.py\" by <a href='https://pythonhosted.org/Flask-paginate/'>flask-paginate</a>. Every entry of the dataset shown in the table has also a link to the its publication on <a href='https://pubmed.ncbi.nlm.nih.gov/'>PubMed</a>."
       ]
     }
   ]
