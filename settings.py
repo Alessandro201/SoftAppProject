@@ -35,8 +35,3 @@ CACHE_CONFIG = {
     "CACHE_TYPE": "simple",  # Flask-Caching related configs
     "CACHE_DEFAULT_TIMEOUT": 3600
 }
-
-# The cache stores the data as "Key: Value" pairs. This is the name of the Key which will contain
-# the table (as dict) computed when an operation on the datasets is called, to be later downloaded.
-# If you haven't changed the code, any name is fine.
-TABLE_CACHE_NAME = 'table_cache'
