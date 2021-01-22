@@ -22,7 +22,7 @@
       "title_dimension": 3,
       "text": [
         "Here are settings used by flask-caching to store the tables and download them later.",
-        "<b>CACHE_CONFIG:</b> is a dictionary containing some options for the cache.",
+        "<b>CACHE_CONFIG:</b> is a dictionary containing some options for the cache."
       ]
     }
   ]
