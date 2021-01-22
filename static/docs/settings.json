@@ -11,10 +11,10 @@
       "title": "Paths Settings",
       "title_dimension": 3,
       "text": [
-        "<b>DOCS_PATH:</b> is a variable which set the path where the json documentation files are stored.\n",
-        "<b>DATASET_LOCATION:</b> is a variable which set the path to the folder where the datasets are located.\n",
-        "<b>GENE_TABLE_NAME:</b> is a variable which set the name of the GeneTable file.\n",
-        "<b>DISEASE_TABLE_NAME:</b> is a variable which set the name of the GeneTable file."
+        "You can use both Windows ('\\') and UNIX ('/') positioning, but beware that UNIX works on any OS while the windows one does not.",
+        "<b>DOCS_PATH:</b> is a variable which set the relative path where the json documentation files are stored.\n",
+        "<b>GENE_TABLE_PATH:</b> is a variable which set the relative path of the GeneTable file.\n",
+        "<b>DISEASE_TABLE_PATH:</b> is a variable which set the relative path of the GeneTable file."
       ]
     },
     {
@@ -23,7 +23,7 @@
       "text": [
         "Here are settings used by flask-caching to store the tables and download them later.",
         "<b>CACHE_CONFIG:</b> is a dictionary containing some options for the cache.",
-        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as dics) computed when an operation on the datasets is called, to be later retrieved and downloaded.\n",
+        "The cache stores the data as 'Key: Value' pairs. This is the name of the Key which will contain the table (as dicts) computed when an operation on the datasets is called, to be later retrieved and downloaded.\n",
         "<b>TABLE_CACHE_NAME:</b> is a variable which set the name of the key to which the last table computed will be saved in the cache."
       ]
     }

@@ -2,9 +2,8 @@
 {% from 'macros/operations_macros.html' import mytable_with_pmid_links %}
 {% block title %}Disease Evidence{% endblock %}
 
+{% set FunctNavBarActive = "is-active" %}
 
-{% block style %}
-{% endblock %}
 
 {% block content %}
     <section class="hero full-width">
@@ -24,10 +23,10 @@
                 {% else %}
 
                     <!--Button to download the table.
-                    It sends to /download "NAME_FUNCTION" which indicates the table to download-->
+                    It sends to /download "NAME_FILE" which indicates the table to download-->
                     <p>Number of evidences found: <b>{{ data.lenght }}</b></p>
                     <form class="buttons is-centered" action="/download" method="POST">
-                        <button class="button is-info" type="submit" value="{{ disease ~ NAME_FUNCTION }}"
+                        <button class="button is-info" type="submit" value="{{ NAME_FILE }}"
                                 name="name_file">
                                     <span class="icon is-small">
                                         <i class="fas fa-download"></i>

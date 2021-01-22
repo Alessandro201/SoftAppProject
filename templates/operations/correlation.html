@@ -2,9 +2,8 @@
 {% from 'macros/operations_macros.html' import mytable %}
 {% block title %}Correlation{% endblock %}
 
+{% set FunctNavBarActive = "is-active" %}
 
-{% block style %}
-{% endblock %}
 
 {% block content %}
     <section class="hero full-width">
@@ -56,11 +55,11 @@
 
 
                     <!--Button to download the table.
-                    It sends to /download "NAME_FUNCTION" which indicates the table to download-->
+                    It sends to /download "NAME_FILE" which indicates the name of the table -->
                     <p>Number of correlations showed: <b>{{ data.lenght }}</b> - Minimum number of occurrences:
                         <b>{{ data.min_occurrences }}</b></p>
                     <form class="buttons is-centered mt-2" action="/download" method="POST">
-                        <button class="button is-info" type="submit" value="{{ NAME_FUNCTION }}" name="name_file">
+                        <button class="button is-info" type="submit" value="{{ NAME_FILE }}" name="name_file">
                             <span class="icon is-small">
                                 <i class="fas fa-download"></i>
                             </span>

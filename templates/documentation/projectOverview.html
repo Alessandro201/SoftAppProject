@@ -1,7 +1,7 @@
 {% extends "documentation/base_docs.html" %}
 {% from "macros/docs_macros.html" import text_sections %}
 
-{% block title %}Documentation Homepage{% endblock %}
+{% block title %}Documentation Project Overview{% endblock %}
 
 
 {% block docs_content %}
@@ -36,6 +36,16 @@
                 <br>'rows':'rows of the table'
                 <br>}</code>
             </div>
+
+
+            <form class="buttons my-2" action="/download" method="POST">
+                <button class="button is-info" type="submit" value="DOCUMENTATION/Docs_ProjectOverview.pdf" name="name_file">
+                            <span class="icon is-small">
+                                <i class="fas fa-download"></i>
+                            </span>
+                    <span>Download as .pdf!</span>
+                </button>
+            </form>
 
 
             {% if docs.sections|length > 0 %}
