@@ -105,7 +105,7 @@ def download():
         flash({'type': 'warning',
                'header': 'Something went wrong!',
                'message': 'Error in downloading the table, please try reloading the page!',
-               'details': f"\"name_file\":{name_file} not found in the forms"})
+               'details': f"\"name_file\": \"{name_file}\" not found in the forms"})
         return redirect(request.referrer)
 
     # Step 2)
@@ -113,8 +113,8 @@ def download():
     if data_to_save is None:
         flash({'type': 'warning',
                'header': 'Something went wrong!',
-               'message': 'I could not get the table to let you download it, please try reloading the page!'
-                          '\n\nDetaild: The data is not in the cache!'})
+               'message': 'I could not get the table to let you download it, please try reloading the page!',
+               'details': f"\"{name_file}\" was not found or the data was not in the cache!"})
         return redirect(request.referrer)
 
     # Step 3)
