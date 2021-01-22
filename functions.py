@@ -248,7 +248,7 @@ class DiseaseTable(DataTables):
         :rtype: pandas.DataFrame
         """
 
-        if re.match("C\d{7,}",disease):
+        if re.match("C\d{7,}", disease):
             evid = self.__diseaseTable[self.__diseaseTable['diseaseid'] == disease]
         else:
             evid = self.__diseaseTable[self.__diseaseTable['disease_name'] == disease]
@@ -335,7 +335,7 @@ class Testing(Analysis):
             of the subset, with "nsentence" it avoids checking for whole strings as it would instead do with sentences.
             "geneid" and "diseaseid" follow the same concept and are used instead of "gene_symbol" and "disease_name".
         3) Performing search: 
-            It first tries to convert gene (string) given as input to an int. If it can, then it means it's a genid and only
+            It first tries to convert gene (string) given as input to an int. If it can, then it means it's a genid and
             only the rows whose value in the columns 'geneid' will be "gene" will be kept. Otherwise it means "gene"
             given as input is a "gene_symbol" and only the rows whose value in the columns 'gene_symbol' will be 
             "gene" given as input will be kept.  
