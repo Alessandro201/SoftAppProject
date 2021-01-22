@@ -1,13 +1,3 @@
-import os
-
-# todo: finish the .json of mediator and of the files
-# todo: Check that each table of the operation has mb-6
-# todo: Check that each download.tsv has a bit of space around
-#todo: finish project overview
-#todo: finish about
-
-
-
 # ---------- Settings ----------
 
 # Base url for the publications on PubMed

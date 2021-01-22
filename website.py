@@ -3,7 +3,7 @@ from flask_paginate import Pagination, get_page_parameter
 from flask_caching import Cache
 from settings import *
 from io import StringIO
-from os import path
+import os
 import csv
 import mediator
 from mediator import DISEASE_TABLE_PATH, GENE_TABLE_PATH, DOCS_PATH
@@ -318,23 +318,30 @@ def correlation():
     # if it's not the first time the user visit the page, it tries to get any eventual value inserted in the form
     else:
         try:
-            min_occurrences = request.form['occurrence']
+            min_occurrences = request.form['min_occurrences']
             min_occurrences = int(min_occurrences)
 
             # The minimum occurrences is 1, so if the user has selected a negative number occurrences will be changed
             # to 0 which is the default and shows every correlation, at least if the user has chosen 0 as "nrows"
             if min_occurrences < 0:
                 min_occurrences = 0
+                flash({'type': 'warning',
+                       'header': 'Wrong number!',
+                       'message': 'You need to insert a positive number! '
+                                  'Here are all the correlations'})
 
         except ValueError:
             # If it raise ValueError it means "occurrences" it's a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's a word it notifies the user of the error and
             # it sets "occurrences" to the default value
             if min_occurrences != '':
+                min_occurrences = 0
                 flash({'type': 'warning',
-                       'header': 'Warning!',
-                       'message': 'You need to insert a number not a word!'})
-            min_occurrences = 0
+                       'header': 'Wrong number!',
+                       'message': 'You need to insert a positive number! '
+                                  'Here are the first top 10 correlations.'})
+            else:
+                min_occurrences = 0
 
         try:
             nrows = request.form['rows']
