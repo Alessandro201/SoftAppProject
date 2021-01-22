@@ -16,17 +16,14 @@ BASE_PMID_URL = 'https://pubmed.ncbi.nlm.nih.gov/'
 
 # ---------- Paths Settings ----------
 
-# Location of the documentation json file. The default path is "\static\docs"
-DOCS_PATH = os.path.join(os.getcwd(), r'static/docs')
+# Location of the documentation json file. The default path is "static/docs".
+# Use unix positioning '/' as it works everywhere
+DOCS_PATH = r'static/docs'
 
 
-# Locations of the two datasets. The default path is "\datasets"
-DATASET_LOCATION = os.path.join(os.getcwd(), r'datasets')
-
-# Datasets name
-GENE_TABLE_NAME = 'gene_evidences.tsv'
-DISEASE_TABLE_NAME = 'disease_evidences.tsv'
-
+# Locations of the two datasets. Use unix positioning '/' as it works everywhere
+GENE_TABLE_PATH = 'datasets/gene_evidences.tsv'
+DISEASE_TABLE_PATH = 'datasets/disease_evidences.tsv'
 
 # ---------- Cache Settings ----------
 

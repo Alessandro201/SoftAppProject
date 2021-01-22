@@ -11,10 +11,10 @@
       "title": "Paths Settings",
       "title_dimension": 3,
       "text": [
-        "<b>DOCS_PATH:</b> is a variable which set the path where the json documentation files are stored.\n",
-        "<b>DATASET_LOCATION:</b> is a variable which set the path to the folder where the datasets are located.\n",
-        "<b>GENE_TABLE_NAME:</b> is a variable which set the name of the GeneTable file.\n",
-        "<b>DISEASE_TABLE_NAME:</b> is a variable which set the name of the GeneTable file."
+        "You can use both Windows ('\\') and UNIX ('/') positioning, but beware that UNIX works on any OS while the windows one does not.",
+        "<b>DOCS_PATH:</b> is a variable which set the relative path where the json documentation files are stored.\n",
+        "<b>GENE_TABLE_PATH:</b> is a variable which set the relative path of the GeneTable file.\n",
+        "<b>DISEASE_TABLE_PATH:</b> is a variable which set the relative path of the GeneTable file."
       ]
     },
     {
