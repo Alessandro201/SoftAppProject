@@ -228,13 +228,13 @@ def info():
 def distinctGenes():
     """A webpage with all the unique distinct genes in the gene dataset"""
 
-    NAME_FUNCTION = 'distinct_genes'
+    NAME_FILE = 'distinct_genes'
 
     data = mediator.getDistinctGenes()
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('operations/distinctGenes.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/distinctGenes.html', data=data, NAME_FILE=NAME_FILE)
 
 
 # for e objective
@@ -242,13 +242,13 @@ def distinctGenes():
 def distinctDiseases():
     """A webpage with all the unique distinct disease in the disease table"""
 
-    NAME_FUNCTION = 'distinct_diseases'
+    NAME_FILE = 'distinct_diseases'
 
     data = mediator.getDistinctDiseases()
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('operations/distinctDiseases.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/distinctDiseases.html', data=data, NAME_FILE=NAME_FILE)
 
 
 # for d objective
@@ -260,17 +260,17 @@ def geneEvidences():
     Now it returns a webpage which lists all the evidences in literature of the relation between
     the gene and COVID-19"""
 
-    NAME_FUNCTION = '_evidences'
-
     if request.method == "GET":
         return render_template('operations/inputGeneEvidences.html')
     else:
         gene = request.form['gene']
+        NAME_FILE = gene + '_evidences'
+
         data = mediator.getGeneEvidences(gene)
 
         cache.set(TABLE_CACHE_NAME, data)
 
-        return render_template("operations/geneEvidences.html", gene=gene, data=data, NAME_FUNCTION=NAME_FUNCTION,
+        return render_template("operations/geneEvidences.html", gene=gene, data=data, NAME_FILE=NAME_FILE,
                                base_pmid_url=BASE_PMID_URL)
 
 
@@ -282,18 +282,18 @@ def diseaseEvidences():
     It is then submitted back to "diseaseEvidences" but with 'POST' method.
     Now it returns a webpage which lists all the evidences in literature of the disease"""
 
-    NAME_FUNCTION = '_evidences'
-
     if request.method == "GET":
         return render_template('operations/inputDiseaseEvidences.html')
     else:
         disease = request.form['disease']
+        NAME_FILE = disease + '_evidences'
+
         data = mediator.getDiseaseEvidences(disease)
 
         cache.set(TABLE_CACHE_NAME, data)
 
         return render_template('operations/diseaseEvidences.html', disease=disease, data=data,
-                               base_pmid_url=BASE_PMID_URL, NAME_FUNCTION=NAME_FUNCTION)
+                               base_pmid_url=BASE_PMID_URL, NAME_FILE=NAME_FILE)
 
 
 # for g objective
@@ -373,11 +373,11 @@ def correlation():
 
     data = mediator.getCorrelation(nrows, min_occurrences)
 
-    NAME_FUNCTION = 'correlation'
+    NAME_FILE = 'correlation_top' + str(data['length'])
 
     cache.set(TABLE_CACHE_NAME, data)
 
-    return render_template('operations/correlation.html', data=data, NAME_FUNCTION=NAME_FUNCTION)
+    return render_template('operations/correlation.html', data=data, NAME_FILE=NAME_FILE)
 
 
 # for h objective
@@ -388,7 +388,7 @@ def diseasesRelatedToGene():
     It is then submitted back to "diseasesRelatedToGene" but with 'POST' method.
     Now it returns a webpage which lists all the diseases related to the gene found in literature"""
 
-    NAME_FUNCTION = 'diseases_rel_to_'
+    NAME_FILE = 'diseases_rel_to_'
 
     if request.method == "GET":
         return render_template('operations/inputDiseasesRelatedToGene.html')
@@ -399,7 +399,7 @@ def diseasesRelatedToGene():
         cache.set(TABLE_CACHE_NAME, data)
 
         return render_template("operations/diseasesRelatedToGene.html", gene=gene, data=data,
-                               NAME_FUNCTION=NAME_FUNCTION)
+                               NAME_FILE=NAME_FILE)
 
 
 # for i objective
@@ -410,7 +410,7 @@ def genesRelatedToDisease():
     It is then submitted back to "genesRelatedToDisease" but with 'POST' method.
     Now it returns a webpage which lists all the genes related to the disease found in literature"""
 
-    NAME_FUNCTION = 'genes_rel_to_'
+    NAME_FILE = 'genes_rel_to_'
 
     if request.method == "GET":
         return render_template('operations/inputGenesRelatedToDisease.html')
@@ -420,7 +420,7 @@ def genesRelatedToDisease():
 
         cache.set(TABLE_CACHE_NAME, data)
         return render_template("operations/genesRelatedToDisease.html", data=data, disease=disease,
-                               NAME_FUNCTION=NAME_FUNCTION)
+                               NAME_FILE=NAME_FILE)
 
 
 if __name__ == '__main__':
