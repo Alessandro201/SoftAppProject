@@ -6,6 +6,8 @@ from io import StringIO
 from os import path
 import csv
 import mediator
+from mediator import DISEASE_TABLE_PATH, GENE_TABLE_PATH, DOCS_PATH
+
 
 app = Flask(__name__)
 
@@ -26,7 +28,8 @@ def run(**kwargs):
 def homepage():
     """A webpage which explains briefly the project and allows you to download the datasets or to go through them"""
 
-    return render_template('homepage.html')
+    return render_template('homepage.html', diseaseTablePath=DISEASE_TABLE_PATH,
+                           geneTablePath=GENE_TABLE_PATH)
 
 
 @app.route('/about')
@@ -35,7 +38,7 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/documentation', defaults={'file': 'homepage'})
+@app.route('/documentation', defaults={'file': 'projectOverview'})
 @app.route('/documentation/<file>')
 def documentation(file):
     """Return the webpages with the documentation of the project.
@@ -57,8 +60,8 @@ def documentation(file):
             'message': 'There was an error in loading the documentation. You are redirected to the Project Overview',
             'details': err,
         })
-        docs = mediator.getDocumentation(DOCS_PATH, 'homepage')
-        return render_template('documentation/homepage.html', docs=docs)
+        docs = mediator.getDocumentation(DOCS_PATH, 'projectOverview')
+        return render_template('documentation/projectOverview.html', docs=docs)
 
     return render_template('documentation/%s.html' % file, docs=docs)
 
@@ -91,22 +94,19 @@ def download():
 
     # Step 1)
     name_file = request.form.get('name_file')
+
+    try:
+        complete_path = os.path.join(os.getcwd(), name_file)
+        return send_file(complete_path, as_attachment=True)
+    except FileNotFoundError:
+        pass
+
     if name_file is None:
         flash({'type': 'warning',
                'header': 'Something went wrong!',
                'message': 'Error in downloading the table, please try reloading the page!',
                'details': f"\"name_file\":{name_file} not found in the forms"})
         return redirect(request.referrer)
-
-    elif name_file == 'diseaseTable':
-        # Compute the path to the databases
-        disease_evidences_path = path.join(DATASET_LOCATION, DISEASE_TABLE_NAME)
-        return send_file(disease_evidences_path, as_attachment=True)
-
-    elif name_file == 'geneTable':
-        # Compute the path to the databases
-        gene_evidences_path = path.join(DATASET_LOCATION, GENE_TABLE_NAME)
-        return send_file(gene_evidences_path, as_attachment=True)
 
     # Step 2)
     data_to_save = cache.get(TABLE_CACHE_NAME)
@@ -307,52 +307,65 @@ def correlation():
     # This is for the first time the user visits the page
     if request.method == "GET":
         nrows = 10
-        occurrences = 0
+        min_occurrences = 0
 
+    # if it's not the first time the user visit the page, it tries to get any eventual value inserted in the form
     else:
         try:
-            occurrences = request.form['occurrence']
-            occurrences = int(occurrences)
+            min_occurrences = request.form['occurrence']
+            min_occurrences = int(min_occurrences)
 
-            if occurrences < 0:
-                occurrences = 0
+            # The minimum occurrences is 1, so if the user has selected a negative number occurrences will be changed
+            # to 0 which is the default and shows every correlation, at least if the user has chosen 0 as "nrows"
+            if min_occurrences < 0:
+                min_occurrences = 0
 
         except ValueError:
-            # If it raise ValueError it means "occurrence" it's a string which cannot be converted to a number.
-            # It's either an empty string or a word. If it's an empty string it sets "occurrences" to the default value
-            if occurrences != '':
+            # If it raise ValueError it means "occurrences" it's a string which cannot be converted to a number.
+            # It's either an empty string or a word. If it's a word it notifies the user of the error and
+            # it sets "occurrences" to the default value
+            if min_occurrences != '':
                 flash({'type': 'warning',
                        'header': 'Warning!',
-                       'message': 'You need to insert a positive number!'})
-                return redirect(request.referrer)
-            else:
-                occurrences = 0
+                       'message': 'You need to insert a number not a word!'})
+            min_occurrences = 0
 
         try:
             nrows = request.form['rows']
             nrows = int(nrows)
 
+            # if the user has inserted a negative number it converts it to 0 (show all correlation) if the user
+            # has inserted a minimum occurrences [min_occurrences], otherwise it will show the top 10. A notification
+            # will be shown to explain what has been done
             if nrows < 0:
-                flash({'type': 'warning',
-                       'header': 'Warning!',
-                       'message': 'You need to insert a positive number!'})
-                return redirect(request.referrer)
+                if min_occurrences != 0:
+                    nrows = 0
+                    flash({'type': 'warning',
+                           'header': 'Wrong number!',
+                           'message': 'You need to insert a positive number! '
+                                      'Here are all the correlations '
+                                      'that matches the minimum occurrences.'})
+                else:
+                    nrows = 10
+                    flash({'type': 'warning',
+                           'header': 'Wrong number!',
+                           'message': 'You need to insert a positive number! '
+                                      'Here are the first top 10 correlations.'})
 
         except ValueError:
-            # If it raise ValueError it means it's a string which cannot be converted to a number.
-            # It's either an empty string or a word. If it's an empty string it set "nrows" to the default value
+            # If it raise ValueError it means "nrows" is a string which cannot be converted to a number.
+            # It's either an empty string or a word. If it's a word it notifies the user of the error
+            # and it set "nrows" to the default value
             if nrows != '':
                 flash({'type': 'warning',
                        'header': 'Warning!',
-                       'message': 'You need to insert a number!'})
-                return redirect(request.referrer)
+                       'message': 'You need to insert a number not a word!'})
+            if min_occurrences == 0:
+                nrows = 10
             else:
-                if occurrences != 0:
-                    nrows = 0
-                else:
-                    nrows = 10
+                nrows = 0
 
-    data = mediator.getCorrelation(nrows, occurrences)
+    data = mediator.getCorrelation(nrows, min_occurrences)
 
     NAME_FUNCTION = 'correlation'
 
