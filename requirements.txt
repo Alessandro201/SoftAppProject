@@ -1,4 +1,4 @@
-pandas~=1.2.0
+pandas~=1.1.5
 flask~=1.1.2
 flask-paginate~=0.8.0
 Flask-Caching~=1.9.0
