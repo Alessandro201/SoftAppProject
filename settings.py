@@ -12,12 +12,12 @@ DOCS_PATH = r'static/docs'
 
 
 # Locations of the two datasets. Use unix positioning '/' as it works everywhere
-GENE_TABLE_PATH = 'datasets/gene_evidences.tsv'
-DISEASE_TABLE_PATH = 'datasets/disease_evidences.tsv'
+GENE_TABLE_PATH = './datasets/gene_evidences.tsv'
+DISEASE_TABLE_PATH = './datasets/disease_evidences.tsv'
 
 # ---------- Cache Settings ----------
 
-# IF YOU DON'T KNOW WHAT YOU ARE DOING, DON'T DO IT
+# IF YOU DON'T KNOW WHAT YOU ARE DOING, DON'T MODIFY THIS SETTINGS
 
 # cache settings
 CACHE_CONFIG = {

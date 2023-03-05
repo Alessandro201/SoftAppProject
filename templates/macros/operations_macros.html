@@ -71,7 +71,7 @@
             {% for label in data.labels %}
                 <th>{{ label }}</th>
 
-                <!--If the name of the column is 'pmid' save it's index in ns.pmid_index-->
+                <!--If the name of the column is 'pmid' save its index in ns.pmid_index-->
                 {% if label == 'pmid' %}
                     {% set ns.pmid_index = loop.index %}
                 {% endif %}

@@ -162,7 +162,7 @@ def getCorrelation(num_rows, min_occurrences):
         if num_rows == 0:
             return data
 
-        # in case "rows" is higher than the number of correlations it will throw IndexError and it will returns all data
+        # in case "rows" is higher than the number of correlations it will throw IndexError, and it will return all data
         try:
             # Select only the first [num_rows] rows from the dataframe
             data['rows'] = corr.iloc[:num_rows].values.tolist()

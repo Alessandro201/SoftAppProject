@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import re
 import pandas as pd
 import os
+from pathlib import Path
 
 
 class DataTables(ABC):
@@ -50,16 +51,17 @@ class Analysis(ABC):
 
 class GeneTable(DataTables):
 
-    def __init__(self, table, delimiter=None):
+    def __init__(self, table: str, delimiter=None):
         """
         The function creates the GeneTable with the parameter table
         :param table: tha tsv file containing the table
         :type table: pandas.DataFrame
         """
 
+        table = Path(table)
         # Finds the delimiter based on the extension
         if delimiter is None:
-            extension = os.path.splitext(table)[1]
+            extension = table.suffix
             if extension == '.tsv':
                 delimiter = '\t'
             else:
@@ -70,8 +72,7 @@ class GeneTable(DataTables):
     def __getitem__(self, item):
         """Allows the use of slicing on the instance of the class.
 
-        :param item: the index of the row(s) to use for slicing
-        :type item: slice
+        :param item: the index of the row(s) used for slicing
 
         :return: The data table sliced by index(es)
         :rtype: pandas.DataFrame"""
@@ -95,7 +96,7 @@ class GeneTable(DataTables):
 
     def get_labels(self):
         """
-        The function records the labels of each columns of a dataframe
+        The function records the labels of each column of a dataframe
 
         :return: list with all the column labels
         :rtype: list
@@ -150,16 +151,17 @@ class GeneTable(DataTables):
 
 
 class DiseaseTable(DataTables):
-    def __init__(self, table, delimiter=None):
+    def __init__(self, table: str, delimiter=None):
         """
         The function creates the GeneTable with the parameter table
         :param table: tha tsv file containing the table
         :type table: pandas.DataFrame
         """
 
+        table = Path(table)
         # Finds the delimiter based on the extension
         if delimiter is None:
-            extension = os.path.splitext(table)[1]
+            extension = table.suffix
             if extension == '.tsv':
                 delimiter = '\t'
             else:
@@ -172,7 +174,6 @@ class DiseaseTable(DataTables):
         Allows the use of slicing on the instance of the class.
 
         :param item: the index of the row(s) to use for slicing
-        :type item: slice
 
         :return: The data table sliced by index(es)
         :rtype: pandas.DataFrame
@@ -199,7 +200,7 @@ class DiseaseTable(DataTables):
 
     def get_labels(self):
         """
-        The function records the labels of each columns of a dataframe
+        The function records the labels of each column of a dataframe
 
         :return: list with all the column labels
         :rtype: list
@@ -336,7 +337,7 @@ class Testing(Analysis):
             "geneid" and "diseaseid" follow the same concept and are used instead of "gene_symbol" and "disease_name".
         3) Performing search: 
             It first tries to convert gene (string) given as input to an int. If it can, then it means it's a genid and
-            only the rows whose value in the columns 'geneid' will be "gene" will be kept. Otherwise it means "gene"
+            only the rows whose value in the columns 'geneid' will be "gene" will be kept. Otherwise, it means "gene"
             given as input is a "gene_symbol" and only the rows whose value in the columns 'gene_symbol' will be 
             "gene" given as input will be kept.  
         4) Keeping only the columns needed
@@ -395,7 +396,7 @@ class Testing(Analysis):
         3) Performing search:
             Check if the disease matches a pattern which consist of the first element as a 'C' and then at least
             7 numbers until the end of the string. If it matches, then it means it's a "diseaseid" and only
-            the rows whose value in the columns "diseaseid" are "disease" will be kept. Otherwise it means "disease"
+            the rows whose value in the columns "diseaseid" are "disease" will be kept. Otherwise, it means "disease"
             given as input is a "disease_name" and only the rows whose value in the columns 'disease_name' are the
             "gene" given as input will be kept.
         4) Keeping only the columns needed.
@@ -433,9 +434,9 @@ class Testing(Analysis):
 
 if __name__ == '__main__':
     # test
-    gene = GeneTable('gene_evidences.tsv')
-    disease = DiseaseTable('disease_evidences.tsv')
-    test = Testing('disease_evidences.tsv', 'gene_evidences.tsv')
+    gene = GeneTable('./datasets/gene_evidences.tsv')
+    disease = DiseaseTable('./datasets/disease_evidences.tsv')
+    test = Testing('./datasets/disease_evidences.tsv', './datasets/gene_evidences.tsv')
 
     # GeneTable
     # print(gene.get_dimensions())

@@ -42,8 +42,8 @@ def about():
 def documentation(file):
     """Return the webpages with the documentation of the project.
 
-    Every webpage of the docs has it's name added after "/documentation/"
-    This means that you can add all the webpages that you want and you won't need to write a single line of code,
+    Every webpage of the docs has its name added after "/documentation/"
+    This means that you can add all the webpages that you want, and you won't need to write a single line of code,
     just add the html files to "templates/documentation/" and the .json files with the documentation to the
     folder containing all the .json written in "settings.py".
 
@@ -82,7 +82,7 @@ def download():
         or does not have any button named "name_file".
     Step 3) If "name_file" is not None, it computes the complete path by joining the current path of execution
         of the program, thus the main directory of the program, and "name_file". Then it checks if it's a file
-        and if it's exists. It if does it means the previous page requested a file to download, and it downloads it,
+        and if it's exists. If it does, it means the previous page requested a file to download, and it downloads it,
         Otherwise it means "name_file" is the name of the name that will have the table once it'll be converted to .tsv.
     Step 3.1) In the latter case, it requests the table from the cache by using the global variable "TABLE_CACHE_NAME"
         define in "settings.py". If the data retrieved is None it means that there was not any table in the cache, thus
@@ -331,7 +331,7 @@ def correlation():
                                   'Here are all the correlations'})
 
         except ValueError:
-            # If it raise ValueError it means "occurrences" it's a string which cannot be converted to a number.
+            # If it raises ValueError it means "occurrences" it's a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's a word it notifies the user of the error and
             # it sets "occurrences" to the default value
             if min_occurrences != '':
@@ -366,9 +366,9 @@ def correlation():
                                       'Here are the first top 10 correlations.'})
 
         except ValueError:
-            # If it raise ValueError it means "nrows" is a string which cannot be converted to a number.
+            # If it raises ValueError it means "nrows" is a string which cannot be converted to a number.
             # It's either an empty string or a word. If it's a word it notifies the user of the error
-            # and it set "nrows" to the default value
+            # and it sets "nrows" to the default value
             if nrows != '':
                 flash({'type': 'warning',
                        'header': 'Warning!',
