@@ -6,12 +6,12 @@ This is the webpage made for the
 
 <h2>Goal</h2>
 
-<i>"The COVID-19 DisGeNET data collection is the result of applying state-of-the art text
+>The COVID-19 DisGeNET data collection is the result of applying state-of-the art text
 mining tools developed by MedBioinformatics solutions to the LitCovid dataset
-<a href="https://pubmed.ncbi.nlm.nih.gov/32157233/">Chen et al., 2020</a>, 
+[Chen et al., 2020](https://pubmed.ncbi.nlm.nih.gov/32157233/), 
 to identify mentions of diseases, signs and symptoms. The LitCovid dataset contains a selection of
-papers referring to Coronavirus 19 disease."</i>
-<br>
+papers referring to Coronavirus 19 disease.
+
 The goal of the project is to write a program able to analyse two datasets about
 diseases and genes obtained from the COVID-19 DisGeNET data collection and present the results in
 a web-based user interface.
