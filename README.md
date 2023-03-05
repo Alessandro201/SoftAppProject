@@ -70,8 +70,25 @@ Is the part3 described in the project specifications which creates the webpage, 
 Contains the global variables of the program like the path to the datasets<br>
 
 
-<br>
+## How to use
 
+This is the homepage
+![Screenshot 2023-03-05 233708](https://user-images.githubusercontent.com/61567683/222989861-b4642aa5-1d09-4dd9-a13f-12e8c16f54d8.png)
+
+By cliking on *Functions* you can get a list of all the functions this webapp is capable of:
+![Screenshot 2023-03-05 233453](https://user-images.githubusercontent.com/61567683/222989915-f83efc35-ed31-4ba2-962e-c2fa2d72d265.png)
+
+For example you can get all the distinct correlations bewteen genes and diseases:
+![Screenshot 2023-03-05 233330](https://user-images.githubusercontent.com/61567683/222990034-0fbdeee6-7921-42a8-a770-a1b430f2d094.png)
+
+Or you can search all the diseases associated with a gene and viceversa:
+![Screenshot 2023-03-05 233441](https://user-images.githubusercontent.com/61567683/222990071-2d43532f-1067-40ce-b8cd-74e98b305395.png)
+
+
+
+
+
+<br>
 <h2>Authors</h2>
 
 - Alberto Notarnicola
