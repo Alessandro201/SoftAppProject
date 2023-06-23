@@ -2,6 +2,8 @@
 This is the webpage made for the 
 <a href="https://github.com/anuzzolese/genomics-unibo/tree/master/2020-2021/project">Data Analysis Project</a> of the Software Applications course of Genomics.
 
+[Here](http://alessandro201.pythonanywhere.com/) you can explore the website.
+
 <br>
 
 <h2>Goal</h2>
